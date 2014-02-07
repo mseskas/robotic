@@ -1,0 +1,96 @@
+# depslib dependency file v1.0
+1391123564 source:/home/minde/Desktop/c++ thread/main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<wiringPi.h>
+	<drivetrain.h>
+	<sonar.h>
+
+1391096084 source:/home/minde/Desktop/c++ thread/src/aaaa.cpp
+	"../include/aaaa.h"
+
+1391095964 /home/minde/Desktop/c++ thread/include/aaaa.h
+
+1391122979 source:/home/minde/Desktop/c++ thread/src/drivetrain.cpp
+	"drivetrain.h"
+
+1391123613 /home/minde/Desktop/c++ thread/include/drivetrain.h
+	<thread>
+	<iostream>
+
+1391122545 source:/home/minde/Desktop/c++ thread/src/sonar.cpp
+	"sonar.h"
+
+1391122545 /home/minde/Desktop/c++ thread/include/sonar.h
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<sys/time.h>
+
+1391637402 source:/home/minde/Desktop/c++ thread & drivetrain v2.0/main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<wiringPi.h>
+	<drivetrain.h>
+	<sonar.h>
+
+1391167181 source:/home/minde/Desktop/c++ thread & drivetrain v2.0/src/drivetrain.cpp
+	"drivetrain.h"
+
+1391122545 source:/home/minde/Desktop/c++ thread & drivetrain v2.0/src/sonar.cpp
+	"sonar.h"
+
+1391638264 /home/minde/Desktop/c++ thread & drivetrain v2.0/include/drivetrain.h
+	<thread>
+	<iostream>
+	<pwm_chip.h>
+
+1391122545 /home/minde/Desktop/c++ thread & drivetrain v2.0/include/sonar.h
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<sys/time.h>
+
+1391634156 /home/minde/Desktop/c++ thread & drivetrain v2.0/include/pwm_chip.h
+	<stdlib.h>
+	<wiringPi.h>
+	<wiringPiI2C.h>
+
+1391637335 source:/home/minde/Desktop/c++ thread & drivetrain v2.0/src/pwm_chip.cpp
+	"pwm_chip.h"
+
+1391640806 source:/root/Desktop/c++ thread & drivetrain v2.0/main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<wiringPi.h>
+	<drivetrain.h>
+	<sonar.h>
+
+1391641610 source:/root/Desktop/c++ thread & drivetrain v2.0/src/drivetrain.cpp
+	"drivetrain.h"
+
+1391641610 /root/Desktop/c++ thread & drivetrain v2.0/include/drivetrain.h
+	<thread>
+	<iostream>
+	<pwm_chip.h>
+
+1391634156 /root/Desktop/c++ thread & drivetrain v2.0/include/pwm_chip.h
+	<stdlib.h>
+	<wiringPi.h>
+	<wiringPiI2C.h>
+
+1391637334 source:/root/Desktop/c++ thread & drivetrain v2.0/src/pwm_chip.cpp
+	"pwm_chip.h"
+
+1391122544 source:/root/Desktop/c++ thread & drivetrain v2.0/src/sonar.cpp
+	"sonar.h"
+
+1391122544 /root/Desktop/c++ thread & drivetrain v2.0/include/sonar.h
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<sys/time.h>
+
