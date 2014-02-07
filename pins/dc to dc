@@ -1,0 +1,18 @@
+This is a dual output power module for various application using 5V and 3.3V and it is driven by DC 12V input through 2 power IC to switch 5V and 3.3V.
+Output current rated at around 3A continuously with high efficiency is up to 92%.
+
+Feature:
+Input voltage: 12V
+Output voltage: 5V and 3.3V
+Max Output current: about 3A,
+Conversion efficiency: up to 92%
+Operating frequency: 380kHz
+Protection: Output short circuit and over heat with auto recovery
+
+
+
+Pin Assignment for P2, P3 and P4:
+P2 is 12V input port: 12V 12V GND GND
+P3 is 12v output port：GND GND ADJ SW 12V 12V
+P4 are 5v & 3.3v output port: ADJ SW GND GND GND GND 5V 5V 3.3V 3.3V
+
