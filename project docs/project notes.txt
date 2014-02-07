@@ -1,0 +1,7 @@
+query frame from cam :
+900mhz - 0.120ms
+1.0ghz - 0.077ms
+
+sonar work speed : 40Hz
+
+pwm_chip has same woking hz on all pins

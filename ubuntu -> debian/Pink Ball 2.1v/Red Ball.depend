@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1388315860 source:/home/minde/Desktop/Red Ball/main.cpp
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<stdio.h>
+	<ctype.h>
+
+1389092375 source:/home/minde/Desktop/Green Ball 2.0v/main.cpp
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<ctype.h>
+

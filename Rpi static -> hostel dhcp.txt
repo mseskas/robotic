@@ -1,0 +1,23 @@
+//connect to rpi directly
+
+192.168.2.8:5902
+
+//change ip to 192.168.1.8
+
+sudo ifconfig 192.168.1.8
+
+// connect Rpi to modem
+// connect to rpi
+
+192.168.1.8:5902
+
+// change to dhcp
+
+sudo dhclient eth0
+
+
+
+// if error acured : file exist
+
+sudo ifdown eth0
+sudo ifup eth0

@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1387918012 source:/home/minde/Desktop/nicetry/main.cpp
+	"opencv2/highgui/highgui.hpp"
+	<iostream>
+	<stdio.h>
+
+1387916921 /home/minde/Desktop/nicetry/main_circle.cpp
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<stdio.h>
+
+1387918244 source:/home/minde/Desktop/nicetry/main_circle.cpp
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<stdio.h>
+
+1388186846 source:/home/minde/Desktop/Capture from camera/main.cpp
+	"opencv2/highgui/highgui.hpp"
+	<iostream>
+	<stdio.h>
+
+1387918244 source:/home/minde/Desktop/Capture from camera/main_circle.cpp
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<stdio.h>
+

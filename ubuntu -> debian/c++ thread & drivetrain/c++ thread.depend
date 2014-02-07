@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1390946183 source:/home/minde/Desktop/c++ thread/main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<wiringPi.h>
+
