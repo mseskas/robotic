@@ -3,3 +3,4 @@
 #define FORWARD 0
 #define BACKWARD 1
 
+#define PWM_CHIP_HZ 50

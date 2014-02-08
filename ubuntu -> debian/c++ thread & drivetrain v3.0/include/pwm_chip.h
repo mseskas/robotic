@@ -5,6 +5,9 @@
 
 #include <project_constants.h>
 
+#ifndef	__PWM_CHIP_H__
+#define	__PWM_CHIP_H__
+
 class pwm_chip
 {
     public:
@@ -18,8 +21,8 @@ class pwm_chip
     protected:
         int reset();
     private:
-        int ticks;
-        int work_frequence;
+        int _ticks;
+        int _work_frequence;
         int __SUBADR1;
         int __SUBADR2;
         int __SUBADR3;
@@ -33,5 +36,7 @@ class pwm_chip
         int __ALLLED_ON_H;
         int __ALLLED_OFF_L;
         int __ALLLED_OFF_H;
-        int addr;
+        int _addr;
 };
+
+#endif

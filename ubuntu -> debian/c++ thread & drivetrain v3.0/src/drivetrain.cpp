@@ -6,7 +6,6 @@ using namespace std;
 drivetrain::drivetrain(pwm_chip * chip_PCA9685)
 {
     _chip_PCA9685 = chip_PCA9685;
-    _chip_PCA9685->set_pwm_freq(50);
     set_speed(0.2);
 }
 drivetrain::~drivetrain()

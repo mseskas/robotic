@@ -10,7 +10,7 @@ class drivetrain
 {
 
     public :
-        drivetrain();
+        drivetrain(pwm_chip * chip_PCA9685);
         ~drivetrain();
         void turn(int direction, float angle_degree);
         int drive(float time_seconds, int  wheel_no);

@@ -39,9 +39,11 @@ int main()
 
     pwm_chip chip_16pwm(chip_PCA9685_address);
 
-    servo servo_front(chip_16pwm, 11);
+    servo servo_front(&chip_16pwm, 11);
 
-    cout << servo_front._max_ticks << " - max ticks\n" << servo_front._min_ticks << " - min ticks\n";
+    int _max_ticks = (0.002 /(1.0 / (float)chip_16pwm.get_pwm_freq())) *  chip_16pwm.get_ticks();
+
+    cout << _max_ticks << " - max ticks\n" << servo_front._min_ticks << " - min ticks\n";
 
    // drivetrain drv;
     //drv.drive(5, FORWARD);
