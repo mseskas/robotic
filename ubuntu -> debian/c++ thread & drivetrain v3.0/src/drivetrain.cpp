@@ -3,15 +3,15 @@
 
 using namespace std;
 
-drivetrain::drivetrain()
+drivetrain::drivetrain(pwm_chip * chip_PCA9685)
 {
-    chip = new pwm_chip(0x40);
-    chip->set_pwm_freq(50);
+    _chip_PCA9685 = chip_PCA9685;
+    _chip_PCA9685->set_pwm_freq(50);
     set_speed(0.2);
 }
 drivetrain::~drivetrain()
 {
-    chip->~pwm_chip();
+    _chip_PCA9685->~pwm_chip();
 }
 void drivetrain::set_speed(float speed)
 {
@@ -27,7 +27,7 @@ void drivetrain::turn(int direction, float angle_degree)
     cout << "drivetrain::turn (" << direction << ", " << angle_degree << ") - not implemented" << endl;
 }
 
-int drivetrain::drive(int distance_cm, int direction)
+int drivetrain::drive(float time_seconds, int direction)
 {
     int left_wheel_direction, right_wheel_direction;
     if (direction == FORWARD)
@@ -41,15 +41,14 @@ int drivetrain::drive(int distance_cm, int direction)
         right_wheel_direction = 3;
     }
 
-    for (int i = 0; i < distance_cm; i++)
+    for (int i = 0; i < time_seconds * 1000; i += 100)
     {
-       chip->set_pwm(left_wheel_direction, 0, chip->get_ticks()*get_speed() );
-       chip->set_pwm(right_wheel_direction, 0, chip->get_ticks()*get_speed() );
-        //chip->set_pwm(2, 0, chip->get_ticks()*get_speed() );
+        _chip_PCA9685->set_pwm(left_wheel_direction, 0, _chip_PCA9685->get_ticks()*get_speed() );
+        _chip_PCA9685->set_pwm(right_wheel_direction, 0, _chip_PCA9685->get_ticks()*get_speed() );
         delay(100);
     }
-    chip->set_pwm(left_wheel_direction, 0, 0 );
-    chip->set_pwm(right_wheel_direction, 0, 0 );
+    _chip_PCA9685->set_pwm(left_wheel_direction, 0, 0 );
+    _chip_PCA9685->set_pwm(right_wheel_direction, 0, 0 );
 
     return 0;
 }

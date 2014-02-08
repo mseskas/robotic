@@ -94,3 +94,12 @@
 	<wiringPi.h>
 	<sys/time.h>
 
+1391811369 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/c++ thread & drivetrain v3.0/src/drivetrain.cpp
+	"drivetrain.h"
+
+1391811369 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/c++ thread & drivetrain v3.0/src/pwm_chip.cpp
+	"pwm_chip.h"
+
+1391811369 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/c++ thread & drivetrain v3.0/src/sonar.cpp
+	"sonar.h"
+

@@ -4,10 +4,7 @@
 
 #include <pwm_chip.h>
 
-#define TO_LEFT  0
-#define TO_RIGHT 1
-#define FORWARD 0
-#define BACKWARD 1
+#include <project_constants.h>
 
 class drivetrain
 {
@@ -16,12 +13,12 @@ class drivetrain
         drivetrain();
         ~drivetrain();
         void turn(int direction, float angle_degree);
-        int drive(int distance_cm, int  wheel_no);
+        int drive(float time_seconds, int  wheel_no);
         void set_speed(float speed);
         float get_speed();
         void whait_to_finish(int timeout_ms);
     private :
-        pwm_chip * chip;
+        pwm_chip * _chip_PCA9685;
         float _speed;  // from 0.0 to 1.0
         std::thread * execution;
 };

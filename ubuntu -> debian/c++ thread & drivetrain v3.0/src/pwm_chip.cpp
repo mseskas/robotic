@@ -31,6 +31,11 @@ int pwm_chip::reset()
     return wiringPiI2CWriteReg8 (addr, 0x00, 0x00) ;
 }
 
+int pwm_chip::get_pwm_freq()
+{
+    return work_frequence;
+}
+
 void pwm_chip::set_pwm(int pwn_no, int on_tick, int off_tick)
 {
     wiringPiI2CWriteReg8(addr, __LED0_ON_L + 4 * pwn_no, on_tick & 0xFF);
@@ -42,6 +47,7 @@ void pwm_chip::set_pwm(int pwn_no, int on_tick, int off_tick)
 // 40 and 1000 Hz
 void pwm_chip::set_pwm_freq(int frq_Hz)
 {
+    work_frequence = frq_Hz;
     float prescaleval = 25000000.0;   // 25MHz
     prescaleval /= 4096.0;     // 12-bit
     prescaleval /= (float)frq_Hz;

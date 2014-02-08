@@ -4,6 +4,7 @@
 
 #include <sys/time.h>
 
+#include <project_constants.h>
 
 class sonar
 {
