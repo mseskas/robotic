@@ -6,7 +6,12 @@ using namespace std;
 drivetrain::drivetrain(pwm_chip * chip_PCA9685)
 {
     _chip_PCA9685 = chip_PCA9685;
-    set_speed(0.2);
+    set_speed(0.12);
+    _wheel_left_backward = PIN_WHEEL_LEFT_BACKWARD;
+    _wheel_left_forward = PIN_WHEEL_LEFT_FORWARD;
+    _wheel_right_forward = PIN_WHEEL_RIGHT_FORWARD;
+    _wheel_right_backward = PIN_WHEEL_RIGHT_BACKWARD;
+    _stop_execution = false;
 }
 drivetrain::~drivetrain()
 {
@@ -14,6 +19,8 @@ drivetrain::~drivetrain()
 }
 void drivetrain::set_speed(float speed)
 {
+    if (speed < 0) speed = 0;
+    if (speed > 1) speed = 1;
     _speed = speed;
 }
 float drivetrain::get_speed()
@@ -26,34 +33,56 @@ void drivetrain::turn(int direction, float angle_degree)
     cout << "drivetrain::turn (" << direction << ", " << angle_degree << ") - not implemented" << endl;
 }
 
-int drivetrain::drive(float time_seconds, int direction)
+void drivetrain::drive(float time_seconds, int direction)
 {
-    int left_wheel_direction, right_wheel_direction;
     if (direction == FORWARD)
     {
-        left_wheel_direction = 1;
-        right_wheel_direction = 2;
+        _chip_PCA9685->set_pwm(_wheel_left_forward, 0, _chip_PCA9685->get_ticks()*get_speed() );
+        _chip_PCA9685->set_pwm(_wheel_right_forward, 0, _chip_PCA9685->get_ticks()*get_speed() );
     }
     else
     {
-        left_wheel_direction = 0;
-        right_wheel_direction = 3;
+        _chip_PCA9685->set_pwm(_wheel_left_backward, 0, _chip_PCA9685->get_ticks()*get_speed() );
+        _chip_PCA9685->set_pwm(_wheel_right_backward, 0, _chip_PCA9685->get_ticks()*get_speed() );
     }
 
-    for (int i = 0; i < time_seconds * 1000; i += 100)
+    for (float i = 0; i < time_seconds ; i += 0.01)
     {
-        _chip_PCA9685->set_pwm(left_wheel_direction, 0, _chip_PCA9685->get_ticks()*get_speed() );
-        _chip_PCA9685->set_pwm(right_wheel_direction, 0, _chip_PCA9685->get_ticks()*get_speed() );
-        delay(100);
-    }
-    _chip_PCA9685->set_pwm(left_wheel_direction, 0, 0 );
-    _chip_PCA9685->set_pwm(right_wheel_direction, 0, 0 );
+        delay(10); // 10ms delay
 
-    return 0;
+        if (_stop_execution) break; // break loop
+    }
+    stop();
+    _stop_execution = false;
+}
+
+
+void drivetrain::a_drive(float time_seconds, int direction)
+{
+     _execution_thread = new thread (&drivetrain::drive, this, time_seconds, direction);
+
 }
 
 void drivetrain::whait_to_finish(int timeout_ms)
 {
-    execution->join();
+    _execution_thread->join();
 }
 
+void drivetrain::stop()
+{
+    _chip_PCA9685->set_pwm(_wheel_left_backward, 0, 0 );
+    _chip_PCA9685->set_pwm(_wheel_left_forward, 0, 0 );
+    _chip_PCA9685->set_pwm(_wheel_right_backward, 0, 0 );
+    _chip_PCA9685->set_pwm(_wheel_right_forward, 0, 0 );
+}
+
+void drivetrain::force_stop()
+{
+    _stop_execution = true;
+    whait_to_finish(1000);
+    _chip_PCA9685->set_pwm(_wheel_left_backward, 0, 0 );
+    _chip_PCA9685->set_pwm(_wheel_left_forward, 0, 0 );
+    _chip_PCA9685->set_pwm(_wheel_right_backward, 0, 0 );
+    _chip_PCA9685->set_pwm(_wheel_right_forward, 0, 0 );
+    _stop_execution = false;
+}

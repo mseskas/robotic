@@ -9,8 +9,7 @@ class servo
         servo(pwm_chip * chip, int pin_no);
         void set_angle(float new_angle);
         float get_angle();
-        float get_max_angle();
-        void turn(int angle);
+        void turn(float angle);
          int _max_ticks;
         int _min_ticks;
     protected:
@@ -18,6 +17,5 @@ class servo
         pwm_chip * _chip_PCA9685;
         int _pin;
         float _angle;
-        float _max_angle;
 
 };

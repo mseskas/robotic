@@ -11,9 +11,6 @@
 
 using namespace std;
 
-    int sonar_front_trigger_pin = 7;
-    int sonar_front_echo_pin = 4;
-    int chip_PCA9685_address = 0x40;
 
 //The function we want to make the thread run.
 void constant_distance_measure(sonar snr, int * result)
@@ -25,42 +22,36 @@ void constant_distance_measure(sonar snr, int * result)
     }
 }
 
-
-
 int main()
 {
-
-
     int front_distance = 0;
 
-    sonar sonar_front (sonar_front_trigger_pin, sonar_front_echo_pin);
+    sonar sonar_front (PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+    std::thread t1(constant_distance_measure, sonar_front, &front_distance);
+    pwm_chip chip_16pwm(PWM_CHIP_ADDR);
 
-    //thread t1(constant_distance_measure, sonar_front, &front_distance);
+    servo servo_front(&chip_16pwm, PIN_SERVO);
 
-    pwm_chip chip_16pwm(chip_PCA9685_address);
+    drivetrain drv(&chip_16pwm);
 
-    servo servo_front(&chip_16pwm, 11);
+    drv.a_drive(0.5, FORWARD);
+    cout << "start : " << endl;
+    delay(50);
+    cout << "kill " << endl;
+    drv.force_stop();
+    cout << "fin " << endl;
+    delay(8000);
 
-    int _max_ticks = (0.002 /(1.0 / (float)chip_16pwm.get_pwm_freq())) *  chip_16pwm.get_ticks();
-
-    cout << _max_ticks << " - max ticks\n" << servo_front._min_ticks << " - min ticks\n";
-
-   // drivetrain drv;
-    //drv.drive(5, FORWARD);
-   // drv.set_speed(0.12);
-
-
-
- /*  while (true)
+  /*  while (true)
    {
-       cout << "measure = " << distance << endl;
-       drv.drive(0.25, FORWARD);
-       if ((distance < 20) && (distance != 0) )
+       cout << "measure = " << front_distance << endl;
+       //drv.drive(0.25, FORWARD);
+       if (front_distance != 0)
        {
-           cout << "finish = " << endl;
-           break;
+           if (front_distance > 50) front_distance =50;
+           servo_front.set_angle((float)(front_distance/50.0));
        }
-       //delay(100);
+       delay(100);
    }
 */
     return 0;
