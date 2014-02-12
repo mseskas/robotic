@@ -14,7 +14,7 @@ t2.join();
 
 // ============= threading in class with reference  ====
 
-_pointer_to_thread = new std::thread(&class::method, this, param1, param2);
+_pointer_to_thread = new std::thread(&class::method, this, param1, param2);  
 
 //---------------- I2C comunication -----------------------
 
