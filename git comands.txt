@@ -1,0 +1,14 @@
+// ======= note =======================
+
+before all operation with git work dir must be changed with cd
+
+// ======= update to git ==============
+
+git add .
+git commit -m "comment"
+git push
+
+
+// ======= update from git ============
+
+git pull

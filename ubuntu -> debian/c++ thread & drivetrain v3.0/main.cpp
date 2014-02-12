@@ -1,22 +1,21 @@
 #include <iostream>
 #include <string>
 #include <thread>
-#include <wiringPi.h>
 
-#include <pwm_chip.h>
-#include <drivetrain.h>
-#include <sonar.h>
-#include <servo.h>
+#include <Chip_PCA9685.h>
+#include <Drivetrain.h>
+#include <Sonar.h>
+#include <Servo.h>
 
 
 using namespace std;
 
-    int sonar_front_trigger_pin = 7;
-    int sonar_front_echo_pin = 4;
+    int Sonar_front_trigger_pin = 7;
+    int Sonar_front_echo_pin = 4;
     int chip_PCA9685_address = 0x40;
 
 //The function we want to make the thread run.
-void constant_distance_measure(sonar snr, int * result)
+void constant_distance_measure(Sonar snr, int * result)
 {
     while (true)
     {
@@ -33,25 +32,20 @@ int main()
 
     int front_distance = 0;
 
-    sonar sonar_front (sonar_front_trigger_pin, sonar_front_echo_pin);
+    Sonar Sonar_front (Sonar_front_trigger_pin, Sonar_front_echo_pin);
 
-    //thread t1(constant_distance_measure, sonar_front, &front_distance);
+    thread t1(constant_distance_measure, Sonar_front, &front_distance);
 
-    pwm_chip chip_16pwm(chip_PCA9685_address);
+    Chip_PCA9685 pwm_chip(chip_PCA9685_address);
 
-    servo servo_front(&chip_16pwm, 11);
+    Servo Servo_front(&pwm_chip, 11);
 
-    int _max_ticks = (0.002 /(1.0 / (float)chip_16pwm.get_pwm_freq())) *  chip_16pwm.get_ticks();
-
-    cout << _max_ticks << " - max ticks\n" << servo_front._min_ticks << " - min ticks\n";
-
-   // drivetrain drv;
-    //drv.drive(5, FORWARD);
-   // drv.set_speed(0.12);
+    Drivetrain drv;
+    drv.set_speed(0.12);
 
 
 
- /*  while (true)
+   while (true)
    {
        cout << "measure = " << distance << endl;
        drv.drive(0.25, FORWARD);
@@ -62,6 +56,6 @@ int main()
        }
        //delay(100);
    }
-*/
+
     return 0;
 }

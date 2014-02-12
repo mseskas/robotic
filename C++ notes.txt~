@@ -1,0 +1,17 @@
+c++ notes:
+
+
+std is buffered stream - this means it only prints text to screen when it reaches '\n' simbol
+to avoid using '\n' at ent of printf()  use setbuf(stdout, NULL);
+
+
+//--------------- Threading ----------------------------------------------------------------
+// codeblocks : project -> build option -> compile & linker other options -pthread
+g++ -o main main.cpp -std=c++11 -pthread
+
+thread t2(task1, "antras");
+t2.join();
+
+//---------------- I2C comunication -----------------------
+
+g++ -o main main.cpp -std=c++11 -pthread -lwiringPi
