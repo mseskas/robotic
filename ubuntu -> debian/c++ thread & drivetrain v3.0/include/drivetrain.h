@@ -29,6 +29,7 @@ class drivetrain
         int _wheel_right_forward;
         int _wheel_right_backward;
         bool _stop_execution;
+        bool _is_executing;
         void constant_distance_measure();
 
 };

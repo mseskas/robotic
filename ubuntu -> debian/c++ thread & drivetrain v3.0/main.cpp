@@ -41,6 +41,8 @@ int main()
     drv.a_drive(0.5, FORWARD);
     cout << "start : " << endl;
     delay(50);
+    drv.a_drive(0.5, FORWARD);
+
     cout << "kill " << endl;
     drv.force_stop();
     cout << "fin " << endl;
