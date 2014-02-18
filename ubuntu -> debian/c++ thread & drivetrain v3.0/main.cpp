@@ -1,19 +1,24 @@
 #include <iostream>
 #include <string>
 #include <thread>
-#include <wiringPi.h>
 
-#include <pwm_chip.h>
-#include <drivetrain.h>
-#include <sonar.h>
-#include <servo.h>
+#include <Chip_PCA9685.h>
+#include <Drivetrain.h>
+#include <Sonar.h>
+#include <Servo.h>
 
 
 using namespace std;
 
+<<<<<<< HEAD
+=======
+    int Sonar_front_trigger_pin = 7;
+    int Sonar_front_echo_pin = 4;
+    int chip_PCA9685_address = 0x40;
+>>>>>>> b8ba2a4e43ff699d8c92fb8fbbd47ab1f7cd726b
 
 //The function we want to make the thread run.
-void constant_distance_measure(sonar snr, int * result)
+void constant_distance_measure(Sonar snr, int * result)
 {
     while (true)
     {
@@ -26,6 +31,7 @@ int main()
 {
     int front_distance = 0;
 
+<<<<<<< HEAD
     sonar sonar_front (PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     std::thread t1(constant_distance_measure, sonar_front, &front_distance);
     pwm_chip chip_16pwm(PWM_CHIP_ADDR);
@@ -43,6 +49,22 @@ int main()
     delay(8000);
 
   /*  while (true)
+=======
+    Sonar Sonar_front (Sonar_front_trigger_pin, Sonar_front_echo_pin);
+
+    thread t1(constant_distance_measure, Sonar_front, &front_distance);
+
+    Chip_PCA9685 pwm_chip(chip_PCA9685_address);
+
+    Servo Servo_front(&pwm_chip, 11);
+
+    Drivetrain drv;
+    drv.set_speed(0.12);
+
+
+
+   while (true)
+>>>>>>> b8ba2a4e43ff699d8c92fb8fbbd47ab1f7cd726b
    {
        cout << "measure = " << front_distance << endl;
        //drv.drive(0.25, FORWARD);
@@ -53,6 +75,6 @@ int main()
        }
        delay(100);
    }
-*/
+
     return 0;
 }

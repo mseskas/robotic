@@ -1,0 +1,8 @@
+// ======= update to git ==============
+
+git add .
+git commit -m "comment"
+git push
+
+
+// ======= update from git ============
