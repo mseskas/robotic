@@ -2,6 +2,7 @@
 #include <string>
 #include <thread>
 
+
 #include <project_constants.h>
 #include <pwm_chip.h>
 #include <drivetrain.h>
@@ -9,11 +10,13 @@
 #include <sonar.h>
 
 
+
 using namespace std;
 
 
+
 //The function we want to make the thread run.
-void constant_distance_measure(sonar snr, int * result)
+void constant_distance_measure(Sonar snr, int * result)
 {
     while (true)
     {
@@ -25,6 +28,7 @@ void constant_distance_measure(sonar snr, int * result)
 int main()
 {
     int front_distance = 0;
+
 
     sonar sonar_front (PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     //std::thread t1(constant_distance_measure, sonar_front, &front_distance);
@@ -41,7 +45,6 @@ int main()
     drv.force_stop();
     cout << "fin " << endl;
     delay(8000);
-
 
 
     return 0;
