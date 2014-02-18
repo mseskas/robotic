@@ -16,7 +16,7 @@ using namespace std;
 
 
 //The function we want to make the thread run.
-void constant_distance_measure(Sonar snr, int * result)
+void constant_distance_measure(sonar snr, int * result)
 {
     while (true)
     {
