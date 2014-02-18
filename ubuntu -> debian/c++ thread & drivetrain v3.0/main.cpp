@@ -1,12 +1,12 @@
 #include <iostream>
 #include <string>
 #include <thread>
-#include <wiringPi.h>
 
+#include <project_constants.h>
 #include <pwm_chip.h>
 #include <drivetrain.h>
-#include <sonar.h>
 #include <servo.h>
+#include <sonar.h>
 
 
 using namespace std;
@@ -27,7 +27,7 @@ int main()
     int front_distance = 0;
 
     sonar sonar_front (PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
-    std::thread t1(constant_distance_measure, sonar_front, &front_distance);
+    //std::thread t1(constant_distance_measure, sonar_front, &front_distance);
     pwm_chip chip_16pwm(PWM_CHIP_ADDR);
 
     servo servo_front(&chip_16pwm, PIN_SERVO);
@@ -42,17 +42,7 @@ int main()
     cout << "fin " << endl;
     delay(8000);
 
-  /*  while (true)
-   {
-       cout << "measure = " << front_distance << endl;
-       //drv.drive(0.25, FORWARD);
-       if (front_distance != 0)
-       {
-           if (front_distance > 50) front_distance =50;
-           servo_front.set_angle((float)(front_distance/50.0));
-       }
-       delay(100);
-   }
-*/
+
+
     return 0;
 }
