@@ -46,12 +46,14 @@
 			<Add directory="/home/minde/Desktop/c++ thread/include" />
 			<Add directory="/home/minde/Desktop/c++ thread/src" />
 		</Linker>
+		<Unit filename="include/camera.h" />
 		<Unit filename="include/drivetrain.h" />
 		<Unit filename="include/project_constants.h" />
 		<Unit filename="include/pwm_chip.h" />
 		<Unit filename="include/servo.h" />
 		<Unit filename="include/sonar.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/camera.cpp" />
 		<Unit filename="src/drivetrain.cpp" />
 		<Unit filename="src/pwm_chip.cpp" />
 		<Unit filename="src/servo.cpp" />

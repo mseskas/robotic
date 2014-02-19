@@ -60,13 +60,13 @@ int main(int argc, char * argv[]){
       pinMode(1, OUTPUT);  // forward right
       pinMode(3, OUTPUT);  // backward right
 
-      CvCapture* capture =0;
+      CvCapture* capture = NULL;
 
       capture = cvCaptureFromCAM(camera_no);
       if (capture == NULL)
       {
-	cout << "CvCapture == null\n";
-	return 0; 
+        cout << "CvCapture == null\n";
+        return 0;
       }
       cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, frame_width);
       cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, frame_height);
@@ -82,7 +82,7 @@ int main(int argc, char * argv[]){
 	    if (frame == NULL)
 	    {
 		cout << "frame == null\n";
-		continue; 
+		continue;
 	    }
        //     t = (double)cvGetTickCount() - t;
       //      printf( "capture time = %8g ms ", t/((double)cvGetTickFrequency()*1000) );
@@ -96,13 +96,10 @@ int main(int argc, char * argv[]){
 
             cvtColor( (Mat)frame, (Mat)frame, CV_BGR2HSV); //Change the color format from BGR to HSV
 
-
             IplImage * imgThresh = GetThresholdedImage(frame);
 
             Point pnt = getCentroid(*imgThresh);
 
-
-	    
 
             if ((pnt.x > 0) && (argc == 1))
             {
@@ -145,8 +142,8 @@ int main(int argc, char * argv[]){
                   digitalWrite(0, LOW);
 		  digitalWrite(1, LOW);
 		}
-            } 
-            else 
+            }
+            else
 	    {
 		found_ball = false;
 	    }

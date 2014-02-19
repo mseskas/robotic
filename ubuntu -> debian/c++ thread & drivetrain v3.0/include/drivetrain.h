@@ -21,6 +21,7 @@ class drivetrain
     private :
         void drive(float time_seconds, int  wheel_no);
         void stop();
+        void constant_distance_measure();
         pwm_chip * _chip_PCA9685;
         float _speed;  // from 0.0 to 1.0
         std::thread * _execution_thread;
@@ -30,7 +31,7 @@ class drivetrain
         int _wheel_right_backward;
         bool _stop_execution;
         bool _is_executing;
-        void constant_distance_measure();
+
 
 };
 

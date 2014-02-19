@@ -77,3 +77,4 @@ void sonar::set_echo(int pin_echo)
 {
     echo = pin_echo;
 }
+

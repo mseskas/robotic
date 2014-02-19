@@ -50,7 +50,6 @@ void drivetrain::drive(float time_seconds, int direction)
     for (float i = 0; i < time_seconds ; i += 0.01)
     {
         delay(10); // 10ms delay
-        printf(" %f - driving thread", i);
         if (_stop_execution) break; // break loop
     }
     stop();
