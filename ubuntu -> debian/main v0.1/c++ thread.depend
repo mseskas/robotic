@@ -214,3 +214,67 @@
 1392900105 source:/root/Desktop/robotic/ubuntu -> debian/c++ thread & drivetrain v3.0/src/camera.cpp
 	"camera.h"
 
+1392906018 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/camera.cpp
+	"camera.h"
+
+1392906018 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/camera.h
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+
+1392906018 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/drivetrain.cpp
+	"drivetrain.h"
+
+1392910060 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/drivetrain.h
+	<thread>
+	<iostream>
+	<pwm_chip.h>
+	<project_constants.h>
+
+1392906416 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/pwm_chip.h
+	<stdlib.h>
+	<wiringPi.h>
+	<wiringPiI2C.h>
+	<project_constants.h>
+
+1392906018 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/project_constants.h
+
+1392906416 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/pwm_chip.cpp
+	"pwm_chip.h"
+
+1392906416 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/servo.cpp
+	"servo.h"
+
+1392906416 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/servo.h
+	<pwm_chip.h>
+	<project_constants.h>
+
+1392910163 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/sonar.cpp
+	"sonar.h"
+
+1392909825 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/sonar.h
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<thread>
+	<sys/time.h>
+	<drivetrain.h>
+	<project_constants.h>
+
+1392910361 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<project_constants.h>
+	<pwm_chip.h>
+	<drivetrain.h>
+	<servo.h>
+	<sonar.h>
+	<camera.h>
+	"activities.h"
+
+1392907569 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/activities/activities.h
+
+1392910361 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/activities/activities.cpp
+	"activities.h"
+

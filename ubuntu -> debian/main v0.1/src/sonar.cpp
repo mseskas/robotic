@@ -11,6 +11,9 @@ sonar::sonar(int pin_trigger, int pin_echo)
     echo = pin_echo;
     pinMode(trigger, OUTPUT);
     pinMode(echo, INPUT);
+    _drv = NULL;
+
+    _execution_thread = new thread (&sonar::constant_distance_measure, this);
 }
 sonar::~sonar()
 {
@@ -37,7 +40,29 @@ int sonar::waitforpin(int pin_value, int timeout_uS)
    return micros;
  }
 
- int sonar::get_distance ()
+void sonar::set_drivetrain(drivetrain * drv)
+{
+    _drv = drv;
+}
+
+void sonar::constant_distance_measure()
+{
+    while (true)
+    {
+        measure_distance();
+        if ((_last_distance < 15) && (_last_distance != 0))
+        {
+            if (_drv != NULL)
+            {
+                _drv->force_stop();
+            }
+
+        }
+        delay(25);
+    }
+}
+
+void sonar::measure_distance()
 {
     int l=0;
 
@@ -58,7 +83,12 @@ int sonar::waitforpin(int pin_value, int timeout_uS)
             l = l/ 58 + 1;
         }
     }
-    return l;
+    _last_distance = l;
+}
+
+ int sonar::get_distance ()
+{
+    return _last_distance;
 }
 
 int sonar::get_trigger()

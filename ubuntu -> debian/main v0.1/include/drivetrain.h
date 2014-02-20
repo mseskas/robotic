@@ -6,6 +6,9 @@
 
 #include <project_constants.h>
 
+#ifndef	__drivetrain__
+#define	__drivetrain__
+
 class drivetrain
 {
 
@@ -35,3 +38,4 @@ class drivetrain
 
 };
 
+#endif

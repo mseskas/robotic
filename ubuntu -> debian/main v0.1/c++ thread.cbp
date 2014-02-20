@@ -41,11 +41,10 @@
 			<Add option="-Wall" />
 			<Add directory="./src" />
 			<Add directory="./include" />
+			<Add directory="./src/activities" />
+			<Add directory="./include/activities" />
 		</Compiler>
-		<Linker>
-			<Add directory="/home/minde/Desktop/c++ thread/include" />
-			<Add directory="/home/minde/Desktop/c++ thread/src" />
-		</Linker>
+		<Unit filename="include/activities/activities.h" />
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/drivetrain.h" />
 		<Unit filename="include/project_constants.h" />
@@ -53,6 +52,7 @@
 		<Unit filename="include/servo.h" />
 		<Unit filename="include/sonar.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/activities/activities.cpp" />
 		<Unit filename="src/camera.cpp" />
 		<Unit filename="src/drivetrain.cpp" />
 		<Unit filename="src/pwm_chip.cpp" />
