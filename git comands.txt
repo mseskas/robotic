@@ -12,3 +12,10 @@ git push
 // ======= update from git ============
 
 git pull
+
+//==================brutal download files form repository  ==========
+
+git fetch --all
+git reset --hard origin/master
+
+
