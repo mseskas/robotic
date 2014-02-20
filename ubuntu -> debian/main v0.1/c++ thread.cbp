@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="c++ thread" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/c++ thread" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-pthread" />
+					<Add directory="./src" />
+					<Add directory="./include" />
+				</Compiler>
+				<Linker>
+					<Add option="-pthread" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/c++ thread" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add directory="./src" />
+					<Add directory="./include" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-std=c++0x" />
+			<Add option="-Wall" />
+			<Add directory="./src" />
+			<Add directory="./include" />
+		</Compiler>
+		<Linker>
+			<Add directory="/home/minde/Desktop/c++ thread/include" />
+			<Add directory="/home/minde/Desktop/c++ thread/src" />
+		</Linker>
+		<Unit filename="include/camera.h" />
+		<Unit filename="include/drivetrain.h" />
+		<Unit filename="include/project_constants.h" />
+		<Unit filename="include/pwm_chip.h" />
+		<Unit filename="include/servo.h" />
+		<Unit filename="include/sonar.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/camera.cpp" />
+		<Unit filename="src/drivetrain.cpp" />
+		<Unit filename="src/pwm_chip.cpp" />
+		<Unit filename="src/servo.cpp" />
+		<Unit filename="src/sonar.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

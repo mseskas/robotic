@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+#include <thread>
+
+<<<<<<< HEAD
+#include <project_constants.h>
+#include <pwm_chip.h>
+#include <drivetrain.h>
+#include <servo.h>
+#include <sonar.h>
+=======
+#include <Chip_PCA9685.h>
+#include <Drivetrain.h>
+#include <Sonar.h>
+#include <Servo.h>
+>>>>>>> 8aeecbf79407b6e5569808f5fb48d0ed88f6c3c4
+
+
+using namespace std;
+
+<<<<<<< HEAD
+=======
+    int Sonar_front_trigger_pin = 7;
+    int Sonar_front_echo_pin = 4;
+    int chip_PCA9685_address = 0x40;
+>>>>>>> b8ba2a4e43ff699d8c92fb8fbbd47ab1f7cd726b
+
+//The function we want to make the thread run.
+void constant_distance_measure(Sonar snr, int * result)
+{
+    while (true)
+    {
+        *result = snr.get_distance();
+        delay(25);
+    }
+}
+
+int main()
+{
+    int front_distance = 0;
+
+<<<<<<< HEAD
+    sonar sonar_front (PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+    //std::thread t1(constant_distance_measure, sonar_front, &front_distance);
+    pwm_chip chip_16pwm(PWM_CHIP_ADDR);
+
+    servo servo_front(&chip_16pwm, PIN_SERVO);
+
+    drivetrain drv(&chip_16pwm);
+
+    drv.a_drive(0.5, FORWARD);
+    cout << "start : " << endl;
+    delay(50);
+    cout << "kill " << endl;
+    drv.force_stop();
+    cout << "fin " << endl;
+    delay(8000);
+
+<<<<<<< HEAD
+
+=======
+  /*  while (true)
+=======
+    Sonar Sonar_front (Sonar_front_trigger_pin, Sonar_front_echo_pin);
+
+    thread t1(constant_distance_measure, Sonar_front, &front_distance);
+
+    Chip_PCA9685 pwm_chip(chip_PCA9685_address);
+
+    Servo Servo_front(&pwm_chip, 11);
+
+    Drivetrain drv;
+    drv.set_speed(0.12);
+
+
+
+   while (true)
+>>>>>>> b8ba2a4e43ff699d8c92fb8fbbd47ab1f7cd726b
+   {
+       cout << "measure = " << front_distance << endl;
+       //drv.drive(0.25, FORWARD);
+       if (front_distance != 0)
+       {
+           if (front_distance > 50) front_distance =50;
+           servo_front.set_angle((float)(front_distance/50.0));
+       }
+       delay(100);
+   }
+>>>>>>> 8aeecbf79407b6e5569808f5fb48d0ed88f6c3c4
+
+    return 0;
+}
