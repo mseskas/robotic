@@ -12,14 +12,14 @@ class drivetrain
     public :
         drivetrain(pwm_chip * chip_PCA9685);
         ~drivetrain();
-        void turn(int direction, float angle_degree);
-        void a_drive(float time_seconds, int  wheel_no);
+        void a_turn(int direction, float angle_degree);
+        void a_drive(float time_seconds, int  direction);
         void set_speed(float speed);
         float get_speed();
         void whait_to_finish(int timeout_ms);
         void force_stop();
     private :
-        void drive(float time_seconds, int  wheel_no);
+        void drive(float time_seconds, float left_wheel_percentage, float right_wheel_percentage);
         void stop();
         void constant_distance_measure();
         pwm_chip * _chip_PCA9685;

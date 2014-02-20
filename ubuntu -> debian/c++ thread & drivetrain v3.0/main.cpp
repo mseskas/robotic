@@ -45,12 +45,14 @@ int main()
     cout << "fin " << endl;
     delay(8000);
 */
-    camera cam_front(0);
-    cvNamedWindow("cam", 1 );
+    camera cam_front(USB_FRONT_CAMERA_NO);
+    cvNamedWindow("cam");
 
     while (true)
     {
         IplImage * frame =  cam_front.get_frame();
+
+
 
 
         cvShowImage("cam", frame);

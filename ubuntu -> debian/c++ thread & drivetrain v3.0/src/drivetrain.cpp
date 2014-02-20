@@ -29,22 +29,48 @@ float drivetrain::get_speed()
     return _speed;
 }
 
-void drivetrain::turn(int direction, float angle_degree)
+void drivetrain::a_turn(int direction, float time_seconds)
 {
-    cout << "drivetrain::turn (" << direction << ", " << angle_degree << ") - not implemented" << endl;
-}
-
-void drivetrain::drive(float time_seconds, int direction)
-{
-    if (direction == FORWARD)
+    force_stop();
+    if (direction == TURN_LEFT)
     {
-        _chip_PCA9685->set_pwm(_wheel_left_forward, 0, _chip_PCA9685->get_ticks()*get_speed() );
-        _chip_PCA9685->set_pwm(_wheel_right_forward, 0, _chip_PCA9685->get_ticks()*get_speed() );
+        _execution_thread = new thread (&drivetrain::drive, this, time_seconds, -1, 1);
     }
     else
     {
-        _chip_PCA9685->set_pwm(_wheel_left_backward, 0, _chip_PCA9685->get_ticks()*get_speed() );
-        _chip_PCA9685->set_pwm(_wheel_right_backward, 0, _chip_PCA9685->get_ticks()*get_speed() );
+        _execution_thread = new thread (&drivetrain::drive, this, time_seconds, 1, -1);
+    }
+    _is_executing = true;
+}
+
+void drivetrain::drive(float time_seconds, float left_wheel_percentage, float right_wheel_percentage)
+{
+    if (left_wheel_percentage != 0)
+    {
+        if (left_wheel_percentage > 0)
+        {
+            _chip_PCA9685->set_pwm(_wheel_left_forward, 0,
+                                   _chip_PCA9685->get_ticks()*get_speed() * left_wheel_percentage );
+        }
+        else
+        {
+            _chip_PCA9685->set_pwm(_wheel_left_backward, 0,
+                                    _chip_PCA9685->get_ticks()*get_speed() * left_wheel_percentage);
+        }
+    }
+
+    if (right_wheel_percentage != 0)
+    {
+        if (right_wheel_percentage > 0)
+        {
+            _chip_PCA9685->set_pwm(_wheel_right_forward, 0,
+                                   _chip_PCA9685->get_ticks()*get_speed() * left_wheel_percentage );
+        }
+        else
+        {
+            _chip_PCA9685->set_pwm(_wheel_right_backward, 0,
+                                    _chip_PCA9685->get_ticks()*get_speed() * left_wheel_percentage);
+        }
     }
 
     for (float i = 0; i < time_seconds ; i += 0.01)
@@ -58,10 +84,18 @@ void drivetrain::drive(float time_seconds, int direction)
 }
 
 
+
 void drivetrain::a_drive(float time_seconds, int direction)
 {
     force_stop();
-    _execution_thread = new thread (&drivetrain::drive, this, time_seconds, direction);
+    if (direction == FORWARD)
+    {
+        _execution_thread = new thread (&drivetrain::drive, this, time_seconds, 1, 1);
+    }
+    else
+    {
+        _execution_thread = new thread (&drivetrain::drive, this, time_seconds, -1, -1);
+    }
     _is_executing = true;
 }
 
