@@ -1,21 +1,29 @@
 #include "activities.h"
 
+using namespace cv;
+
 activities::activities()
 {
-    sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+ cout << "please uncomment me - activities::activities()" << endl;
+ /*   sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     servo_spare = new servo (chip_16pwm, PIN_SERVO);
     drv = new drivetrain (chip_16pwm);
-    cam_front = new camera (USB_FRONT_CAMERA_NO);
 
-    sonar_front->set_drivetrain( drv);
+
+    sonar_front->set_drivetrain( drv); */
+
+    cam_front = new camera (USB_FRONT_CAMERA_NO);
 }
+
+
 
 activities::~activities()
 {
-    force_stop();
+    cout << "please uncomment me -activities::~activities()" << endl;
+   /* force_stop();
     drv->~drivetrain();
-    sonar_front->~sonar();
+    sonar_front->~sonar(); */
 }
 
 void activities::force_stop()
@@ -54,9 +62,21 @@ void activities::act(int activity_no)
             _is_executing = true;
         break;
 
-        case 4 : // dumb drive
+        case 4 : // show canny view
+            force_stop();
+            _execution_thread = new thread (&activities::canny_edge_view, this);
+            _is_executing = true;
+        break;
+
+        case 5 : // dumb drive
             force_stop();
             _execution_thread = new thread (&activities::dumb_drive, this);
+            _is_executing = true;
+        break;
+
+        case 6 : // show hvs view
+            force_stop();
+            _execution_thread = new thread (&activities::hvs_view, this);
             _is_executing = true;
         break;
 
@@ -75,7 +95,9 @@ void activities::print_activities()
         << "1 - Stop everything!!!" << endl
         << "2 - Show distance to front" << endl
         << "3 - Show front view" << endl
-        << "4 - Dumb drive" << endl;
+        << "4 - Show front Canny view" << endl
+        << "5 - Dumb drive" << endl
+        << "6 - Show front HVS view" << endl;
 }
 
 void activities::show_front_distance()
@@ -114,21 +136,80 @@ void activities::dumb_drive()
 
 void activities::show_front_view()
 {
-    cvNamedWindow("front view");
+    cvNamedWindow("camera", 1);
+    cvStartWindowThread();
+
     while (true)
     {
         IplImage * frame =  cam_front->get_frame();
 
-        cvShowImage("front view", frame);
+        cvShowImage("camera", frame);
         //cvWaitKey(1);
         if (_stop_execution) break;
         cvWaitKey(1);
     }
-    cvDestroyWindow("front view");
+    cvDestroyWindow("camera");
+
     _stop_execution = false;
     _is_executing = false;
 }
 
 
+void activities::canny_edge_view()
+{
+    namedWindow("Canny");
+    startWindowThread();
 
+    while(true)
+    {
+        IplImage * frame =  cam_front->get_frame();
 
+        //frame=cvCloneImage(frame);
+       // cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
+
+        IplImage *canny = cvCreateImage(cvGetSize(frame),IPL_DEPTH_8U,1);
+
+        cvtColor((Mat)frame, (Mat)canny,  CV_RGB2GRAY);
+
+        cv::Canny ((Mat)canny, (Mat)canny, 10, 60 );
+
+        cvShowImage("Canny", canny);
+        cvWaitKey(1);
+
+        if (_stop_execution) break;
+    }
+    destroyWindow("Canny");
+
+    _stop_execution = false;
+    _is_executing = false;
+}
+
+void activities::hvs_view()
+{
+
+    namedWindow("HVS");
+
+    startWindowThread();
+
+    while(true)
+    {
+        IplImage * frame =  cam_front->get_frame();
+
+      // frame=cvCloneImage(frame);
+
+        cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
+
+       // IplImage *canny = cvCreateImage(cvGetSize(frame),IPL_DEPTH_8U,1);
+       // cvtColor((Mat)frame, (Mat)canny,  CV_RGB2GRAY);
+       // cv::Canny ((Mat)canny, (Mat)canny, 10, 60 );
+
+        cvShowImage("HVS", frame);
+        cvWaitKey(1);
+
+        if (_stop_execution) break;
+    }
+    destroyWindow("HVS");
+
+    _stop_execution = false;
+    _is_executing = false;
+}

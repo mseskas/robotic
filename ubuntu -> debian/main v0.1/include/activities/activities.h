@@ -12,6 +12,7 @@
 
 using namespace std;
 
+
 class activities
 {
     public:
@@ -31,7 +32,11 @@ class activities
     thread     * _execution_thread;
     bool       _stop_execution;
     bool       _is_executing;
-    void       dumb_drive();
-    void       show_front_distance();
-    void       show_front_view();
+
+private : // separate activities
+    void    dumb_drive();
+    void    show_front_distance();
+    void    show_front_view();
+    void    canny_edge_view();
+    void    hvs_view();
 };

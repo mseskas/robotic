@@ -9,13 +9,9 @@ using namespace std;
 
 int main()
 {
-
     activities main_act;
 
     int cmd ;
-
-    //main_act.act(cmd);
-
 
     while(true)
     {
@@ -30,7 +26,7 @@ int main()
         main_act.act(cmd);
     }
 
-    main_act.~activities();
+    //main_act.~activities();
 
     return 0;
 }
