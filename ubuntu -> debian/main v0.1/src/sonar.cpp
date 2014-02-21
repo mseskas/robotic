@@ -58,7 +58,7 @@ void sonar::constant_distance_measure()
             }
 
         }
-        delay(25);
+        delay(30);
     }
 }
 

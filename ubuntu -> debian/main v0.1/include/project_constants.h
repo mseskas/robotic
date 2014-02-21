@@ -3,10 +3,15 @@
 #define FORWARD 0
 #define BACKWARD 1
 
-#define PWM_CHIP_HZ 50
 #define PWM_CHIP_ADDR 0x40
 
+#define PWM_CHIP_HZ 50
 #define USB_FRONT_CAMERA_NO 0
+
+// default values
+
+#define default_drivetrain_drive_speed 0.175
+#define default_drivetrain_turn_speed 0.275
 
 // ============= Used Pins =================
 
