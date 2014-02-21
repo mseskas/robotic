@@ -68,17 +68,19 @@ void activities::act(int activity_no)
             _is_executing = true;
         break;
 
-        case 5 : // dumb drive
+        case 5 : // show hvs view
+            force_stop();
+            _execution_thread = new thread (&activities::hvs_view, this);
+            _is_executing = true;
+        break;
+
+
+        case 6 : // dumb drive
             force_stop();
             _execution_thread = new thread (&activities::dumb_drive, this);
             _is_executing = true;
         break;
 
-        case 6 : // show hvs view
-            force_stop();
-            _execution_thread = new thread (&activities::hvs_view, this);
-            _is_executing = true;
-        break;
 
         default :
             cout << "activities::act() - unknown activity" << endl;
@@ -94,10 +96,11 @@ void activities::print_activities()
         << "0 - Quit" << endl
         << "1 - Stop everything!!!" << endl
         << "2 - Show distance to front" << endl
-        << "3 - Show front view" << endl
-        << "4 - Show front Canny view" << endl
-        << "5 - Dumb drive" << endl
-        << "6 - Show front HVS view" << endl;
+        << "3 - Show view front" << endl
+        << "4 - Show view Canny" << endl
+        << "5 - Show view HVS" << endl
+        << "6 - Dumb drive" << endl;
+
 }
 
 void activities::show_front_distance()
@@ -171,6 +174,9 @@ void activities::canny_edge_view()
 
         cvtColor((Mat)frame, (Mat)canny,  CV_RGB2GRAY);
 
+        GaussianBlur( (Mat)canny, (Mat)canny, Size(3,3), 1.5, 1.5);
+
+
         cv::Canny ((Mat)canny, (Mat)canny, 10, 60 );
 
         cvShowImage("Canny", canny);
@@ -213,3 +219,5 @@ void activities::hvs_view()
     _stop_execution = false;
     _is_executing = false;
 }
+
+
