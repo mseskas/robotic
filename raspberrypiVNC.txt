@@ -118,12 +118,11 @@ chmod 755 /etc/init.d/vncboot
 
 update-rc.d vncboot defaults
 
-//================================================================
+//========== BACKUP SD CARD ====================
 
+sudo dd bs=1M if=/dev/mmcblk0 of=backup.img
 
-
-
-
+// if - input  of - output DON'T MIX THEM ======
 
 
 

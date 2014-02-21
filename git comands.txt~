@@ -1,3 +1,7 @@
+// ======= note =======================
+
+before all operation with git work dir must be changed with cd
+
 // ======= update to git ==============
 
 git add .
@@ -6,3 +10,5 @@ git push
 
 
 // ======= update from git ============
+
+git pull
