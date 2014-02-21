@@ -1,6 +1,7 @@
 
 #include <string>
 #include <iostream>
+#include <thread>
 
 #include <project_constants.h>
 #include <pwm_chip.h>
@@ -17,6 +18,8 @@ class activities
         activities();
         ~activities();
         void  act(string activity_name);
+        void force_stop();
+        void wait_to_finish(int timeout_ms);
     protected:
     private:
     sonar      * sonar_front;
@@ -24,7 +27,9 @@ class activities
     servo      * servo_spare;
     drivetrain * drv;
     camera     * cam_front;
-
-    void dumb_drive();
+    thread     * _execution_thread;
+    bool       _stop_execution;
+    bool       _is_executing;
+    void       dumb_drive();
 
 };

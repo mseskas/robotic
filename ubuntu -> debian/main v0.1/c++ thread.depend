@@ -222,12 +222,13 @@
 	"opencv2/imgproc/imgproc.hpp"
 	<iostream>
 
-1392906018 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/drivetrain.cpp
+1392998529 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/drivetrain.cpp
 	"drivetrain.h"
 
-1392910060 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/drivetrain.h
+1392998529 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/drivetrain.h
 	<thread>
 	<iostream>
+	<math.h>
 	<pwm_chip.h>
 	<project_constants.h>
 
@@ -237,7 +238,7 @@
 	<wiringPiI2C.h>
 	<project_constants.h>
 
-1392906018 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/project_constants.h
+1392998529 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/project_constants.h
 
 1392906416 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/pwm_chip.cpp
 	"pwm_chip.h"
@@ -249,7 +250,7 @@
 	<pwm_chip.h>
 	<project_constants.h>
 
-1392910163 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/sonar.cpp
+1392998529 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/sonar.cpp
 	"sonar.h"
 
 1392909825 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/sonar.h
@@ -261,9 +262,14 @@
 	<drivetrain.h>
 	<project_constants.h>
 
-1392910361 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/main.cpp
+1392998529 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/main.cpp
 	<iostream>
 	<string>
+	"activities.h"
+
+1392999457 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/activities/activities.h
+	<string>
+	<iostream>
 	<thread>
 	<project_constants.h>
 	<pwm_chip.h>
@@ -271,9 +277,6 @@
 	<servo.h>
 	<sonar.h>
 	<camera.h>
-	"activities.h"
-
-1392907569 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/activities/activities.h
 
 1392910361 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/activities/activities.cpp
 	"activities.h"
