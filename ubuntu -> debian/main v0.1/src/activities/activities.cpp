@@ -13,38 +13,9 @@ activities::activities()
 
 activities::~activities()
 {
+    force_stop();
     drv->~drivetrain();
     sonar_front->~sonar();
-}
-
-void activities::act(string activity_name)
-{
-
-    if (activity_name == "dumb drive")
-    {
-        force_stop();
-        _execution_thread = new thread (&activities::dumb_drive, this);
-        _is_executing = true;
-    }
-}
-
-void activities::dumb_drive()
-{
-    while (true)
-        {
-            drv->a_drive(5, FORWARD);
-                if (_stop_execution) break;
-            drv->wait_to_finish(0);
-                if (_stop_execution) break;
-            drv->a_turn(TURN_RIGHT, 0.8);
-                if (_stop_execution) break;
-            drv->wait_to_finish(0);
-                if (_stop_execution) break;
-        }
-        drv->force_stop();
-
-        _stop_execution = false;
-        _is_executing = false;
 }
 
 void activities::force_stop()
@@ -63,20 +34,101 @@ void activities::wait_to_finish(int timeout_ms)
     }
 }
 
-
-/*
-
-    //
-// ===================================================
-
-   camera cam_front(USB_FRONT_CAMERA_NO);
-    cvNamedWindow("cam");
-    while (true)
+void activities::act(int activity_no)
+{
+    switch (activity_no)
     {
-        IplImage * frame =  cam_front.get_frame();
+        case 1 : // stop everything
+            force_stop();
+        break;
 
-        cvShowImage("cam", frame);
-        cvWaitKey(1);
+        case 2 : // show distance to front
+            force_stop();
+            _execution_thread = new thread (&activities::show_front_distance, this);
+            _is_executing = true;
+        break;
+
+        case 3 : // show front view
+            force_stop();
+            _execution_thread = new thread (&activities::show_front_view, this);
+            _is_executing = true;
+        break;
+
+        case 4 : // dumb drive
+            force_stop();
+            _execution_thread = new thread (&activities::dumb_drive, this);
+            _is_executing = true;
+        break;
+
+        default :
+            cout << "activities::act() - unknown activity" << endl;
+        break;
     }
 
-*/
+}
+
+void activities::print_activities()
+{
+    cout << "Robot Jerry at your service..." << endl
+        << "Possible activities :" << endl
+        << "0 - Quit" << endl
+        << "1 - Stop everything!!!" << endl
+        << "2 - Show distance to front" << endl
+        << "3 - Show front view" << endl
+        << "4 - Dumb drive" << endl;
+}
+
+void activities::show_front_distance()
+{
+    while (true)
+    {
+        cout << "distance to front = " << sonar_front->get_distance() << endl;
+        if (_stop_execution) break;
+        delay(100);
+    }
+    drv->force_stop();
+    _stop_execution = false;
+    _is_executing = false;
+}
+
+
+void activities::dumb_drive()
+{
+    while (true)
+        {
+            drv->a_drive(5, FORWARD);
+                if (_stop_execution) break;
+            drv->wait_to_finish(0);
+                if (_stop_execution) break;
+            drv->a_turn(TURN_RIGHT, 0.8);
+                if (_stop_execution) break;
+            drv->wait_to_finish(0);
+                if (_stop_execution) break;
+            delay(250);
+        }
+        drv->force_stop();
+        _stop_execution = false;
+        _is_executing = false;
+}
+
+
+void activities::show_front_view()
+{
+    cvNamedWindow("front view");
+    while (true)
+    {
+        IplImage * frame =  cam_front->get_frame();
+
+        cvShowImage("front view", frame);
+        //cvWaitKey(1);
+        if (_stop_execution) break;
+        cvWaitKey(1);
+    }
+    cvDestroyWindow("front view");
+    _stop_execution = false;
+    _is_executing = false;
+}
+
+
+
+

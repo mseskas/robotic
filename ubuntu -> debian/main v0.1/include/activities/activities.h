@@ -17,9 +17,10 @@ class activities
     public:
         activities();
         ~activities();
-        void  act(string activity_name);
+        void  act(int activity_no);
         void force_stop();
         void wait_to_finish(int timeout_ms);
+        void print_activities();
     protected:
     private:
     sonar      * sonar_front;
@@ -31,5 +32,6 @@ class activities
     bool       _stop_execution;
     bool       _is_executing;
     void       dumb_drive();
-
+    void       show_front_distance();
+    void       show_front_view();
 };

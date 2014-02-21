@@ -12,16 +12,24 @@ int main()
 
     activities main_act;
 
-    string cmd = "dumb drive";
+    int cmd ;
 
     //main_act.act(cmd);
 
 
     while(true)
     {
-        if ('c' == cin.get())
+        main_act.print_activities();
+        cout << "insert new activity - ";
+        cin >> cmd;
+        cout << endl;
+
+        if (0 == cmd)
             break;
+
+        main_act.act(cmd);
     }
+
     main_act.~activities();
 
     return 0;
