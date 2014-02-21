@@ -14,11 +14,33 @@ sonar::sonar(int pin_trigger, int pin_echo)
     _drv = NULL;
 
     _execution_thread = new thread (&sonar::constant_distance_measure, this);
+    _is_executing = true;
 }
 sonar::~sonar()
 {
+    force_stop();
+}
+
+void sonar::stop()
+{
     digitalWrite(trigger, LOW);
     digitalWrite(echo, LOW);
+}
+
+void sonar::wait_to_finish(int timeout_ms)
+{
+    while (true)
+    {
+        if (!_is_executing ) break;
+        delay(5);
+    }
+}
+
+void sonar::force_stop()
+{
+    _stop_execution = true;
+    wait_to_finish(0);
+    _stop_execution = false;
 }
 
 int sonar::waitforpin(int pin_value, int timeout_uS)
@@ -50,7 +72,7 @@ void sonar::constant_distance_measure()
     while (true)
     {
         measure_distance();
-        if ((_last_distance < 15) && (_last_distance != 0))
+        if ((_last_distance < 20) && (_last_distance != 0))
         {
             if (_drv != NULL)
             {
@@ -58,8 +80,12 @@ void sonar::constant_distance_measure()
             }
 
         }
+        if (_stop_execution) break;
         delay(30);
     }
+    stop();
+    _stop_execution = false;
+    _is_executing = false;
 }
 
 void sonar::measure_distance()

@@ -18,6 +18,7 @@ drivetrain::drivetrain(pwm_chip * chip_PCA9685)
 
 drivetrain::~drivetrain()
 {
+    force_stop();
     _chip_PCA9685->~pwm_chip();
 }
 
