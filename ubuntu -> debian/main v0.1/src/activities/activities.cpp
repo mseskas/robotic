@@ -229,34 +229,33 @@ void activities::hvs_view()
 // using gaussian blur 3/3
 void activities::init_floor()
 {
-    cvNamedWindow("floor", 1);
+    cvNamedWindow("floor");
     cvStartWindowThread();
-
     while (true)
     {
         IplImage * frame =  cam_front->get_frame();
         GaussianBlur( (Mat)frame, (Mat)frame, Size(3,3), 1.5, 1.5);
+
         cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
 
         long h = 0, v = 0, s = 0;
         int quantity = 0 ;
-        uchar * p = Mat(frame, false).ptr(frame->height -5 );
+        uchar * p = Mat(frame, false).ptr( frame->height - 1); //frame->height /2
 
         for (int i = 10; i < frame->width; i += 10 )
         {
-            p += i;
+            p += 30;
             h += *p; p++;
-            v += *p; p++;
-            s += *p; p -= 2;
+            s += *p; p++;
+            v += *p; p -= 2;
             quantity++;
         }
         h /= quantity;
         s /= quantity;
         v /= quantity;
-        cout << "FLOOR h/v/s - " << h << " / " << v << " / " << s << " / "
-        << "by " << quantity << " pixels" << endl;
+        cout << "FLOOR h/s/v - " << h << " / " << s << " / " << v << endl;
 
-        IplImage * th_img = adv_opencv->GetThresholdedImage(frame, cvScalar(h,v,s));
+        IplImage * th_img = adv_opencv->GetThresholdedImage(frame, cvScalar(h,s,v));
 
         cvShowImage("floor", th_img);
         cvWaitKey(1);

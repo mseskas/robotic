@@ -2,6 +2,7 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <iostream>
 
+using namespace std;
 
 class advanced_opencv
 {

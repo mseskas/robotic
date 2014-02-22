@@ -17,9 +17,9 @@ int frame_height = 240;
 //This function threshold the HSV image and create a binary image
 IplImage* GetThresholdedImage(IplImage* imgHSV){
        IplImage* imgThresh=cvCreateImage(cvGetSize(imgHSV),IPL_DEPTH_8U, 1);
-       cvInRangeS ( imgHSV, cvScalar(160,100,100), cvScalar(256,256,256), imgThresh);  // wide green
+       cvInRangeS ( imgHSV, cvScalar(39,220,220), cvScalar(45,255,255), imgThresh);  // wide green
        return imgThresh;
-}
+}       // 58 - 75
 
 Point getCentroid(IplImage img)
 {
@@ -51,20 +51,21 @@ Point getCentroid(IplImage img)
 }
 
 int main(){
-      wiringPiSetup();  // initialize library
+   //   wiringPiSetup();  // initialize library
 
       pinMode(0, OUTPUT);  // forward right - turn left
       pinMode(1, OUTPUT);  // forward left  - turn right
 
       CvCapture* capture =0;
 
-      capture = cvCaptureFromCAM(1);
-      cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, frame_width);
-      cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, frame_height);
+      capture = cvCaptureFromCAM(0);
+      //cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_WIDTH, frame_width);
+     //cvSetCaptureProperty(capture, CV_CAP_PROP_FRAME_HEIGHT, frame_height);
 
       IplImage* frame=0;
       cvNamedWindow("Video");
       cvNamedWindow("Ball");
+      cvNamedWindow("hsv");
         double t = 0;
       //iterate through each frames of the video
       while(true){
@@ -87,7 +88,7 @@ int main(){
 
             Point pnt = getCentroid(*imgThresh);
 
-            if (pnt.x != 0)
+    /*        if (pnt.x != 0)
             {
                 cout << "center of ball - (" << pnt.x << "," << pnt.y << ")" << endl;
 
@@ -115,10 +116,11 @@ int main(){
                         delay(10 - pulse);
                     }
                 }
-            }
+            }*/
 
             cvShowImage("Ball", imgThresh);
             cvShowImage("Video", frame);
+            cvShowImage("hsv", imgHSV);
 
             t = (double)cvGetTickCount() - t;
      //       printf( "process time = %8g ms\n", t/((double)cvGetTickFrequency()*1000) );

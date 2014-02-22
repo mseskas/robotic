@@ -14,7 +14,7 @@ advanced_opencv::~advanced_opencv()
 
 IplImage* advanced_opencv::GetThresholdedImage(IplImage* imgHSV, CvScalar hvs)
 {
-    int step =40;
+    int step =15;
 
     double h0 = hvs.val[0] - step, s0 = hvs.val[1] - step, v0 = hvs.val[2] - step;
     double h1 = hvs.val[0] + step, s1 = hvs.val[1] + step, v1 = hvs.val[2] + step;
@@ -24,7 +24,6 @@ IplImage* advanced_opencv::GetThresholdedImage(IplImage* imgHSV, CvScalar hvs)
 
 
     IplImage* imgThresh=cvCreateImage(cvGetSize(imgHSV),IPL_DEPTH_8U, 1);
-    cvInRangeS ( imgHSV, cvScalar(h0, s0, v0),
-    cvScalar(h1, s1, v1), imgThresh);
+    cvInRangeS ( imgHSV, cvScalar(h0, 100, 100), cvScalar(h1, 255, 255), imgThresh);
     return imgThresh;
 }
