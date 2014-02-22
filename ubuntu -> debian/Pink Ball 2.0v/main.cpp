@@ -64,8 +64,8 @@ int main(){
 
       IplImage* frame=0;
       cvNamedWindow("Video");
-      cvNamedWindow("Ball");
-      cvNamedWindow("hsv");
+     // cvNamedWindow("Ball");
+     // cvNamedWindow("hsv");
         double t = 0;
       //iterate through each frames of the video
       while(true){
@@ -77,16 +77,23 @@ int main(){
             t = (double)cvGetTickCount();
             frame=cvCloneImage(frame);
 
-     //       GaussianBlur(Mat(frame, false), Mat(frame, false), cvSize(3,3), 1.5, 1.5);
+           GaussianBlur(Mat(frame, false), Mat(frame, false), cvSize(3,3), 1.5, 1.5);
 
-            IplImage * imgHSV = cvCreateImage(cvGetSize(frame), IPL_DEPTH_8U, 3);
-
-            cvtColor( (Mat)frame, (Mat)imgHSV, CV_BGR2HSV); //Change the color format from BGR to HSV
+            IplImage * imgHSV = cvCreateImage(cvGetSize(frame), IPL_DEPTH_8U, 3); // = cvCreateImage(cvGetSize(frame), IPL_DEPTH_8U, 3);
 
 
-            IplImage * imgThresh = GetThresholdedImage(imgHSV);
+ dilate((Mat)frame, (Mat)frame, Mat(), Point(-1,-1), 3);
+                erode((Mat)frame, (Mat)frame, NULL, Point(-1, -1), 3);
 
-            Point pnt = getCentroid(*imgThresh);
+
+
+
+           // cvtColor( (Mat)frame, (Mat)imgHSV, CV_BGR2HSV); //Change the color format from BGR to HSV
+
+
+          //  IplImage * imgThresh = GetThresholdedImage(imgHSV);
+
+            //Point pnt = getCentroid(*imgThresh);
 
     /*        if (pnt.x != 0)
             {
@@ -118,16 +125,16 @@ int main(){
                 }
             }*/
 
-            cvShowImage("Ball", imgThresh);
+           // cvShowImage("Ball", imgThresh);
             cvShowImage("Video", frame);
-            cvShowImage("hsv", imgHSV);
+           // cvShowImage("hsv", imgHSV);
 
             t = (double)cvGetTickCount() - t;
      //       printf( "process time = %8g ms\n", t/((double)cvGetTickFrequency()*1000) );
 
             //Clean up used images
             cvReleaseImage(&imgHSV);
-            cvReleaseImage(&imgThresh);
+        //    cvReleaseImage(&imgThresh);
             cvReleaseImage(&frame);
 
 

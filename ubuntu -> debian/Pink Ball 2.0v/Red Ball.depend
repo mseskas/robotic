@@ -22,7 +22,7 @@
 	<wiringPi.h>
 	<ctype.h>
 
-1393096043 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/Pink Ball 2.0v/main.cpp
+1393109471 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/Pink Ball 2.0v/main.cpp
 	"opencv2/highgui/highgui.hpp"
 	"opencv2/imgproc/imgproc.hpp"
 	<iostream>
