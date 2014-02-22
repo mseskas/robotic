@@ -234,11 +234,15 @@ void activities::init_floor()
     while (true)
     {
         IplImage * frame =  cam_front->get_frame();
-        GaussianBlur( (Mat)frame, (Mat)frame, Size(3,3), 1.5, 1.5);
+        GaussianBlur( (Mat)frame, (Mat)frame, Size(5, 5), 0, 0);
+
+        //erode((Mat)frame, (Mat)frame, NULL, Point(-1, -1), 3);
+        //dilate((Mat)frame, (Mat)frame, Mat(), Point(-1,-1), 3);
+
 
         cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
 
-        long h = 0, v = 0, s = 0;
+        long h = 0, s = 0, v = 0;
         int quantity = 0 ;
         uchar * p = Mat(frame, false).ptr( frame->height - 1); //frame->height /2
 
