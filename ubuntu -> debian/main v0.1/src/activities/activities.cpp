@@ -81,6 +81,11 @@ void activities::act(int activity_no)
             _is_executing = true;
         break;
 
+        case 7 : // init floor
+            force_stop();
+            _execution_thread = new thread (&activities::init_floor, this);
+            _is_executing = true;
+        break;
 
         default :
             cout << "activities::act() - unknown activity" << endl;
@@ -99,8 +104,8 @@ void activities::print_activities()
         << "3 - Show view front" << endl
         << "4 - Show view Canny" << endl
         << "5 - Show view HVS" << endl
-        << "6 - Dumb drive" << endl;
-
+        << "6 - Dumb drive" << endl
+        << "7 - init floor" << endl;
 }
 
 void activities::show_front_distance()
@@ -216,6 +221,57 @@ void activities::hvs_view()
     }
     destroyWindow("HVS");
 
+    _stop_execution = false;
+    _is_executing = false;
+}
+
+
+IplImage* activities::GetThresholdedImage(IplImage* imgHSV, CvScalar hvs)
+{
+    IplImage* imgThresh=cvCreateImage(cvGetSize(imgHSV),IPL_DEPTH_8U, 1);
+    cvInRangeS ( imgHSV, cvScalar(hvs.val[0]-15 ,0 ,0),
+    cvScalar(hvs.val[0]+15, 255 ,255 ), imgThresh);
+    return imgThresh;
+}
+
+void activities::init_floor()
+{
+    cvNamedWindow("floor", 1);
+    cvStartWindowThread();
+
+    while (true)
+    {
+        IplImage * frame =  cam_front->get_frame();
+        GaussianBlur( (Mat)frame, (Mat)frame, Size(3,3), 1.5, 1.5);
+        cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
+
+        long h = 0, v = 0, s = 0;
+        int quantity = 0 ;
+        uchar * p = Mat(frame, false).ptr(frame->height -5 );
+
+        for (int i = 30; i < frame->width; i += 30 )
+        {
+            p += i;
+            h += *p; p++;
+            v += *p; p++;
+            s += *p; p -= 2;
+            quantity++;
+        }
+        h /= quantity;
+        s /= quantity;
+        v /= quantity;
+        //cout << quantity <<  " h / v / s - " << h << " / " << v << " / " << s << " / " << endl;
+
+        IplImage * th_img = GetThresholdedImage(frame, cvScalar(h,v,s));
+
+        cvShowImage("floor", th_img);
+        cvWaitKey(1);
+
+
+        if (_stop_execution) break;
+        delay(100);
+    }
+    cvDestroyWindow("floor");
     _stop_execution = false;
     _is_executing = false;
 }

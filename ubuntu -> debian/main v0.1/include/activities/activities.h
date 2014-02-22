@@ -32,6 +32,9 @@ class activities
     thread     * _execution_thread;
     bool       _stop_execution;
     bool       _is_executing;
+private : // internal code
+    IplImage* GetThresholdedImage(IplImage* imgHSV, CvScalar hvs);
+
 
 private : // separate activities
     void    dumb_drive();
@@ -39,4 +42,5 @@ private : // separate activities
     void    show_front_view();
     void    canny_edge_view();
     void    hvs_view();
+    void    init_floor();
 };
