@@ -14,3 +14,11 @@
 	<wiringPi.h>
 	<ctype.h>
 
+1391812592 source:/root/Desktop/robotic/ubuntu -> debian/Pink Ball 2.0v/main.cpp
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<ctype.h>
+
