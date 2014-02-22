@@ -2,7 +2,7 @@
 #include <string>
 
 
-#include "activities.h"
+#include "activities/activities.h"
 
 using namespace std;
 
@@ -26,7 +26,7 @@ int main()
         main_act.act(cmd);
     }
 
-    //main_act.~activities();
+    //main_act.~activities();   - called in every return statement
 
     return 0;
 }

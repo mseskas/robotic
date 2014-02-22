@@ -4,6 +4,7 @@
 #include <thread>
 
 #include <project_constants.h>
+#include <video processing/advanced_opencv.h>
 #include <pwm_chip.h>
 #include <drivetrain.h>
 #include <servo.h>
@@ -24,6 +25,7 @@ class activities
         void print_activities();
     protected:
     private:
+    advanced_opencv * adv_opencv;
     sonar      * sonar_front;
     pwm_chip   * chip_16pwm;
     servo      * servo_spare;
@@ -32,8 +34,6 @@ class activities
     thread     * _execution_thread;
     bool       _stop_execution;
     bool       _is_executing;
-private : // internal code
-    IplImage* GetThresholdedImage(IplImage* imgHSV, CvScalar hvs);
 
 
 private : // separate activities

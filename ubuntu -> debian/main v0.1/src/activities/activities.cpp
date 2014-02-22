@@ -1,4 +1,4 @@
-#include "activities.h"
+#include "activities/activities.h"
 
 using namespace cv;
 
@@ -14,6 +14,7 @@ activities::activities()
     sonar_front->set_drivetrain( drv); */
 
     cam_front = new camera (USB_FRONT_CAMERA_NO);
+    adv_opencv = new advanced_opencv();
 }
 
 
@@ -162,7 +163,7 @@ void activities::show_front_view()
     _is_executing = false;
 }
 
-
+// using gaussian blur 3/3
 void activities::canny_edge_view()
 {
     namedWindow("Canny");
@@ -225,15 +226,7 @@ void activities::hvs_view()
     _is_executing = false;
 }
 
-
-IplImage* activities::GetThresholdedImage(IplImage* imgHSV, CvScalar hvs)
-{
-    IplImage* imgThresh=cvCreateImage(cvGetSize(imgHSV),IPL_DEPTH_8U, 1);
-    cvInRangeS ( imgHSV, cvScalar(hvs.val[0]-15 ,0 ,0),
-    cvScalar(hvs.val[0]+15, 255 ,255 ), imgThresh);
-    return imgThresh;
-}
-
+// using gaussian blur 3/3
 void activities::init_floor()
 {
     cvNamedWindow("floor", 1);
@@ -249,7 +242,7 @@ void activities::init_floor()
         int quantity = 0 ;
         uchar * p = Mat(frame, false).ptr(frame->height -5 );
 
-        for (int i = 30; i < frame->width; i += 30 )
+        for (int i = 10; i < frame->width; i += 10 )
         {
             p += i;
             h += *p; p++;
@@ -260,9 +253,10 @@ void activities::init_floor()
         h /= quantity;
         s /= quantity;
         v /= quantity;
-        //cout << quantity <<  " h / v / s - " << h << " / " << v << " / " << s << " / " << endl;
+        cout << "FLOOR h/v/s - " << h << " / " << v << " / " << s << " / "
+        << "by " << quantity << " pixels" << endl;
 
-        IplImage * th_img = GetThresholdedImage(frame, cvScalar(h,v,s));
+        IplImage * th_img = adv_opencv->GetThresholdedImage(frame, cvScalar(h,v,s));
 
         cvShowImage("floor", th_img);
         cvWaitKey(1);
