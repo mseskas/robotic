@@ -16,7 +16,7 @@ class drivetrain
         drivetrain(pwm_chip * chip_PCA9685);
         ~drivetrain();
         void a_turn(int direction, float time_seconds);
-        void a_drive(float time_seconds, int  direction);
+        void a_drive(int  direction, float time_seconds);
         void set_drive_speed(float speed);
         float get_drive_speed();
         void set_turn_speed(float speed);

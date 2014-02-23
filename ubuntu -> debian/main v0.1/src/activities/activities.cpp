@@ -5,26 +5,27 @@ using namespace cv;
 activities::activities()
 {
  cout << "please uncomment me - activities::activities()" << endl;
- /*   sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
-    chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
-    servo_spare = new servo (chip_16pwm, PIN_SERVO);
-    drv = new drivetrain (chip_16pwm);
+    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+    _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
+    _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
+    _drv = new drivetrain (_chip_16pwm);
 
 
-    sonar_front->set_drivetrain( drv); */
+    _sonar_front->set_drivetrain(_drv);
 
-    cam_front = new camera (USB_FRONT_CAMERA_NO);
-    adv_opencv = new advanced_opencv();
+    _cam_front = new camera (USB_FRONT_CAMERA_NO);
+    _adv_opencv = new advanced_opencv();
 }
 
 
 
 activities::~activities()
 {
+/*
     cout << "please uncomment me -activities::~activities()" << endl;
-   /* force_stop();
-    drv->~drivetrain();
-    sonar_front->~sonar(); */
+    force_stop();
+    _drv->~drivetrain();
+    _sonar_front->~sonar(); */
 }
 
 void activities::force_stop()
@@ -75,17 +76,20 @@ void activities::act(int activity_no)
             _is_executing = true;
         break;
 
+        case 6 : // init floor
+            force_stop();
+            _execution_thread = new thread (&activities::init_floor, this);
+            _is_executing = true;
+        break;
 
-        case 6 : // dumb drive
+        case 7 : // dumb drive
             force_stop();
             _execution_thread = new thread (&activities::dumb_drive, this);
             _is_executing = true;
         break;
 
-        case 7 : // init floor
-            force_stop();
-            _execution_thread = new thread (&activities::init_floor, this);
-            _is_executing = true;
+        case 8:
+            control_robot();
         break;
 
         default :
@@ -102,22 +106,20 @@ void activities::print_activities()
         << "0 - Quit" << endl
         << "1 - Stop everything!!!" << endl
         << "2 - Show distance to front" << endl
-        << "3 - Show view front" << endl
-        << "4 - Show view Canny" << endl
-        << "5 - Show view HVS" << endl
-        << "6 - Dumb drive" << endl
-        << "7 - init floor" << endl;
+        << "3 - Show view front " << "4 - Show view Canny " << "5 - Show view HVS " << "6 - init floor" << endl
+        << "7 - Dumb drive" << endl
+        << "8 - control robot" << endl;
 }
 
 void activities::show_front_distance()
 {
     while (true)
     {
-        cout << "distance to front = " << sonar_front->get_distance() << endl;
+        cout << "distance to front = " << _sonar_front->get_distance() << endl;
         if (_stop_execution) break;
         delay(100);
     }
-    drv->force_stop();
+    _drv->force_stop();
     _stop_execution = false;
     _is_executing = false;
 }
@@ -127,17 +129,17 @@ void activities::dumb_drive()
 {
     while (true)
         {
-            drv->a_drive(5, FORWARD);
+            _drv->a_drive(FORWARD, 5);
                 if (_stop_execution) break;
-            drv->wait_to_finish(0);
+            _drv->wait_to_finish(0);
                 if (_stop_execution) break;
-            drv->a_turn(TURN_RIGHT, 0.8);
+            _drv->a_turn(TURN_RIGHT, 0.8);
                 if (_stop_execution) break;
-            drv->wait_to_finish(0);
+            _drv->wait_to_finish(0);
                 if (_stop_execution) break;
             delay(250);
         }
-        drv->force_stop();
+        _drv->force_stop();
         _stop_execution = false;
         _is_executing = false;
 }
@@ -150,7 +152,7 @@ void activities::show_front_view()
 
     while (true)
     {
-        IplImage * frame =  cam_front->get_frame();
+        IplImage * frame =  _cam_front->get_frame();
 
         cvShowImage("camera", frame);
         //cvWaitKey(1);
@@ -171,7 +173,7 @@ void activities::canny_edge_view()
 
     while(true)
     {
-        IplImage * frame =  cam_front->get_frame();
+        IplImage * frame =  _cam_front->get_frame();
 
         //frame=cvCloneImage(frame);
        // cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
@@ -205,7 +207,7 @@ void activities::hvs_view()
 
     while(true)
     {
-        IplImage * frame =  cam_front->get_frame();
+        IplImage * frame =  _cam_front->get_frame();
 
       // frame=cvCloneImage(frame);
 
@@ -234,7 +236,7 @@ void activities::init_floor()
     cvStartWindowThread();
     while (true)
     {
-        IplImage * frame =  cam_front->get_frame();
+        IplImage * frame =  _cam_front->get_frame();
         GaussianBlur( (Mat)frame, (Mat)frame, Size(3, 3), 0, 0);
 
         //erode((Mat)frame, (Mat)frame, NULL, Point(-1, -1), 1);
@@ -243,14 +245,14 @@ void activities::init_floor()
 
         cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
 
-        CvScalar * scal = adv_opencv->get_bottom_line_pixel_mean(frame);
+        CvScalar * scal = _adv_opencv->get_bottom_line_pixel_mean(frame);
 
-        IplImage * th_img = adv_opencv->GetThresholdedImage(frame, *scal );
+        IplImage * th_img = _adv_opencv->GetThresholdedImage(frame, *scal );
 
         //IplImage* imgrez=cvCreateImage(cvGetSize(th_img),IPL_DEPTH_8U, 1);
 
         // val[0] - b, val[1] - a;
-        scal = adv_opencv->mark_line(th_img, th_img);
+        scal = _adv_opencv->mark_line(th_img, th_img);
 
         cvShowImage("floor", th_img);
        // cvShowImage("fin", imgrez);
@@ -267,12 +269,72 @@ void activities::init_floor()
     _is_executing = false;
 }
 
-void activities::sync_turn()
+
+
+void activities::control_robot()
 {
-    float
-    while (true)
+    int cmd;
+    bool repeat = true;
+
+    int arg1;
+
+    while (repeat)
     {
-        cin
+        cout << "Move mode, options :" << endl
+        << "1 - stop moving!!!" << endl
+        << "2 - turn left" << endl
+        << "3 - turn right" << endl
+        << "4 - drive forward" << endl
+        << "5 - drive backward" << endl
+        << "0 - quit to main menu" << endl;
+
+        cin >> cmd;
+
+        switch (cmd)
+        {
+            case 1:
+                force_stop();
+            break;
+
+            case 2:
+                cout << "input time (int)x10ms - ";
+                cin >> arg1;
+                cout << endl;
+                _drv->a_turn(TURN_LEFT, 0.01 * arg1);
+
+            break;
+
+            case 3:
+                cout << "input time (int)x10ms - ";
+                cin >> arg1;
+                cout << endl;
+                _drv->a_turn(TURN_RIGHT, 0.01 * arg1);
+
+            break;
+
+            case 4:
+                cout << "input time (int)x10ms - ";
+                cin >> arg1;
+                cout << endl;
+                _drv->a_drive(FORWARD, 0.01 * arg1);
+
+            break;
+
+            case 5:
+                cout << "input time (int)x10ms - ";
+                cin >> arg1;
+                cout << endl;
+                _drv->a_drive(BACKWARD, 0.01 * arg1);
+            break;
+
+            case 0:
+                repeat = false;
+            break;
+
+            default:
+                cout << "Invalid option" << endl;
+            break;
+        }
 
     }
 

@@ -102,7 +102,7 @@ void drivetrain::drive(float time_seconds, float speed, float left_wheel_percent
 
 
 
-void drivetrain::a_drive(float time_seconds, int direction)
+void drivetrain::a_drive(int direction, float time_seconds)
 {
     force_stop();
     if (direction == FORWARD)
