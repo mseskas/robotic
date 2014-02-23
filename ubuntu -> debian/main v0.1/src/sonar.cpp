@@ -72,7 +72,7 @@ void sonar::constant_distance_measure()
     while (true)
     {
         measure_distance();
-        if ((_last_distance < 20) && (_last_distance != 0))
+        if ((_last_distance < stop_drivetrain_when_distance_to_front) && (_last_distance != 0))
         {
             if (_drv != NULL)
             {

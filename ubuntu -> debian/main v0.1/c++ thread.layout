@@ -10,31 +10,31 @@
 	<File name="include/drivetrain.h" open="0" top="0" tabpos="4">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="include/project_constants.h" open="0" top="0" tabpos="4">
-		<Cursor position="0" topLine="0" />
+	<File name="include/project_constants.h" open="1" top="0" tabpos="3">
+		<Cursor position="350" topLine="0" />
 	</File>
 	<File name="include/sonar.h" open="0" top="0" tabpos="6">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="include/video processing/advanced_opencv.h" open="1" top="0" tabpos="3">
-		<Cursor position="376" topLine="0" />
+	<File name="include/video processing/advanced_opencv.h" open="0" top="0" tabpos="3">
+		<Cursor position="162" topLine="0" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="src/activities/activities.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6448" topLine="209" />
+		<Cursor position="6239" topLine="63" />
 	</File>
 	<File name="src/camera.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/drivetrain.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="0" topLine="0" />
+	<File name="src/drivetrain.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="3" />
 	</File>
 	<File name="src/sonar.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="0" topLine="0" />
+		<Cursor position="1394" topLine="60" />
 	</File>
-	<File name="src/video processing/advanced_opencv.cpp" open="1" top="0" tabpos="2">
+	<File name="src/video processing/advanced_opencv.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="3341" topLine="39" />
 	</File>
 </CodeBlocks_layout_file>
