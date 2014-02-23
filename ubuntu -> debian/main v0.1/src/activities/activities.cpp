@@ -230,11 +230,12 @@ void activities::hvs_view()
 void activities::init_floor()
 {
     cvNamedWindow("floor");
+    cvNamedWindow("fin");
     cvStartWindowThread();
     while (true)
     {
         IplImage * frame =  cam_front->get_frame();
-        GaussianBlur( (Mat)frame, (Mat)frame, Size(5, 5), 0, 0);
+        GaussianBlur( (Mat)frame, (Mat)frame, Size(3, 3), 0, 0);
 
         //erode((Mat)frame, (Mat)frame, NULL, Point(-1, -1), 3);
         //dilate((Mat)frame, (Mat)frame, Mat(), Point(-1,-1), 3);
@@ -242,26 +243,17 @@ void activities::init_floor()
 
         cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
 
-        long h = 0, s = 0, v = 0;
-        int quantity = 0 ;
-        uchar * p = Mat(frame, false).ptr( frame->height - 1); //frame->height /2
+        CvScalar * scal = adv_opencv->get_bottom_line_pixel_mean(frame);
 
-        for (int i = 10; i < frame->width; i += 10 )
-        {
-            p += 30;
-            h += *p; p++;
-            s += *p; p++;
-            v += *p; p -= 2;
-            quantity++;
-        }
-        h /= quantity;
-        s /= quantity;
-        v /= quantity;
-        cout << "FLOOR h/s/v - " << h << " / " << s << " / " << v << endl;
+        IplImage * th_img = adv_opencv->GetThresholdedImage(frame, *scal );
 
-        IplImage * th_img = adv_opencv->GetThresholdedImage(frame, cvScalar(h,s,v));
+        IplImage* imgrez=cvCreateImage(cvGetSize(th_img),IPL_DEPTH_8U, 1);
+
+        adv_opencv->mark_line(th_img, imgrez);
 
         cvShowImage("floor", th_img);
+        cvShowImage("fin", imgrez);
+
         cvWaitKey(1);
 
 
@@ -269,6 +261,7 @@ void activities::init_floor()
         delay(100);
     }
     cvDestroyWindow("floor");
+    cvDestroyWindow("fin");
     _stop_execution = false;
     _is_executing = false;
 }
