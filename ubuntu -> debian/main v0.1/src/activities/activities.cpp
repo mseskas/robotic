@@ -230,7 +230,7 @@ void activities::hvs_view()
 void activities::init_floor()
 {
     cvNamedWindow("floor");
-    cvNamedWindow("fin");
+    //cvNamedWindow("fin");
     cvStartWindowThread();
     while (true)
     {
@@ -245,16 +245,15 @@ void activities::init_floor()
 
         CvScalar * scal = adv_opencv->get_bottom_line_pixel_mean(frame);
 
-
-
         IplImage * th_img = adv_opencv->GetThresholdedImage(frame, *scal );
 
-        IplImage* imgrez=cvCreateImage(cvGetSize(th_img),IPL_DEPTH_8U, 1);
+        //IplImage* imgrez=cvCreateImage(cvGetSize(th_img),IPL_DEPTH_8U, 1);
 
-        adv_opencv->mark_line(th_img, imgrez);
+        // val[0] - b, val[1] - a;
+        scal = adv_opencv->mark_line(th_img, th_img);
 
         cvShowImage("floor", th_img);
-        cvShowImage("fin", imgrez);
+       // cvShowImage("fin", imgrez);
 
         cvWaitKey(1);
 
@@ -268,4 +267,13 @@ void activities::init_floor()
     _is_executing = false;
 }
 
+void activities::sync_turn()
+{
+    float
+    while (true)
+    {
+        cin
 
+    }
+
+}

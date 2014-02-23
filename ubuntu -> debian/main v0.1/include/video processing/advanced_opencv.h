@@ -12,7 +12,7 @@ class advanced_opencv
         ~advanced_opencv();
         IplImage * GetThresholdedImage(IplImage* imgHSV, CvScalar hvs);
         CvScalar * get_bottom_line_pixel_mean(IplImage * img);
-        void mark_line(IplImage* img, IplImage* rezimg);
+        CvScalar *  mark_line(IplImage* img, IplImage* rezimg);
     protected:
     private:
 

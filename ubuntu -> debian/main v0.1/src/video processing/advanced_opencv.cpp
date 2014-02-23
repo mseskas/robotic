@@ -67,8 +67,8 @@ CvScalar * advanced_opencv::get_bottom_line_pixel_mean(IplImage * img)
         return &scal;
 }
 
-// image must bi single channel
-void advanced_opencv::mark_line(IplImage * img, IplImage* rezimg)
+// image must bi single channel  result scalar ( b- xcoeficient, a - offset from y)
+CvScalar * advanced_opencv::mark_line(IplImage * img, IplImage* rezimg)
 {
 
     double sumX, sumXX, sumY, sumXY;
@@ -118,4 +118,7 @@ void advanced_opencv::mark_line(IplImage * img, IplImage* rezimg)
         cvLine(rezimg, cvPoint(0, (int)a), cvPoint(img->width-1, a + (b * (img->width-1))), cvScalar(50)
         ,3);
 
+        CvScalar scal = cvScalar(b, a);
+
+        return & scal;
 }
