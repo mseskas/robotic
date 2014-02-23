@@ -237,13 +237,15 @@ void activities::init_floor()
         IplImage * frame =  cam_front->get_frame();
         GaussianBlur( (Mat)frame, (Mat)frame, Size(3, 3), 0, 0);
 
-        //erode((Mat)frame, (Mat)frame, NULL, Point(-1, -1), 3);
-        //dilate((Mat)frame, (Mat)frame, Mat(), Point(-1,-1), 3);
+        //erode((Mat)frame, (Mat)frame, NULL, Point(-1, -1), 1);
+        //dilate((Mat)frame, (Mat)frame, Mat(), Point(-1,-1), 1);
 
 
         cvtColor((Mat)frame, (Mat)frame, CV_BGR2HSV);
 
         CvScalar * scal = adv_opencv->get_bottom_line_pixel_mean(frame);
+
+
 
         IplImage * th_img = adv_opencv->GetThresholdedImage(frame, *scal );
 
