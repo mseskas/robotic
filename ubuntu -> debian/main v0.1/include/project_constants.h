@@ -12,6 +12,9 @@
 
 #define default_drivetrain_drive_speed 0.175
 #define default_drivetrain_turn_speed 0.275
+#define stop_drivetrain_when_distance_to_front 15
+
+#define B_to_angle_conversion 147.0588
 
 // ============= Used Pins =================
 

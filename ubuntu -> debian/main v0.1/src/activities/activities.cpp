@@ -4,12 +4,12 @@ using namespace cv;
 
 activities::activities()
 {
- cout << "please uncomment me - activities::activities()" << endl;
+    // cout << "NOTE : activities() is disabled" << endl;
+
     _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
-
 
     _sonar_front->set_drivetrain(_drv);
 
@@ -21,11 +21,11 @@ activities::activities()
 
 activities::~activities()
 {
-/*
-    cout << "please uncomment me -activities::~activities()" << endl;
+    // cout << "NOTE : ~activities() is disabled" << endl;
+
     force_stop();
     _drv->~drivetrain();
-    _sonar_front->~sonar(); */
+    _sonar_front->~sonar();
 }
 
 void activities::force_stop()
@@ -254,17 +254,24 @@ void activities::init_floor()
         // val[0] - b, val[1] - a;
         scal = _adv_opencv->mark_line(th_img, th_img);
 
+
+        double angle = scal->val[0] * B_to_angle_conversion + 90;
+
+        cout << angle << "b - " << scal->val[0] << endl;
+
+
+
         cvShowImage("floor", th_img);
        // cvShowImage("fin", imgrez);
 
-        cvWaitKey(1);
+       // cvWaitKey(1);
 
 
         if (_stop_execution) break;
         delay(100);
     }
     cvDestroyWindow("floor");
-    cvDestroyWindow("fin");
+  //  cvDestroyWindow("fin");
     _stop_execution = false;
     _is_executing = false;
 }
@@ -275,9 +282,7 @@ void activities::control_robot()
 {
     int cmd;
     bool repeat = true;
-
     int arg1;
-
     while (repeat)
     {
         cout << "Move mode, options :" << endl
@@ -286,7 +291,7 @@ void activities::control_robot()
         << "3 - turn right" << endl
         << "4 - drive forward" << endl
         << "5 - drive backward" << endl
-        << "0 - quit to main menu" << endl;
+        << "0 - quit to main menu" << endl << "Your option : ";
 
         cin >> cmd;
 
@@ -297,34 +302,34 @@ void activities::control_robot()
             break;
 
             case 2:
-                cout << "input time (int)x10ms - ";
+                cout << "input time (int)x100ms - ";
                 cin >> arg1;
                 cout << endl;
-                _drv->a_turn(TURN_LEFT, 0.01 * arg1);
+                _drv->a_turn(TURN_LEFT, 0.1 * arg1);
 
             break;
 
             case 3:
-                cout << "input time (int)x10ms - ";
+                cout << "input time (int)x100ms - ";
                 cin >> arg1;
                 cout << endl;
-                _drv->a_turn(TURN_RIGHT, 0.01 * arg1);
+                _drv->a_turn(TURN_RIGHT, 0.1 * arg1);
 
             break;
 
             case 4:
-                cout << "input time (int)x10ms - ";
+                cout << "input time (int)x100ms - ";
                 cin >> arg1;
                 cout << endl;
-                _drv->a_drive(FORWARD, 0.01 * arg1);
+                _drv->a_drive(FORWARD, 0.1 * arg1);
 
             break;
 
             case 5:
-                cout << "input time (int)x10ms - ";
+                cout << "input time (int)x100ms - ";
                 cin >> arg1;
                 cout << endl;
-                _drv->a_drive(BACKWARD, 0.01 * arg1);
+                _drv->a_drive(BACKWARD, 0.1 * arg1);
             break;
 
             case 0:
