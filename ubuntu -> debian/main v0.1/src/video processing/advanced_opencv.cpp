@@ -70,8 +70,12 @@ CvScalar * advanced_opencv::get_bottom_line_pixel_mean(IplImage * img)
 // image must bi single channel
 void advanced_opencv::mark_line(IplImage * img, IplImage* rezimg)
 {
+
+    double sumX, sumXX, sumY, sumXY;
+
+
     int curr_y = img->height-1;
-        for (int x = 1; x < img->width ; x += 1 )
+        for (int x = 0; x < img->width ; x += 1 )
         {
             //curr_y = img->height-1;
             for (int y = curr_y; y > 2; y -= 1) // downgrade loop
@@ -92,10 +96,26 @@ void advanced_opencv::mark_line(IplImage * img, IplImage* rezimg)
                         curr_y = y +1 ;
                     }
 
+                    sumX += x;
+                    sumXX += x*x;
+                    sumXY += x*y;
+                    sumY += y;
+
 
                     break;
                 }
             }
 
         }
+        int n = img->width;
+
+        float b = (sumXY - ((sumX * sumY)/n) ) / (sumXX - ((sumX*sumX)/n) );
+
+        float mean_x = sumX /n, mean_y = sumY /n;
+
+        float a = mean_y - b * mean_x;
+
+        cvLine(rezimg, cvPoint(0, (int)a), cvPoint(img->width-1, a + (b * (img->width-1))), cvScalar(50)
+        ,3);
+
 }
