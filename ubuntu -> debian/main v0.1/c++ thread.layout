@@ -16,96 +16,45 @@
 			<Cursor1 position="2684" topLine="87" />
 		</Cursor>
 	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="304" topLine="4" />
+		</Cursor>
+	</File>
+	<File name="include/project_constants.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="include/drivetrain.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1067" topLine="9" />
 		</Cursor>
-	</File>
-<<<<<<< HEAD
-	<File name="include/sonar.h" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-=======
-	<File name="include/project_constants.h" open="1" top="0" tabpos="3">
-		<Cursor position="350" topLine="0" />
->>>>>>> 1eea320c9f010a40b6a2ba7948f28c16d1e06189
-	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-	</File>
-<<<<<<< HEAD
-	<File name="include/video processing/advanced_opencv.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
-=======
-	<File name="include/video processing/advanced_opencv.h" open="0" top="0" tabpos="3">
-		<Cursor position="162" topLine="0" />
->>>>>>> 1eea320c9f010a40b6a2ba7948f28c16d1e06189
 	</File>
 	<File name="src/camera.cpp" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-<<<<<<< HEAD
-	<File name="src/sonar.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/activities/activities.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="0" topLine="0" />
+			<Cursor1 position="2813" topLine="21" />
 		</Cursor>
-=======
-	<File name="src/activities/activities.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6239" topLine="63" />
->>>>>>> 1eea320c9f010a40b6a2ba7948f28c16d1e06189
+		<Folding>
+			<Collapse line="5" />
+			<Collapse line="8" />
+			<Collapse line="22" />
+			<Collapse line="25" />
+		</Folding>
 	</File>
 	<File name="include/camera.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
 	</File>
-<<<<<<< HEAD
-	<File name="src/activities/activities.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="506" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="38" />
-			<Collapse line="102" />
-			<Collapse line="114" />
-			<Collapse line="116" />
-			<Collapse line="128" />
-			<Collapse line="148" />
-			<Collapse line="153" />
-			<Collapse line="169" />
-			<Collapse line="174" />
-			<Collapse line="201" />
-			<Collapse line="208" />
-			<Collapse line="232" />
-			<Collapse line="237" />
-			<Collapse line="274" />
-		</Folding>
-	</File>
-	<File name="include/activities/activities.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1018" topLine="19" />
-		</Cursor>
-	</File>
-	<File name="include/project_constants.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/video processing/advanced_opencv.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
-=======
-	<File name="src/drivetrain.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="0" topLine="3" />
-	</File>
-	<File name="src/sonar.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="1394" topLine="60" />
-	</File>
-	<File name="src/video processing/advanced_opencv.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="3341" topLine="39" />
->>>>>>> 1eea320c9f010a40b6a2ba7948f28c16d1e06189
 	</File>
 </CodeBlocks_layout_file>

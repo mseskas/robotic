@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 int main()
 {
     activities main_act;

@@ -4,9 +4,9 @@ using namespace cv;
 
 activities::activities()
 {
-    // cout << "NOTE : activities() is disabled" << endl;
+     cout << "NOTE : activities() is disabled" << endl;
 
-    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+  /*  _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
@@ -14,18 +14,18 @@ activities::activities()
     _sonar_front->set_drivetrain(_drv);
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
-    _adv_opencv = new advanced_opencv();
+    _adv_opencv = new advanced_opencv(); */
 }
 
 
 
 activities::~activities()
 {
-    // cout << "NOTE : ~activities() is disabled" << endl;
+     cout << "NOTE : ~activities() is disabled" << endl;
 
-    force_stop();
+   /* force_stop();
     _drv->~drivetrain();
-    _sonar_front->~sonar();
+    _sonar_front->~sonar(); */
 }
 
 void activities::force_stop()
@@ -106,9 +106,9 @@ void activities::print_activities()
         << "0 - Quit" << endl
         << "1 - Stop everything!!!" << endl
         << "2 - Show distance to front" << endl
-        << "3 - Show view front " << "4 - Show view Canny " << "5 - Show view HVS " << "6 - init floor" << endl
+        << "3 - Show view front " << "4 - Show view Canny " << "5 - Show view HVS " << "6 - Init floor" << endl
         << "7 - Dumb drive" << endl
-        << "8 - control robot" << endl;
+        << "8 - Control Me" << endl;
 }
 
 void activities::show_front_distance()
