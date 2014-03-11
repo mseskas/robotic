@@ -1,0 +1,8 @@
+# depslib dependency file v1.0
+1394562987 source:/home/minde/Desktop/guard/main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<stdlib.h>
+	<wiringPi.h>
+
