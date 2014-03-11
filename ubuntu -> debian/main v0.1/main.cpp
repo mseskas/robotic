@@ -19,7 +19,7 @@ int main()
         cin >> cmd;
         cout << endl;
 
-        if (0 == cmd)
+        if (0 == cmd)  // closes program at 0 or any key than is not a number
             break;
 
         main_act.act(cmd);
