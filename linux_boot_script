@@ -1,0 +1,16 @@
+#!/bin/bash
+# This script starts "guard" process on linux boot
+
+USER=root
+HOME=/root
+
+export USER HOME
+
+echo "Jerry boot script started"
+echo "Starting \"guard\" process.."
+
+cd /root/Desktop
+./guard
+
+exit 0
+
