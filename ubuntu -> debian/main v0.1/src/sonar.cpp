@@ -12,9 +12,8 @@ sonar::sonar(int pin_trigger, int pin_echo)
     pinMode(trigger, OUTPUT);
     pinMode(echo, INPUT);
     _drv = NULL;
-
+    _stop_execution = false;
     _execution_thread = new thread (&sonar::constant_distance_measure, this);
-    _is_executing = true;
 }
 sonar::~sonar()
 {
@@ -70,6 +69,7 @@ void sonar::set_drivetrain(drivetrain * drv)
 
 void sonar::constant_distance_measure()
 {
+    _is_executing = true;
     while (true)
     {
         measure_distance();
