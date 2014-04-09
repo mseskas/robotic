@@ -6,3 +6,10 @@
 	<stdlib.h>
 	<wiringPi.h>
 
+1394568486 source:/root/Desktop/robotic/ubuntu -> debian/guard/main.cpp
+	<iostream>
+	<string>
+	<thread>
+	<stdlib.h>
+	<wiringPi.h>
+

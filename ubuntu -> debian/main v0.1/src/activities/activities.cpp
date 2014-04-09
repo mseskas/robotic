@@ -6,7 +6,7 @@ activities::activities()
 {
      cout << "NOTE : activities() is disabled" << endl;
 
-  /*  _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
@@ -14,7 +14,7 @@ activities::activities()
     _sonar_front->set_drivetrain(_drv);
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
-    _adv_opencv = new advanced_opencv(); */
+    _adv_opencv = new advanced_opencv();
 }
 
 
@@ -23,9 +23,9 @@ activities::~activities()
 {
      cout << "NOTE : ~activities() is disabled" << endl;
 
-   /* force_stop();
+    force_stop();
     _drv->~drivetrain();
-    _sonar_front->~sonar(); */
+    _sonar_front->~sonar();
 }
 
 void activities::force_stop()
@@ -276,8 +276,6 @@ void activities::init_floor()
     _is_executing = false;
 }
 
-
-
 void activities::control_robot()
 {
     int cmd;
@@ -291,6 +289,8 @@ void activities::control_robot()
         << "3 - turn right" << endl
         << "4 - drive forward" << endl
         << "5 - drive backward" << endl
+        << "6 -  trive left" << endl
+        << "7 -  trive right" << endl
         << "0 - quit to main menu" << endl << "Your option : ";
 
         cin >> cmd;
@@ -326,6 +326,20 @@ void activities::control_robot()
             break;
 
             case 5:
+                cout << "input time (int)x100ms - ";
+                cin >> arg1;
+                cout << endl;
+                _drv->a_drive(BACKWARD, 0.1 * arg1);
+            break;
+
+            case 6:
+                cout << "input time (int)x100ms - ";
+                cin >> arg1;
+                cout << endl;
+                _drv->
+            break;
+
+            case 7:
                 cout << "input time (int)x100ms - ";
                 cin >> arg1;
                 cout << endl;
