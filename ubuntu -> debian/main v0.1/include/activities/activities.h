@@ -1,4 +1,3 @@
-
 #include <string>
 #include <iostream>
 #include <thread>
@@ -16,15 +15,15 @@ using namespace std;
 
 class activities
 {
-    public:
-        activities();
-        ~activities();
-        void  act(int activity_no);
-        void force_stop();
-        void wait_to_finish(int timeout_ms);
-        void print_activities();
-    protected:
-    private:
+public:
+    activities();
+    ~activities();
+    void  act(int activity_no);
+    void force_stop();
+    void wait_to_finish(int timeout_ms);
+    void print_activities();
+protected:
+private:
     advanced_opencv * _adv_opencv;
     sonar      * _sonar_front;
     pwm_chip   * _chip_16pwm;

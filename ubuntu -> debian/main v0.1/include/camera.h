@@ -6,13 +6,13 @@
 // video width/height = 320/240
 class camera
 {
-    public:
-        camera(int camera_no);
-        camera(int camera_no, int frame_width, int frame_height);
-        ~camera();
-        IplImage * get_frame();
-    protected:
-    private:
-        CvCapture * _capture;
-        IplImage * _last_frame;
+public:
+    camera(int camera_no);
+    camera(int camera_no, int frame_width, int frame_height);
+    ~camera();
+    IplImage * get_frame();
+protected:
+private:
+    CvCapture * _capture;
+    IplImage * _last_frame;
 };
