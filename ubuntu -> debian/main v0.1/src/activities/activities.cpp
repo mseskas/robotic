@@ -276,7 +276,8 @@ void activities::control_robot()
 {
     int cmd;
     bool repeat = true;
-    int arg1;
+    int arg1 =0;
+    float arg2 = 0;
     while (repeat)
     {
         cout << "Move mode, options :" << endl
@@ -287,6 +288,9 @@ void activities::control_robot()
         << "5 - drive backward" << endl
         << "6 -  trive left" << endl
         << "7 -  trive right" << endl
+
+        << "8 -  set turn speed" << endl
+        << "9 -  set drive speed" << endl
         << "0 - quit to main menu" << endl << "Your option : ";
 
         cin >> cmd;
@@ -329,18 +333,36 @@ void activities::control_robot()
             break;
 
         case 6:
+            cout << "input left angle [0.0-1.0](float) - ";
+            cin >> arg2;
             cout << "input time (int)x100ms - ";
             cin >> arg1;
             cout << endl;
-            _drv->
-        break;
+            _drv->a_trive(1 - arg2, 1, 0.1 * arg1);
+            break;
 
         case 7:
+            cout << "input right angle [0.0-1.0](float) - ";
+            cin >> arg2;
             cout << "input time (int)x100ms - ";
             cin >> arg1;
             cout << endl;
-            _drv->a_drive(BACKWARD, 0.1 * arg1);
-        break;
+            _drv->a_trive(1, 1 - arg2, 0.1 * arg1);
+            break;
+
+        case 8:
+            cout << "input new turn speed - ";
+            cin >> arg2;
+            cout << endl;
+            _drv->set_turn_speed(arg2);
+            break;
+
+        case 9:
+            cout << "input new drive speed - ";
+            cin >> arg2;
+            cout << endl;
+            _drv->set_drive_speed(arg2);
+            break;
 
         case 0:
             repeat = false;

@@ -62,6 +62,7 @@ void drivetrain::a_turn(int direction, float time_seconds)
 
 void drivetrain::drive(float time_seconds, float speed, float left_wheel_percentage, float right_wheel_percentage)
 {
+    _is_executing = true;
     if (left_wheel_percentage != 0)
     {
         if (left_wheel_percentage > 0)
@@ -100,7 +101,13 @@ void drivetrain::drive(float time_seconds, float speed, float left_wheel_percent
     _is_executing = false;
 }
 
-
+void drivetrain::a_trive(float left_wheel_percentage,
+                 float right_wheel_percentage, float time_seconds)
+{
+    force_stop();
+    _execution_thread = new thread (&drivetrain::drive, this, time_seconds,  get_drive_speed(),
+                                    left_wheel_percentage, right_wheel_percentage);
+}
 
 void drivetrain::a_drive(int direction, float time_seconds)
 {
