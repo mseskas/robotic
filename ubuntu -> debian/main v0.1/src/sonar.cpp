@@ -44,23 +44,24 @@ void sonar::force_stop()
 }
 
 int sonar::waitforpin(int pin_value, int timeout_uS)
- {
-   struct timeval now, start;
-   int done;
-   int micros;
-   gettimeofday(&start, NULL);
-   micros = 0;
-   done=0;
-   while (!done)
-   {
-    gettimeofday(&now, NULL);
-    if (now.tv_sec > start.tv_sec) micros = 1000000L; else micros = 0;
-    micros = micros + (now.tv_usec - start.tv_usec);
-    if (micros > timeout_uS) done=1;
-    if (digitalRead(echo) == pin_value) done = 1;
-   }
-   return micros;
- }
+{
+    struct timeval now, start;
+    int done;
+    int micros;
+    gettimeofday(&start, NULL);
+    micros = 0;
+    done=0;
+    while (!done)
+    {
+        gettimeofday(&now, NULL);
+        if (now.tv_sec > start.tv_sec) micros = 1000000L;
+        else micros = 0;
+        micros = micros + (now.tv_usec - start.tv_usec);
+        if (micros > timeout_uS) done=1;
+        if (digitalRead(echo) == pin_value) done = 1;
+    }
+    return micros;
+}
 
 void sonar::set_drivetrain(drivetrain * drv)
 {
@@ -112,7 +113,7 @@ void sonar::measure_distance()
     _last_distance = l;
 }
 
- int sonar::get_distance ()
+int sonar::get_distance ()
 {
     return _last_distance;
 }

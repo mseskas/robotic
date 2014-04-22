@@ -72,7 +72,7 @@ void drivetrain::drive(float time_seconds, float speed, float left_wheel_percent
         else
         {
             _chip_PCA9685->set_pwm(_wheel_left_backward, 0,
-                                    _chip_PCA9685->get_ticks()*speed * fabs(left_wheel_percentage));
+                                   _chip_PCA9685->get_ticks()*speed * fabs(left_wheel_percentage));
         }
     }
 
@@ -86,7 +86,7 @@ void drivetrain::drive(float time_seconds, float speed, float left_wheel_percent
         else
         {
             _chip_PCA9685->set_pwm(_wheel_right_backward, 0,
-                                    _chip_PCA9685->get_ticks()*speed * fabs(right_wheel_percentage));
+                                   _chip_PCA9685->get_ticks()*speed * fabs(right_wheel_percentage));
         }
     }
 

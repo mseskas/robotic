@@ -9,25 +9,27 @@
 
 class sonar
 {
-    public:  sonar(int pin_trigger, int pin_echo);
-        ~sonar();
-        int get_distance();
-        int get_trigger();
-        void set_trigger(int pin_trigger);
-        int get_echo();
-        void set_echo(int pin_echo);
-        void set_drivetrain(drivetrain * drv);
-        void force_stop();
-        void wait_to_finish(int timeout_ms);
-    private: int trigger;
-        int echo;
-        int waitforpin(int pin_value, int timeout_uS);
-        int _last_distance;
-        std::thread * _execution_thread;
-        drivetrain * _drv;
-        void measure_distance();
-        void constant_distance_measure();
-        void stop();
-        bool _stop_execution;
-        bool _is_executing;
+public:
+    sonar(int pin_trigger, int pin_echo);
+    ~sonar();
+    int get_distance();
+    int get_trigger();
+    void set_trigger(int pin_trigger);
+    int get_echo();
+    void set_echo(int pin_echo);
+    void set_drivetrain(drivetrain * drv);
+    void force_stop();
+    void wait_to_finish(int timeout_ms);
+private:
+    int trigger;
+    int echo;
+    int waitforpin(int pin_value, int timeout_uS);
+    int _last_distance;
+    std::thread * _execution_thread;
+    drivetrain * _drv;
+    void measure_distance();
+    void constant_distance_measure();
+    void stop();
+    bool _stop_execution;
+    bool _is_executing;
 };
