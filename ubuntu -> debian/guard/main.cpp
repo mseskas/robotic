@@ -5,7 +5,7 @@
 
 #include <wiringPi.h>
 
-#define switch_pin 1
+#define switch_pin 5
 #define led_pin 0
 
 using namespace std;
@@ -15,9 +15,17 @@ void constant_check ()
     cout << "Switch checking started" << endl;
     while (true)
     {
+        //cout << digitalRead(switch_pin) << endl;
         if (digitalRead(switch_pin) == 1) // switch is on
-            digitalWrite(led_pin, 1);
-        delay(5000);
+        {
+            digitalWrite(led_pin, 1);//cout << "on" << endl; //digitalWrite(led_pin, 1);
+
+        }
+        else
+        {
+            digitalWrite(led_pin, 0);//cout << "0ff" << endl; //digitalWrite(led_pin, 0);
+        }
+        delay(100);
     }
 }
 

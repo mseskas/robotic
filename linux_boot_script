@@ -7,7 +7,7 @@ HOME=/root
 export USER HOME
 
 echo "Jerry boot script started"
-echo "Starting \"guard\" process.."
+echo "Starting \"Guard\" process.."
 
 cd /root/Desktop
 ./guard
