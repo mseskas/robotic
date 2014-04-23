@@ -13,6 +13,73 @@ advanced_opencv::~advanced_opencv()
     //dtor
 }
 
+IplImage * advanced_opencv::create_GRAY_by_RGB(IplImage* RGB_img)
+{
+    IplImage * gray = cvCreateImage(cvGetSize(RGB_img ),IPL_DEPTH_8U,1);
+
+    cvtColor((Mat)RGB_img, (Mat)gray,  CV_RGB2GRAY);
+    return gray;
+}
+
+cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+                                            std::vector<Two_points> * features)
+{
+    int detect_interval = 5;
+    int frame_idx = 0;
+
+    std::vector<cv::Point2f> features_prev, features_curr;
+
+    vector<uchar> status;
+    vector<float> err;
+
+    if (features->size() > 0)
+    {
+        for (int i = 0; i < features->size(); i++)
+            features_prev.push_back(features->at(i).end);
+    }
+
+    if ( features_prev.size() > 0)
+    {
+        cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, features_prev, features_curr, status, err);
+
+        for (int i = 0; i < status.size(); i++)
+        {
+            if (status.at(i) == 1)
+                {
+                    Two_points point;
+                    features->at(i).end = features_curr.at(i);
+                }
+        }
+
+    }
+
+    if ( features_prev.size() < 250)
+    {
+        cv::goodFeaturesToTrack((Mat)curr_gray, features_curr, 20, 0.01, 10);  // need to add mask
+        // add all feature tu prev_features
+        for (int i = 0; i < features_curr.size(); i++)
+        {
+            Two_points point;
+            point.start = features_curr.at(i);
+            point.end = features_curr.at(i);
+            features->push_back(point);
+        }
+    }
+
+    for(int i = 0; i < features->size(); i ++)
+        {
+            //cvCircle(curr_gray, features_prev[i], 2, cvScalar(120, 120, 120) );
+            cvCircle(rgb, features->at(i).end, 2, cvScalar(0, 255, 0) );
+            cvLine(rgb, features->at(i).start, features->at(i).end, cvScalar( 255, 0, 255));
+        }
+
+    //cout << p.x << p.y << endl;
+    cv::Point_<float> rez(5, 6);
+
+    return  rez;
+}
+
+
 IplImage* advanced_opencv::GetThresholdedImage(IplImage* imgHSV, CvScalar hsv)
 {
     int Hstep =10;

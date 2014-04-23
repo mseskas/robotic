@@ -5,15 +5,16 @@ using namespace cv;
 activities::activities()
 {
     cout << "NOTE : activities() is disabled" << endl;
-
+    /*
     _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
     _sonar_front->set_drivetrain(_drv);
+
+    */
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
-
 }
 
 
@@ -23,9 +24,10 @@ activities::~activities()
     cout << "NOTE : ~activities() is disabled" << endl;
 
     force_stop();
+    /*
     _drv->~drivetrain();
     _sonar_front->~sonar();
-
+    */
 }
 
 void activities::force_stop()
@@ -92,6 +94,13 @@ void activities::act(int activity_no)
         control_robot();
         break;
 
+
+    case 9:
+        force_stop();
+        _execution_thread = new thread (&activities::optical_flow, this);
+        _is_executing = true;
+        break;
+
     default :
         cout << "activities::act() - unknown activity" << endl;
         break;
@@ -108,7 +117,8 @@ void activities::print_activities()
          << "2 - Show distance to front" << endl
          << "3 - Show view front " << "4 - Show view Canny " << "5 - Show view HVS " << "6 - Init floor" << endl
          << "7 - Dumb drive" << endl
-         << "8 - Control Me" << endl;
+         << "8 - Control me" << endl
+         << "9 - Optical flow" << endl;
 }
 
 void activities::show_front_distance()
@@ -380,4 +390,31 @@ void activities::control_robot()
 
     }
 
+}
+
+void activities::optical_flow()
+{
+    cvNamedWindow("optical flow");
+    //cvNamedWindow("fin");
+    cvStartWindowThread();
+    std::vector<Two_points>  features;
+    IplImage * prev_gray =  _adv_opencv->create_GRAY_by_RGB(_cam_front->get_frame());
+
+    while (true)
+    {
+        IplImage* rgb = _cam_front->get_frame();
+
+        IplImage * curr_gray =  _adv_opencv->create_GRAY_by_RGB(rgb);
+
+        Point_<float> vect = _adv_opencv->get_motion_vector(rgb, prev_gray, curr_gray, &features);
+        cout << vect.x << " , " << vect.y << " - motion vector" << endl;
+        prev_gray = curr_gray;
+
+        cvShowImage("optical flow", rgb);
+
+        if (_stop_execution) break;
+    }
+    cvDestroyWindow("optical flow");
+    _stop_execution = false;
+    _is_executing = false;
 }

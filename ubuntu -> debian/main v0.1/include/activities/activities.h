@@ -36,11 +36,12 @@ private:
 
 
 private : // separate activities
-    void    dumb_drive();
-    void    show_front_distance();
-    void    show_front_view();
-    void    canny_edge_view();
-    void    hvs_view();
-    void    init_floor();
-    void    control_robot();
+    void dumb_drive();
+    void show_front_distance();
+    void show_front_view();
+    void canny_edge_view();
+    void hvs_view();
+    void init_floor();
+    void control_robot();
+    void optical_flow();
 };
