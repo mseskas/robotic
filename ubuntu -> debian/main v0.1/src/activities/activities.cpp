@@ -395,6 +395,7 @@ void activities::control_robot()
 void activities::optical_flow()
 {
     cvNamedWindow("optical flow");
+    cvNamedWindow("mask");
     //cvNamedWindow("fin");
     cvStartWindowThread();
     std::vector<Two_points>  features;

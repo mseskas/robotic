@@ -38,6 +38,8 @@ cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* pr
             features_prev.push_back(features->at(i).end);
     }
 
+     std::vector<Two_points> new_tracks;
+
     if ( features_prev.size() > 0)
     {
         cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, features_prev, features_curr, status, err);
@@ -45,17 +47,30 @@ cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* pr
         for (int i = 0; i < status.size(); i++)
         {
             if (status.at(i) == 1)
-                {
-                    Two_points point;
-                    features->at(i).end = features_curr.at(i);
-                }
+            {
+                Two_points p;
+                p.start = features->at(i).start;
+                p.end = features_curr.at(i);
+
+                new_tracks.push_back(p);
+            }
+        }
+        features->clear();
+        for (int i = 0; i < new_tracks.size(); i++)
+            features->push_back(new_tracks.at(i));
         }
 
-    }
-
-    if ( features_prev.size() < 250)
+    if ( features_prev.size() < OPTICAL_FLOW_MAX_FEATURES)
     {
-        cv::goodFeaturesToTrack((Mat)curr_gray, features_curr, 20, 0.01, 10);  // need to add mask
+        IplImage * mask = cvCreateImage(cvGetSize(curr_gray ),IPL_DEPTH_8U, 1);
+
+        cvSet(mask, cvScalar(255));
+        for (int i = 0; i < features->size(); i++)
+            cvCircle(mask, features->at(i).start, 5, cvScalar(0), -1);
+
+        cvShowImage("mask", mask);
+
+        cv::goodFeaturesToTrack((Mat)curr_gray, features_curr, 20, 0.01, 10, (Mat)mask );  // need to add mask
         // add all feature tu prev_features
         for (int i = 0; i < features_curr.size(); i++)
         {
