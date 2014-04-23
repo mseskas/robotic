@@ -1,0 +1,35 @@
+// opencv
+
+g++ -ggdb `pkg-config --cflags opencv --libs opencv` -o main main.cpp
+//==================================================
+// wiringPi
+
+g++ -o i2c i2c.cpp -lwiringPi
+
+//================================================
+
+//  opencv + wiringPi
+
+g++ -ggdb `pkg-config --cflags opencv --libs opencv` -o main main.cpp  -lwiringPi
+
+//======= opencv + wiringPi + threading ===========================
+
+g++ -ggdb `pkg-config --cflags opencv --libs opencv` -o main main.cpp -std=c++0x -pthread -lwiringPi
+
+
+// =============== main v0.1 compile ========================
+
+g++ main.cpp src/*.cpp src/activities/activities.cpp -ggdb `pkg-config --cflags opencv --libs opencv` -o main -std=c++0x -pthread -lwiringPi -I include/activities/ -I include/
+
+
+//==========  wiringPi commands ===================
+GPIO utility :
+
+gpio readall
+
+gpio write 0 1
+
+
+// ================== MY GIT ====================
+
+https://github.com/mseskas/robotic.git
