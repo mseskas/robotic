@@ -11,8 +11,8 @@ camera::camera(int camera_no)
         cout << "CvCapture == NULL cam no.:" << camera_no << endl;
         return;
     }
-    cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, 320);
-    cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, 240);
+    cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_WIDTH, CAPTURE_FRAME_WIDTH);
+    cvSetCaptureProperty(_capture, CV_CAP_PROP_FRAME_HEIGHT, CAPTURE_FRAME_HEIGHT);
 }
 
 camera::camera(int camera_no, int frame_width, int frame_height)

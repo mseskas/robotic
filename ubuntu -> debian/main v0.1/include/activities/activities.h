@@ -22,6 +22,7 @@ public:
     void force_stop();
     void wait_to_finish(int timeout_ms);
     void print_activities();
+    void temp();
 protected:
 private:
     advanced_opencv * _adv_opencv;

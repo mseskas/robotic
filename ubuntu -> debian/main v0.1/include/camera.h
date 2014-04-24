@@ -2,6 +2,8 @@
 #include "opencv2/imgproc/imgproc.hpp"
 #include <iostream>
 
+#include <project_constants.h>
+
 // usb camera, default options :
 // video width/height = 320/240
 class camera
