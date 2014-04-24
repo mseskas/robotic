@@ -370,3 +370,83 @@
 1397058189 source:/root/Desktop/robotic/ubuntu -> debian/main v0.1/src/video processing/advanced_opencv.cpp
 	"video processing/advanced_opencv.h"
 
+1396996128 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/main.cpp
+	<iostream>
+	<string>
+	"activities/activities.h"
+
+1398346512 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/activities/activities.h
+	<string>
+	<iostream>
+	<thread>
+	<project_constants.h>
+	<video processing/advanced_opencv.h>
+	<pwm_chip.h>
+	<drivetrain.h>
+	<servo.h>
+	<sonar.h>
+	<camera.h>
+
+1398346512 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/project_constants.h
+
+1398346512 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/video processing/advanced_opencv.h
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	"opencv2/video/tracking.hpp"
+	<iostream>
+	<list>
+	<vector>
+	<project_constants.h>
+
+1397058189 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/pwm_chip.h
+	<stdlib.h>
+	<wiringPi.h>
+	<wiringPiI2C.h>
+	<project_constants.h>
+
+1397062792 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/drivetrain.h
+	<thread>
+	<iostream>
+	<math.h>
+	<pwm_chip.h>
+	<project_constants.h>
+
+1397058189 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/servo.h
+	<pwm_chip.h>
+	<project_constants.h>
+
+1397058189 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/sonar.h
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<thread>
+	<sys/time.h>
+	<drivetrain.h>
+	<project_constants.h>
+
+1397058189 /root/Desktop/robotics/ubuntu -> debian/main v0.1/include/camera.h
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+
+1397058189 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/src/camera.cpp
+	"camera.h"
+
+1397063106 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/src/drivetrain.cpp
+	"drivetrain.h"
+
+1392910656 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/src/pwm_chip.cpp
+	"pwm_chip.h"
+
+1397058189 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/src/servo.cpp
+	"servo.h"
+
+1397058189 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/src/sonar.cpp
+	"sonar.h"
+
+1398347508 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/src/activities/activities.cpp
+	"activities/activities.h"
+
+1398346703 source:/root/Desktop/robotics/ubuntu -> debian/main v0.1/src/video processing/advanced_opencv.cpp
+	"video processing/advanced_opencv.h"
+

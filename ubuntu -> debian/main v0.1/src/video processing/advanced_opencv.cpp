@@ -70,8 +70,8 @@ cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* pr
 
         cvShowImage("mask", mask);
 
-        cv::goodFeaturesToTrack((Mat)curr_gray, features_curr, 20, 0.01, 10, (Mat)mask );  // need to add mask
-        // add all feature tu prev_features
+        cv::goodFeaturesToTrack((Mat)curr_gray, features_curr, 50, 0.01, 10, (Mat)mask );  // need to add mask
+        // add all feature to prev_features
         for (int i = 0; i < features_curr.size(); i++)
         {
             Two_points point;

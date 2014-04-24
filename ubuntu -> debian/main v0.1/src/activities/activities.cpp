@@ -416,6 +416,7 @@ void activities::optical_flow()
         if (_stop_execution) break;
     }
     cvDestroyWindow("optical flow");
+    cvDestroyWindow("mask");
     _stop_execution = false;
     _is_executing = false;
 }
