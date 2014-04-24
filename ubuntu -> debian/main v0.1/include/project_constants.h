@@ -11,13 +11,15 @@
 // ========== default values ================
 
 #define default_drivetrain_drive_speed 0.175
-#define default_drivetrain_turn_speed 0.275
+#define default_drivetrain_turn_speed 0.33
 #define stop_drivetrain_when_distance_to_front 15
 
 // ========== opencv =======================
 
-#define OPTICAL_FLOW_MAX_FEATURES 250
+#define CAPTURE_FRAME_WIDTH 320
+#define CAPTURE_FRAME_HEIGHT 240
 
+#define OPTICAL_FLOW_MAX_FEATURES 200
 #define B_to_angle_conversion 147.0588
 
 // ============= Used Pins =================

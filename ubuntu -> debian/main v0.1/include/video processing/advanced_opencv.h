@@ -1,7 +1,7 @@
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/video/tracking.hpp"
-#include "opencv2/core/core.hpp"
+#include <opencv2/core/core.hpp>
 #include <iostream>
 #include <list>
 #include <vector>
@@ -28,6 +28,9 @@ public:
     cv::Point_<float>  get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                         std::vector<Two_points> * features);
     IplImage * create_GRAY_by_RGB(IplImage* RGB_img);
+
+    void temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+                                            std::vector<Point2f> * features);
 protected:
 private:
 
