@@ -214,13 +214,14 @@
 1392900105 source:/root/Desktop/robotic/ubuntu -> debian/c++ thread & drivetrain v3.0/src/camera.cpp
 	"camera.h"
 
-1397022889 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/camera.cpp
+1398375542 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/camera.cpp
 	"camera.h"
 
-1397022889 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/camera.h
+1398375542 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/camera.h
 	"opencv2/highgui/highgui.hpp"
 	"opencv2/imgproc/imgproc.hpp"
 	<iostream>
+	<project_constants.h>
 
 1398210222 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/drivetrain.cpp
 	"drivetrain.h"
@@ -238,7 +239,7 @@
 	<wiringPiI2C.h>
 	<project_constants.h>
 
-1398262508 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/project_constants.h
+1398375542 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/project_constants.h
 
 1392906416 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/pwm_chip.cpp
 	"pwm_chip.h"
@@ -267,7 +268,7 @@
 	<string>
 	"activities/activities.h"
 
-1398245198 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/activities/activities.h
+1398375542 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/activities/activities.h
 	<string>
 	<iostream>
 	<thread>
@@ -279,7 +280,7 @@
 	<sonar.h>
 	<camera.h>
 
-1398282721 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/activities/activities.cpp
+1398381687 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/activities/activities.cpp
 	"activities/activities.h"
 
 1396996128 source:/root/Desktop/robotic/ubuntu -> debian/main v0.1/main.cpp
@@ -350,13 +351,14 @@
 1397063106 source:/root/Desktop/robotic/ubuntu -> debian/main v0.1/src/drivetrain.cpp
 	"drivetrain.h"
 
-1398284158 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/video processing/advanced_opencv.cpp
+1398381295 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/video processing/advanced_opencv.cpp
 	"video processing/advanced_opencv.h"
 
-1398283564 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/video processing/advanced_opencv.h
+1398381805 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/video processing/advanced_opencv.h
 	"opencv2/highgui/highgui.hpp"
 	"opencv2/imgproc/imgproc.hpp"
 	"opencv2/video/tracking.hpp"
+	<opencv2/core/core.hpp>
 	<iostream>
 	<list>
 	<vector>

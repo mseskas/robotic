@@ -21,10 +21,11 @@ IplImage * advanced_opencv::create_GRAY_by_RGB(IplImage* RGB_img)
     return gray;
 }
 
-cv::Point_<float> nu(std::vector<Point2f> prev, std::vector<Point2f> curr, vector<uchar> status)
+cv::Point_<float> advanced_opencv::nu(std::vector<Point2f> prev, std::vector<Point2f> &curr, vector<uchar> status, IplImage* rgb)
 {
     Point_<float> p;
 
+    std::vector<Point2f> new_trac;
 
     for (int i = 0; i < status.size(); i++)
     {
@@ -32,11 +33,16 @@ cv::Point_<float> nu(std::vector<Point2f> prev, std::vector<Point2f> curr, vecto
         {
             p.x += curr.at(i).x - prev.at(i).x;
             p.y += curr.at(i).y - prev.at(i).y;
+            new_trac.push_back(curr.at(i));
+            cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
         }
 
     }
+    curr = new_trac;
     p.x = p.x / status.size();
     p.y = p.y / status.size();
+    angle += p.x;
+    cout << "angle = " << angle << ",  " << p.y << " - vector" << endl;
     return p;
 }
 
@@ -46,24 +52,37 @@ void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gr
     vector<uchar> status;
     vector<float> err;
 
-    std::vector<cv::Point2f> features_prev, features_curr;
+    std::vector<cv::Point2f> features_new, features_curr;
 
     if ( features->size() > 0)
     {
         cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, *features, features_curr, status, err);
 
-        Point_<float> p = nu(*features, features_curr, status);
-        cout << p.x << " , " << p.y << " - vector" << endl;
+        Point_<float> p = nu(*features, features_curr, status, rgb);
     }
-    features->clear();
-    cv::goodFeaturesToTrack((Mat)curr_gray, *features, 50, 0.01, 10 );
+    *features = features_curr;
 
-    for(int i = 0; i < features_curr.size(); i ++)
-        {
-            cvCircle(rgb, features_curr.at(i), 2, cvScalar(0, 255, 0) );
-            cvLine(rgb, features->at(i), features_curr.at(i), cvScalar( 255, 0, 255));
-        }
+   // cout << features_curr.size() << endl;
+    if (features_curr.size() < OPTICAL_FLOW_MAX_FEATURES)
+    {
+        IplImage * mask = cvCreateImage(cvGetSize(curr_gray ),IPL_DEPTH_8U, 1);
 
+        cvSet(mask, cvScalar(255));
+        for (int i = 0; i < features->size(); i++)
+            cvCircle(mask, features->at(i), 5, cvScalar(0), -1);
+
+      //  cvRectangle(mask, cvPoint(0, CAPTURE_FRAME_HEIGHT /3 ), cvPoint(CAPTURE_FRAME_WIDTH,
+        //    CAPTURE_FRAME_HEIGHT /3 *2), cvScalar(0), -1);
+
+        //cvShowImage("mask", mask);
+        cv::goodFeaturesToTrack((Mat)curr_gray, features_new, 50, 0.01, 10, (Mat)mask );
+    }
+
+    for(int i = 0; i < features_new.size(); i ++)
+        features->push_back(features_new.at(i));
+
+    for(int i = 0; i < features->size(); i ++)
+        cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
 
 }
 
@@ -89,7 +108,7 @@ cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* pr
     {
         cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, features_prev, features_curr, status, err);
 
-        p = nu(features_prev, features_curr, status);
+        p = nu(features_prev, features_curr, status, rgb);
         cout << p.x << " , " << p.y << " - vector" << endl;
 
         for (int i = 0; i < status.size(); i++)
@@ -129,13 +148,13 @@ cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* pr
         }
     }
 
-   /* for(int i = 0; i < features->size(); i ++)
+    for(int i = 0; i < features->size(); i ++)
         {
             //cvCircle(curr_gray, features_prev[i], 2, cvScalar(120, 120, 120) );
             cvCircle(rgb, features->at(i).end, 2, cvScalar(0, 255, 0) );
             cvLine(rgb, features->at(i).start, features->at(i).end, cvScalar( 255, 0, 255));
         }
-*/
+
 
     return  p;
 }
