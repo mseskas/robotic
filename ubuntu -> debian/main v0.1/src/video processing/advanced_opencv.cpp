@@ -5,7 +5,8 @@ using namespace cv;
 
 advanced_opencv::advanced_opencv()
 {
-    //ctor
+    angle = 0;
+    y_distance = 0;
 }
 
 advanced_opencv::~advanced_opencv()
@@ -42,7 +43,8 @@ cv::Point_<float> advanced_opencv::nu(std::vector<Point2f> prev, std::vector<Poi
     p.x = p.x / status.size();
     p.y = p.y / status.size();
     angle += p.x;
-    cout << "angle = " << angle << ",  " << p.y << " - vector" << endl;
+    y_distance += p.y;
+    cout << "angle = " << angle << ",  " << y_distance << " - vector" << endl;
     return p;
 }
 
@@ -71,8 +73,8 @@ void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gr
         for (int i = 0; i < features->size(); i++)
             cvCircle(mask, features->at(i), 5, cvScalar(0), -1);
 
-      //  cvRectangle(mask, cvPoint(0, CAPTURE_FRAME_HEIGHT /3 ), cvPoint(CAPTURE_FRAME_WIDTH,
-        //    CAPTURE_FRAME_HEIGHT /3 *2), cvScalar(0), -1);
+        cvRectangle(mask, cvPoint(0, CAPTURE_FRAME_HEIGHT /3 ), cvPoint(CAPTURE_FRAME_WIDTH,
+            CAPTURE_FRAME_HEIGHT /3 *2), cvScalar(0), -1);
 
         //cvShowImage("mask", mask);
         cv::goodFeaturesToTrack((Mat)curr_gray, features_new, 50, 0.01, 10, (Mat)mask );
