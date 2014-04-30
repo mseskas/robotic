@@ -22,7 +22,7 @@ IplImage * advanced_opencv::create_GRAY_by_RGB(IplImage* RGB_img)
     return gray;
 }
 
-cv::Point_<float> advanced_opencv::nu(std::vector<Point2f> prev, std::vector<Point2f> &curr, vector<uchar> status, IplImage* rgb)
+cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev, std::vector<Point2f> &curr, vector<uchar> status, IplImage* rgb)
 {
     Point_<float> p;
 
@@ -48,7 +48,7 @@ cv::Point_<float> advanced_opencv::nu(std::vector<Point2f> prev, std::vector<Poi
     return p;
 }
 
-void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Point2f> * features)
 {
     vector<uchar> status;
@@ -60,7 +60,7 @@ void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gr
     {
         cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, *features, features_curr, status, err);
 
-        Point_<float> p = nu(*features, features_curr, status, rgb);
+        Point_<float> p = motion_by_features(*features, features_curr, status, rgb);
     }
     *features = features_curr;
 
@@ -88,7 +88,7 @@ void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gr
 
 }
 
-cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+/*cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Two_points> * features)
 {
 
@@ -160,7 +160,7 @@ cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* pr
 
     return  p;
 }
-
+*/
 
 IplImage* advanced_opencv::GetThresholdedImage(IplImage* imgHSV, CvScalar hsv)
 {
