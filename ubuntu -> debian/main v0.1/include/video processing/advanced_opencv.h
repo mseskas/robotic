@@ -35,5 +35,5 @@ protected:
 private:
     cv::Point_<float> nu(std::vector<Point2f> prev, std::vector<Point2f> &curr,
         vector<uchar> status, IplImage* rgb);
-    float angle;
+    float angle, y_distance;
 };

@@ -10,8 +10,8 @@
 
 // ========== default values ================
 
-#define default_drivetrain_drive_speed 0.175
-#define default_drivetrain_turn_speed 0.33
+#define default_drivetrain_drive_speed 0.19
+#define default_drivetrain_turn_speed 0.35
 #define stop_drivetrain_when_distance_to_front 15
 
 // ========== opencv =======================
