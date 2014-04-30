@@ -1,5 +1,5 @@
 // =========== desktop through ssh ================
-ssh -Y root@192.168.1.8
+ssh -Y root@192.168.1.8 -p 22
 
 // ========== linux TTS - pico ===================
 
