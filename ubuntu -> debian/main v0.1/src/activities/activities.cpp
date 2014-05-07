@@ -116,27 +116,42 @@ void activities::act(int activity_no)
 
 void activities::temp ()
 {
-        cvNamedWindow("optical flow");
+    cvNamedWindow("optical flow");
   //  cvNamedWindow("mask");
     cvStartWindowThread();
     std::vector<cv::Point2f>  features;
     IplImage * prev_gray =  _adv_opencv->create_GRAY_by_RGB(_cam_front->get_frame());
 
+    double t = 0;
+
+    _adv_opencv->angle = 0;
+    _adv_opencv->y_distance = 0;
+
     while (true)
     {
         IplImage* rgb = _cam_front->get_frame();
         IplImage * curr_gray =  _adv_opencv->create_GRAY_by_RGB(rgb);
+
+        t = (double)cvGetTickCount();
+
         _adv_opencv->temp(rgb, prev_gray, curr_gray, &features);
+
+        t = (double)cvGetTickCount() - t;
+        printf("detection time = %g ms  ", t/((double)cvGetTickFrequency()*1000));
 
         prev_gray = curr_gray;
 
             cvShowImage("optical flow", rgb);
+
+
         if (_stop_execution) break;
     }
 
         cvDestroyWindow("optical flow");
   //  cvDestroyWindow("mask");
     _stop_execution = false;
+
+
     _is_executing = false;
 
 }

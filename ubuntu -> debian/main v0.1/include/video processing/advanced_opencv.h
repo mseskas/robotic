@@ -31,9 +31,10 @@ public:
 
     void temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Point2f> * features);
+    float angle, y_distance;
 protected:
 private:
     cv::Point_<float> nu(std::vector<Point2f> prev, std::vector<Point2f> &curr,
         vector<uchar> status, IplImage* rgb);
-    float angle, y_distance;
+
 };
