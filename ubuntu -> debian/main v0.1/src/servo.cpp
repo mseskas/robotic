@@ -7,7 +7,7 @@ servo::servo(pwm_chip * chip_PCA9685, int pin_no)
     _chip_PCA9685->set_pwm(pin_no, 0, 0);
     _max_ticks = 675;
     _min_ticks = 150;
-
+    _angle = 0;
 }
 
 servo::~servo()
