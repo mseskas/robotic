@@ -10,7 +10,7 @@ int main()
 {
     activities main_act;
 
-    int cmd ;
+    int cmd = 100;
 
     while(true)
     {
@@ -26,6 +26,5 @@ int main()
     }
 
     //main_act.~activities();   - called in every return statement
-
     return 0;
 }

@@ -25,16 +25,16 @@ public:
     IplImage * GetThresholdedImage(IplImage* imgHSV, CvScalar hvs);
     CvScalar * get_bottom_line_pixel_mean(IplImage * img);
     CvScalar *  mark_line(IplImage* img, IplImage* rezimg);
-    cv::Point_<float>  get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
-                                        std::vector<Two_points> * features);
+    //cv::Point_<float>  get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+    //                                    std::vector<Two_points> * features);
     IplImage * create_GRAY_by_RGB(IplImage* RGB_img);
 
-    void temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+    void get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Point2f> * features);
     float angle, y_distance;
 protected:
 private:
-    cv::Point_<float> nu(std::vector<Point2f> prev, std::vector<Point2f> &curr,
+    cv::Point_<float> motion_by_features(std::vector<Point2f> prev, std::vector<Point2f> &curr,
         vector<uchar> status, IplImage* rgb);
 
 };

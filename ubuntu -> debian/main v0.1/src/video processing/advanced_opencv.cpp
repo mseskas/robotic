@@ -22,7 +22,7 @@ IplImage * advanced_opencv::create_GRAY_by_RGB(IplImage* RGB_img)
     return gray;
 }
 
-cv::Point_<float> advanced_opencv::nu(std::vector<Point2f> prev, std::vector<Point2f> &curr, vector<uchar> status, IplImage* rgb)
+cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev, std::vector<Point2f> &curr, vector<uchar> status, IplImage* rgb)
 {
     Point_<float> p;
 
@@ -48,7 +48,7 @@ cv::Point_<float> advanced_opencv::nu(std::vector<Point2f> prev, std::vector<Poi
     return p;
 }
 
-void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Point2f> * features)
 {
     vector<uchar> status;
@@ -60,7 +60,7 @@ void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gr
     {
         cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, *features, features_curr, status, err);
 
-        Point_<float> p = nu(*features, features_curr, status, rgb);
+        Point_<float> p = motion_by_features(*features, features_curr, status, rgb);
     }
     *features = features_curr;
 
@@ -87,80 +87,6 @@ void advanced_opencv::temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gr
         cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
 
 }
-
-cv::Point_<float> advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
-                                            std::vector<Two_points> * features)
-{
-
-    std::vector<cv::Point2f> features_prev, features_curr;
-
-    vector<uchar> status;
-    vector<float> err;
-
-    if (features->size() > 0)
-    {
-        for (int i = 0; i < features->size(); i++)
-            features_prev.push_back(features->at(i).end);
-    }
-
-    std::vector<Two_points> new_tracks;
-    cv::Point_<float> p;
-
-    if ( features_prev.size() > 0)
-    {
-        cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, features_prev, features_curr, status, err);
-
-        p = nu(features_prev, features_curr, status, rgb);
-        cout << p.x << " , " << p.y << " - vector" << endl;
-
-        for (int i = 0; i < status.size(); i++)
-        {
-            if (status.at(i) == 1)
-            {
-                Two_points p;
-                p.start = features->at(i).start;
-                p.end = features_curr.at(i);
-
-                new_tracks.push_back(p);
-            }
-        }
-        features->clear();
-        for (int i = 0; i < new_tracks.size(); i++)
-            features->push_back(new_tracks.at(i));
-    }
-
-    if ( features_prev.size() < OPTICAL_FLOW_MAX_FEATURES)
-    {
-        IplImage * mask = cvCreateImage(cvGetSize(curr_gray ),IPL_DEPTH_8U, 1);
-
-        cvSet(mask, cvScalar(255));
-        for (int i = 0; i < features->size(); i++)
-            cvCircle(mask, features->at(i).start, 5, cvScalar(0), -1);
-
-        //cvShowImage("mask", mask);
-
-        cv::goodFeaturesToTrack((Mat)curr_gray, features_curr, 50, 0.01, 10, (Mat)mask );  // need to add mask
-        // add all feature to prev_features
-        for (int i = 0; i < features_curr.size(); i++)
-        {
-            Two_points point;
-            point.start = features_curr.at(i);
-            point.end = features_curr.at(i);
-            features->push_back(point);
-        }
-    }
-
-    for(int i = 0; i < features->size(); i ++)
-        {
-            //cvCircle(curr_gray, features_prev[i], 2, cvScalar(120, 120, 120) );
-            cvCircle(rgb, features->at(i).end, 2, cvScalar(0, 255, 0) );
-            cvLine(rgb, features->at(i).start, features->at(i).end, cvScalar( 255, 0, 255));
-        }
-
-
-    return  p;
-}
-
 
 IplImage* advanced_opencv::GetThresholdedImage(IplImage* imgHSV, CvScalar hsv)
 {

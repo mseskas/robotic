@@ -1,3 +1,6 @@
+// =========== desktop through ssh ================
+ssh -Y root@192.168.1.8
+
 // ========== linux TTS - pico ===================
 
 sudo apt-get install libttspico0 libttspico-utils libttspico-data

@@ -14,6 +14,8 @@ sonar::sonar(int pin_trigger, int pin_echo)
     _drv = NULL;
     _stop_execution = false;
     _execution_thread = new thread (&sonar::constant_distance_measure, this);
+    _last_distance = 0;
+
 }
 sonar::~sonar()
 {

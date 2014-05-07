@@ -44,5 +44,5 @@ private : // separate activities
     void hvs_view();
     void init_floor();
     void control_robot();
-    void optical_flow();
+    void optical_flow(bool use_camera, String video_file_url);
 };

@@ -6,15 +6,18 @@ activities::activities()
 {
     cout << "NOTE : activities() is disabled" << endl;
 
-    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+    /*_sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
     _sonar_front->set_drivetrain(_drv);
-
+*/
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
+
+    _stop_execution = false;
+    _is_executing = false;
 }
 
 
@@ -22,12 +25,11 @@ activities::activities()
 activities::~activities()
 {
     cout << "NOTE : ~activities() is disabled" << endl;
-
     force_stop();
-
+/*
     _drv->~drivetrain();
     _sonar_front->~sonar();
-
+*/
 }
 
 void activities::force_stop()
@@ -45,6 +47,7 @@ void activities::wait_to_finish(int timeout_ms)
         delay(5);
     }
 }
+
 
 void activities::act(int activity_no)
 {
@@ -97,15 +100,23 @@ void activities::act(int activity_no)
 
     case 9:
         force_stop();
-        _execution_thread = new thread (&activities::optical_flow, this);
+        _execution_thread = new thread (&activities::optical_flow, this, true, ""); // using camera - real time
         _is_executing = true;
         break;
 
     case 10:
+    {
         force_stop();
-        _execution_thread = new thread (&activities::temp, this);
+
+        string str;
+        cout << "Video file url = ";
+        cin >> str;
+
+        _execution_thread = new thread (&activities::optical_flow, this, false, str); // use video file - NOT real time
         _is_executing = true;
-        break;
+    }
+    break;
+
 
     default :
         cout << "activities::act() - unknown activity" << endl;
@@ -114,13 +125,43 @@ void activities::act(int activity_no)
 
 }
 
-void activities::temp ()
+void activities::optical_flow (bool use_camera, String video_file_url)
 {
+    _adv_opencv->angle = 0;
+    _adv_opencv->y_distance = 0;
+
     cvNamedWindow("optical flow");
-  //  cvNamedWindow("mask");
+    //cvNamedWindow("mask");
     cvStartWindowThread();
     std::vector<cv::Point2f>  features;
-    IplImage * prev_gray =  _adv_opencv->create_GRAY_by_RGB(_cam_front->get_frame());
+
+    IplImage * prev_gray = NULL;
+    VideoCapture * v = NULL;
+
+    if (use_camera)
+    {
+        prev_gray = _adv_opencv->create_GRAY_by_RGB(_cam_front->get_frame());
+    }
+    else
+    {
+        v = new VideoCapture();
+        //bool success = v->open("/home/minde/Desktop/a.webm");
+        bool success = v->open(video_file_url);
+        if (!success)
+        {
+            cout << "Failed to open video file!" << endl;
+            return;
+        }
+        Mat  prev_mat ;
+        v->read(prev_mat);
+        prev_gray = _adv_opencv->create_GRAY_by_RGB( new IplImage(prev_mat));
+    }
+
+
+
+    double t = 0;
+    IplImage* rgb = NULL;
+     IplImage * curr_gray = NULL;
 
     double t = 0;
 
@@ -129,15 +170,29 @@ void activities::temp ()
 
     while (true)
     {
-        IplImage* rgb = _cam_front->get_frame();
-        IplImage * curr_gray =  _adv_opencv->create_GRAY_by_RGB(rgb);
+        if (use_camera)
+        {
+            rgb = _cam_front->get_frame();
+            curr_gray =  _adv_opencv->create_GRAY_by_RGB(rgb);
+        }
+        else
+        {
+            Mat  curr_mat;
+            if ( v->read(curr_mat) == NULL)
+            {
+                print_activities();
+                break;
+            }
+            rgb = new IplImage(curr_mat);
+            curr_gray = _adv_opencv->create_GRAY_by_RGB(rgb);
+        }
 
         t = (double)cvGetTickCount();
-
-        _adv_opencv->temp(rgb, prev_gray, curr_gray, &features);
+        _adv_opencv->get_motion_vector(rgb, prev_gray, curr_gray, &features);
 
         t = (double)cvGetTickCount() - t;
-        printf("detection time = %g ms  ", t/((double)cvGetTickFrequency()*1000));
+		printf( "  detection time = %g ms  ", t/((double)cvGetTickFrequency()*1000) );
+
 
         prev_gray = curr_gray;
 
@@ -148,7 +203,7 @@ void activities::temp ()
     }
 
         cvDestroyWindow("optical flow");
-  //  cvDestroyWindow("mask");
+    //cvDestroyWindow("mask");
     _stop_execution = false;
 
 
@@ -211,6 +266,9 @@ void activities::show_front_view()
     while (true)
     {
         IplImage * frame =  _cam_front->get_frame();
+
+        if (frame == NULL)
+            cout << "Can't get frame!" << endl;
 
         cvShowImage("camera", frame);
         //cvWaitKey(1);
@@ -438,28 +496,4 @@ void activities::control_robot()
 
     }
 
-}
-
-void activities::optical_flow()
-{
-  //  cvNamedWindow("optical flow");
-    //cvNamedWindow("mask");
-    cvStartWindowThread();
-    std::vector<Two_points>  features;
-    IplImage * prev_gray =  _adv_opencv->create_GRAY_by_RGB(_cam_front->get_frame());
-
-    while (true)
-    {
-        IplImage* rgb = _cam_front->get_frame();
-        IplImage * curr_gray =  _adv_opencv->create_GRAY_by_RGB(rgb);
-        Point_<float> vect = _adv_opencv->get_motion_vector(rgb, prev_gray, curr_gray, &features);
-        //cout << vect.x << " , " << vect.y << " - motion vector" << endl;
-        prev_gray = curr_gray;
-       // cvShowImage("optical flow", rgb);
-        if (_stop_execution) break;
-    }
-  //  cvDestroyWindow("optical flow");
-    //cvDestroyWindow("mask");
-    _stop_execution = false;
-    _is_executing = false;
 }
