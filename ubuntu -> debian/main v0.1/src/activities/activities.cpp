@@ -130,9 +130,9 @@ void activities::optical_flow (bool use_camera, String video_file_url)
     _adv_opencv->angle = 0;
     _adv_opencv->y_distance = 0;
 
-    cvNamedWindow("optical flow");
+    //cvNamedWindow("optical flow");
     //cvNamedWindow("mask");
-    cvStartWindowThread();
+    //cvStartWindowThread();
     std::vector<cv::Point2f>  features;
 
     IplImage * prev_gray = NULL;
@@ -157,16 +157,10 @@ void activities::optical_flow (bool use_camera, String video_file_url)
         prev_gray = _adv_opencv->create_GRAY_by_RGB( new IplImage(prev_mat));
     }
 
-
-
-    double t = 0;
     IplImage* rgb = NULL;
-     IplImage * curr_gray = NULL;
+    IplImage * curr_gray = NULL;
 
     double t = 0;
-
-    _adv_opencv->angle = 0;
-    _adv_opencv->y_distance = 0;
 
     while (true)
     {
@@ -196,13 +190,13 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
         prev_gray = curr_gray;
 
-            cvShowImage("optical flow", rgb);
+            //cvShowImage("optical flow", rgb);
 
 
         if (_stop_execution) break;
     }
 
-        cvDestroyWindow("optical flow");
+     //cvDestroyWindow("optical flow");
     //cvDestroyWindow("mask");
     _stop_execution = false;
 
