@@ -35,7 +35,7 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
             p.x += curr.at(i).x - prev.at(i).x;
             p.y += curr.at(i).y - prev.at(i).y;
             new_trac.push_back(curr.at(i));
-        //    cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
+            cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
         }
 
     }
@@ -67,7 +67,7 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
    // cout << features_curr.size() << endl;
     if (features_curr.size() < OPTICAL_FLOW_MAX_FEATURES)
     {
-        IplImage * mask = cvCreateImage(cvGetSize(curr_gray ),IPL_DEPTH_8U, 1);
+        /*IplImage * mask = cvCreateImage(cvGetSize(curr_gray ),IPL_DEPTH_8U, 1);
 
         cvSet(mask, cvScalar(255));
         for (int i = 0; i < features->size(); i++)
@@ -75,16 +75,16 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
 
         cvRectangle(mask, cvPoint(0, CAPTURE_FRAME_HEIGHT /3 ), cvPoint(CAPTURE_FRAME_WIDTH,
             CAPTURE_FRAME_HEIGHT /3 *2), cvScalar(0), -1);
-
+*/
         //cvShowImage("mask", mask);
-        cv::goodFeaturesToTrack((Mat)curr_gray, features_new, 50, 0.01, 10, (Mat)mask );
+        cv::goodFeaturesToTrack((Mat)curr_gray, features_new, 50, 0.01, 10/*, (Mat)mask*/ );
     }
 
     for(int i = 0; i < features_new.size(); i ++)
         features->push_back(features_new.at(i));
 
-  //  for(int i = 0; i < features->size(); i ++)
-   //     cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
+    for(int i = 0; i < features->size(); i ++)
+        cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
 
 }
 

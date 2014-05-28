@@ -1,0 +1,41 @@
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+#include "opencv2/video/tracking.hpp"
+<<<<<<< HEAD
+#include "opencv2/core/core.hpp"
+=======
+#include <opencv2/core/core.hpp>
+>>>>>>> 22e67bcf87c285e9c7114999bc89b753873065e0
+#include <iostream>
+#include <list>
+#include <vector>
+
+#include <project_constants.h>
+
+using namespace std;
+using namespace cv;
+
+struct Two_points
+{
+    Point2f start;
+    Point2f end;
+};
+
+class advanced_opencv
+{
+public:
+    advanced_opencv();
+    ~advanced_opencv();
+    IplImage * GetThresholdedImage(IplImage* imgHSV, CvScalar hvs);
+    CvScalar * get_bottom_line_pixel_mean(IplImage * img);
+    CvScalar *  mark_line(IplImage* img, IplImage* rezimg);
+    cv::Point_<float>  get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+                                        std::vector<Two_points> * features);
+    IplImage * create_GRAY_by_RGB(IplImage* RGB_img);
+
+    void temp(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
+                                            std::vector<Point2f> * features);
+protected:
+private:
+
+};

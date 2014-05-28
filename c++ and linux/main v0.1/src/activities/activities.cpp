@@ -13,7 +13,8 @@ activities::activities()
     _sonar_front->set_drivetrain(_drv);
 */
 
-    _cam_front = new camera (USB_FRONT_CAMERA_NO);
+    _cam_front = new camera (1);
+    //_cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
 
     _stop_execution = false;
@@ -130,9 +131,9 @@ void activities::optical_flow (bool use_camera, String video_file_url)
     _adv_opencv->angle = 0;
     _adv_opencv->y_distance = 0;
 
-    //cvNamedWindow("optical flow");
+    cvNamedWindow("optical flow");
     //cvNamedWindow("mask");
-    //cvStartWindowThread();
+    cvStartWindowThread();
     std::vector<cv::Point2f>  features;
 
     IplImage * prev_gray = NULL;
@@ -190,13 +191,13 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
         prev_gray = curr_gray;
 
-            //cvShowImage("optical flow", rgb);
+            cvShowImage("optical flow", rgb);
 
 
         if (_stop_execution) break;
     }
 
-     //cvDestroyWindow("optical flow");
+     cvDestroyWindow("optical flow");
     //cvDestroyWindow("mask");
     _stop_execution = false;
 
