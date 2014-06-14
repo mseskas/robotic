@@ -6,13 +6,13 @@ activities::activities()
 {
     cout << "NOTE : activities() is disabled" << endl;
 
-    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+  /*  _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
     _sonar_front->set_drivetrain(_drv);
 
-
+*/
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
@@ -26,8 +26,8 @@ activities::~activities()
     cout << "NOTE : ~activities() is disabled" << endl;
     force_stop();
 
-    _drv->~drivetrain();
-    _sonar_front->~sonar();
+    //_drv->~drivetrain();
+    //_sonar_front->~sonar();
 
 }
 
@@ -100,7 +100,8 @@ void activities::act(int activity_no)
 
     case 9:
         force_stop();
-        _execution_thread = new thread (&activities::optical_flow, this, true, ""); // using camera - real time
+        optical_flow(true, "");
+        //_execution_thread = new thread (&activities::optical_flow, this, true, ""); // using camera - real time
         _is_executing = true;
         break;
 
@@ -225,7 +226,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
     _adv_opencv->y_distance = 0;
 
     cvNamedWindow("optical flow");
-    //cvNamedWindow("mask");
+  //  cvNamedWindow("mask");
     cvStartWindowThread();
     std::vector<cv::Point2f>  features;
 
@@ -273,6 +274,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
             }
             rgb = new IplImage(curr_mat);
             curr_gray = _adv_opencv->create_GRAY_by_RGB(rgb);
+            //delay(250);
         }
 
         t = (double)cvGetTickCount();
@@ -291,7 +293,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
     }
 
      cvDestroyWindow("optical flow");
-    //cvDestroyWindow("mask");
+  //  cvDestroyWindow("mask");
     _stop_execution = false;
     _is_executing = false;
 
