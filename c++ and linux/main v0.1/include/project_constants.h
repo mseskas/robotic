@@ -22,7 +22,6 @@
 #define CAPTURE_FRAME_WIDTH 640
 #define CAPTURE_FRAME_HEIGHT 480
 
-#define DESKTOP_DIR "/home/minde/Desktop/"
 
 #define OPTICAL_FLOW_MAX_FEATURES 200
 #define B_to_angle_conversion 147.0588
