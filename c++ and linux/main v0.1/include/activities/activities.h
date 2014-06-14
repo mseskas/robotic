@@ -45,4 +45,5 @@ private : // separate activities
     void init_floor();
     void control_robot();
     void optical_flow(bool use_camera, String video_file_url);
+    void record_video(bool show_video);
 };

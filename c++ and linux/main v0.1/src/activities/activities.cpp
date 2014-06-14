@@ -6,13 +6,13 @@ activities::activities()
 {
     cout << "NOTE : activities() is disabled" << endl;
 
-    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+   /* _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
     _sonar_front->set_drivetrain(_drv);
 
-
+*/
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
@@ -21,15 +21,13 @@ activities::activities()
     _is_executing = false;
 }
 
-
-
 activities::~activities()
 {
     cout << "NOTE : ~activities() is disabled" << endl;
     force_stop();
 
-    _drv->~drivetrain();
-    _sonar_front->~sonar();
+    //_drv->~drivetrain();
+    //_sonar_front->~sonar();
 
 }
 
@@ -118,11 +116,99 @@ void activities::act(int activity_no)
     }
     break;
 
+    case 11:
+    {
+        force_stop();
+        int arg2 = 0;
+        cout << "press 1 to show video" << endl;
+        cin >> arg2;
+
+        if (arg2 == 1)
+            _execution_thread = new thread (&activities::record_video, this, true);
+        else
+            _execution_thread = new thread (&activities::record_video, this, false);
+
+        _is_executing = true;
+    }
+    break;
 
     default :
         cout << "activities::act() - unknown activity" << endl;
         break;
     }
+
+}
+
+void activities::record_video(bool show_video)
+{
+    if (show_video)
+    {
+     cvNamedWindow("Capture");
+        cvStartWindowThread();
+    }
+
+    Mat frame;
+
+    String dir = std::string(DESKTOP_DIR) + std::string("capture.avi") ;
+    int fps = 15;
+
+
+    VideoWriter video;
+
+    video.open(dir, CV_FOURCC('D','I','V','X'),  fps,
+                        cvSize((int)CAPTURE_FRAME_WIDTH, (int)CAPTURE_FRAME_HEIGHT));
+
+    if(!video.isOpened())
+    {
+        cout << " Could not create video." << endl;
+        return;
+    }
+
+    cout << "Press Esc to stop recording." << endl;
+
+    double t = 0;
+
+    while(true)
+    {
+        t = (double)cvGetTickCount();  // mark when started capture
+        frame = Mat(_cam_front->get_frame());
+
+        if(!frame.data)
+        {
+            cout << "Could not retrieve frame.";
+            return;
+        }
+
+        video << frame;
+
+        if (show_video)
+            imshow("Capture", frame);
+
+        t = (double)cvGetTickCount() - t;  // count time past
+
+        t = t/((double)cvGetTickFrequency()*1000); // in ms
+
+        cout << t << "\t" << endl;
+
+        // 1 sec / fps  -  time past in capture  = time to wait till next frame
+        t = (double)(1000/fps) - t;
+
+        if (t <= 0 )
+            t = 1;
+
+        int k =  0xFF & waitKey(t);  // 1111 1111  &  ???? ???? 1010 1010  == 1010 1010
+
+        if(k == 27)
+            break;
+
+        if (_stop_execution) break;
+    }
+
+    if (show_video)
+        cvDestroyWindow("Capture");
+
+     _stop_execution = false;
+    _is_executing = false;
 
 }
 
@@ -200,8 +286,6 @@ void activities::optical_flow (bool use_camera, String video_file_url)
      cvDestroyWindow("optical flow");
     //cvDestroyWindow("mask");
     _stop_execution = false;
-
-
     _is_executing = false;
 
 }
@@ -216,7 +300,9 @@ void activities::print_activities()
          << "3 - Show view front " << "4 - Show view Canny " << "5 - Show view HVS " << "6 - Init floor" << endl
          << "7 - Dumb drive" << endl
          << "8 - Control me" << endl
-         << "9 - Optical flow" << endl;
+         << "9 - Optical flow" << endl
+         << "10 - Optical flow from file" << endl
+         << "11 - record video" << endl;
 }
 
 void activities::show_front_distance()
