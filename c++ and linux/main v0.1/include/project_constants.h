@@ -16,8 +16,12 @@
 
 // ========== opencv =======================
 
-#define CAPTURE_FRAME_WIDTH 320
-#define CAPTURE_FRAME_HEIGHT 240
+//#define CAPTURE_FRAME_WIDTH 320
+//#define CAPTURE_FRAME_HEIGHT 240
+
+#define CAPTURE_FRAME_WIDTH 640
+#define CAPTURE_FRAME_HEIGHT 480
+
 
 #define OPTICAL_FLOW_MAX_FEATURES 200
 #define B_to_angle_conversion 147.0588

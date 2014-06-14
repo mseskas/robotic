@@ -10,7 +10,7 @@ int main()
 {
     activities main_act;
 
-    int cmd = 100;
+    int cmd = 1000;
 
     while(true)
     {
