@@ -5,9 +5,9 @@ using namespace cv;
 
 advanced_opencv::advanced_opencv()
 {
-    angle = 0;
-    y_distance = 0;
-    x_distance = 0;
+    this->angle = 90;
+    this->y_distance = 0;
+    this->x_distance = 0;
 }
 
 advanced_opencv::~advanced_opencv()
@@ -74,7 +74,7 @@ double histogram_voting(vector<double> data)
     }
 
      cout << curr_max << " most accured time   " << max_quantity <<endl;
-      //waitKey(0);
+     // waitKey(0);
 
 
     return curr_max;
@@ -219,13 +219,22 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
     double gDeltaX = dx * c - dy * s;
     double gDeltaY = dx * s + dy * c;
 
-    x_distance += gDeltaX;
+ /*   x_distance += gDeltaX;
     y_distance += gDeltaY;
 
     angle += rotation;
+*/
+
+    this->angle += rotation / 2;
+
+    double Gc = cos(angle * M_PI / 180.0);
+    double Gs = sin(angle * M_PI / 180.0);
+
+    x_distance = x_distance + Gc * (-gDeltaY) / 10;   // : 10 for map purpose
+    y_distance = y_distance + Gs * (-gDeltaY) / 10;   // : 10 for map purpose
 
 
-    cout << "angle = " << angle << endl;
+    cout << "angle = " << this->angle << endl;
     cout << "global x = " << x_distance  << endl;
     cout << "global y = " << y_distance  << endl;
 

@@ -222,8 +222,24 @@ void activities::record_video(bool show_video)
 
 void activities::optical_flow (bool use_camera, String video_file_url)
 {
-    _adv_opencv->angle = 0;
-    _adv_opencv->y_distance = 0;
+
+// map =============================================================
+    cvNamedWindow("map");
+
+    _adv_opencv->angle = 90;
+    _adv_opencv->y_distance = 650;
+    _adv_opencv->x_distance = 350;
+
+    Mat mapas = Mat::zeros(700, 700, CV_8UC1);
+
+    circle(mapas, cvPoint( _adv_opencv->x_distance, _adv_opencv->y_distance), 1, cvScalar(255) );
+
+
+    imshow("map", mapas);
+
+// map =============================================================
+
+
 
     cvNamedWindow("optical flow");
   //  cvNamedWindow("mask");
@@ -245,6 +261,13 @@ void activities::optical_flow (bool use_camera, String video_file_url)
         if (!success)
         {
             cout << "Failed to open video file!" << endl;
+            // kill process  =====================
+             cvDestroyWindow("optical flow");
+           //cvDestroyWindow("map");
+           //cvDestroyWindow("mask");
+             _stop_execution = false;
+             _is_executing = false;
+             // kill process  =====================
             return;
         }
         Mat  prev_mat ;
@@ -286,13 +309,20 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
         prev_gray = curr_gray;
 
-            cvShowImage("optical flow", rgb);
+        cvShowImage("optical flow", rgb);
+// mapas =============================================================
 
+
+
+        circle(mapas, cvPoint( _adv_opencv->x_distance, _adv_opencv->y_distance), 1, cvScalar(255) );
+        imshow("map", mapas);
+// mapas =============================================================
 
         if (_stop_execution) break;
     }
 
      cvDestroyWindow("optical flow");
+   //  cvDestroyWindow("map");
   //  cvDestroyWindow("mask");
     _stop_execution = false;
     _is_executing = false;
