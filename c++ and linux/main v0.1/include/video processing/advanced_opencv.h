@@ -31,10 +31,10 @@ public:
 
     void get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Point2f> * features);
-    float angle, y_distance;
+    float angle, y_distance, x_distance;
 protected:
 private:
-    cv::Point_<float> motion_by_features(std::vector<Point2f> prev, std::vector<Point2f> &curr,
+    cv::Point_<float> motion_by_features(std::vector<Point2f> prev, std::vector<Point2f> curr,
         vector<uchar> status, IplImage* rgb);
 
 };

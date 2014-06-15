@@ -23,7 +23,7 @@
 #define CAPTURE_FRAME_HEIGHT 480
 
 
-#define OPTICAL_FLOW_MAX_FEATURES 1000
+#define OPTICAL_FLOW_MAX_FEATURES 700
 
 #define B_to_angle_conversion 147.0588
 

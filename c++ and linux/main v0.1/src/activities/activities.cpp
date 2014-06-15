@@ -321,6 +321,7 @@ void activities::show_front_distance()
         cout << "distance to front = " << _sonar_front->get_distance() << endl;
         if (_stop_execution) break;
         delay(100);
+
     }
     _drv->force_stop();
     _stop_execution = false;

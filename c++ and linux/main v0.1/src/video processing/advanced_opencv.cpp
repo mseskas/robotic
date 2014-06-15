@@ -7,6 +7,7 @@ advanced_opencv::advanced_opencv()
 {
     angle = 0;
     y_distance = 0;
+    x_distance = 0;
 }
 
 advanced_opencv::~advanced_opencv()
@@ -66,18 +67,20 @@ double histogram_voting(vector<double> data)
                 max_quantity = quantity;
                 curr_max = curr;
             }
-            cout << curr << " - apeared " << dict[curr] << " times  " << endl;
+          //  cout << curr << " - apeared " << dict[curr] << " times  " << endl;
             quantity = 1;
             curr = rez.at(i);
         }
     }
 
+     cout << curr_max << " most accured time   " << max_quantity <<endl;
+      //waitKey(0);
 
-     cout << curr_max << " most accured time   " << dict[curr_max] <<endl;
-    waitKey(0);
 
     return curr_max;
 }
+
+
 
 double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
 {
@@ -86,16 +89,20 @@ double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
 
     vector<double> rez;
 
-    int top_horizont_line = CAPTURE_FRAME_HEIGHT /3 *2;
+    int top_horizont_line = CAPTURE_FRAME_HEIGHT /3;
+
+  //  int counter = 0;
 
     for (int i = 0; i < curr.size(); i++)
     {
-        if (curr.at(i).y > top_horizont_line && prev.at(i).y > top_horizont_line)
+        if (curr.at(i).y < top_horizont_line && prev.at(i).y < top_horizont_line)
         {
             double pasisukimas = lambda(curr.at(i).x - Cx, Fx ) -
                                     lambda(prev.at(i).x - Cx, Fx );
 
             rez.push_back(pasisukimas);
+         //   counter++;
+           // cout << "counter : " << counter << endl;
         }
 
       // cout << pasisukimas << "\t";
@@ -111,15 +118,58 @@ double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
    //return rez.at(rez.size()/ 2);
 }
 
+std::pair<double, double>   paslinkimas(std::vector<Point2f> curr, std::vector<Point2f>prev, double rotation)
+{
+    double Cx = CAPTURE_FRAME_WIDTH / 2;
+    double Fx = CAPTURE_FRAME_HEIGHT;
 
 
+    std::pair<double, double> rez;
 
-cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev, std::vector<Point2f> &curr,
+    std::vector<Point2f> corrected;
+
+    double c = cos(rotation * M_PI / 180.0);
+    double s = sin(rotation * M_PI / 180.0);
+
+    for (int i = 0; i < curr.size(); i++)
+    {
+        Point2f p(0,0);
+
+        p.x =  (c * (curr.at(i).x - Cx) - s * (Fx - curr.at(i).y) )  +  Cx;
+        p.y =  Fx - (s * (curr.at(i).x - Cx) + c * (Fx - curr.at(i).y))  ;
+
+        corrected.push_back(p);
+    }
+
+    double dx = 0, dy = 0;
+    double counter = 0;
+
+     int bottom_horizont_line = CAPTURE_FRAME_HEIGHT /3 * 2;
+
+    for (int i = 0; i < corrected.size(); i++)   // skaiciuojam poslinki tik tu kurie pavirsiaus regione
+    {
+         if (corrected.at(i).y > bottom_horizont_line && corrected.at(i).y > bottom_horizont_line)
+        {
+
+            dx += corrected.at(i).x - prev.at(i).x;
+            dy += corrected.at(i).y - prev.at(i).y;
+            counter++;
+        }
+    }
+
+    dx /= counter;
+    dy /= counter;
+
+    return std::pair<double, double>(dx, dy);
+}
+
+cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev, std::vector<Point2f> curr,
                                                         vector<uchar> status, IplImage* rgb)
 {
     Point_<float> p;
 
-    std::vector<Point2f> new_trac;
+  /*  std::vector<Point2f> new_trac;
+    std::vector<Point2f> prev_trac;
 
     for (int i = 0; i < status.size(); i++)
     {
@@ -127,21 +177,59 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
         {
             //p.x += curr.at(i).x - prev.at(i).x;
             //p.y += curr.at(i).y - prev.at(i).y;
+
             new_trac.push_back(curr.at(i));
-            cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
+            prev_trac.push_back(prev.at(i));
+
+            //cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
+
         }
 
     }
-    curr = new_trac;
 
-    angle += pasisukimas(new_trac, prev);
+    for (int i = 0; i < new_trac.size(); i++)
+    {
+        cvLine(rgb, prev_trac.at(i), new_trac.at(i), cvScalar( 255, 0, 255));
+    }
+
+    //if (curr.size() != new_trac.size())
+      //   cvCircle(rgb, cvPoint(100, 100), 50, cvScalar(100, 100, 100), -1);
+
+    curr = new_trac;
+    prev = prev_trac;
+
+    */
+
+    double rotation = pasisukimas(curr, prev);
+
+    std::pair<double, double>  paslink = paslinkimas(curr, prev, rotation);
+
+
 
     //p.x = p.x / status.size();
     //p.y = p.y / status.size();
     //angle += p.x;
-    y_distance += p.y;
 
-    //cout << "angle = " << angle << ",  " << y_distance << " - vector" << endl;
+    double dx = std::get<0>(paslink);
+    double dy = std::get<1>(paslink);
+
+    double c = cos(rotation * M_PI / 180.0);
+    double s = sin(rotation * M_PI / 180.0);
+
+    double gDeltaX = dx * c - dy * s;
+    double gDeltaY = dx * s + dy * c;
+
+    x_distance += gDeltaX;
+    y_distance += gDeltaY;
+
+    angle += rotation;
+
+
+    cout << "angle = " << angle << endl;
+    cout << "global x = " << x_distance  << endl;
+    cout << "global y = " << y_distance  << endl;
+
+    //cout << "rotation = " << rotation << ",  dx = " <<  std::get<0>(paslink) << "    dy=" << std::get<1>(paslink)  << endl;
     return p;
 }
 
@@ -155,12 +243,42 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
 
     std::vector<cv::Point2f> features_new, features_curr;
 
+    std::vector<Point2f> new_trac;
+    std::vector<Point2f> prev_trac;
+
     if ( features->size() > 0)
     {
         cv::calcOpticalFlowPyrLK((Mat)prev_gray, (Mat)curr_gray, *features, features_curr, status, err);
-        Point_<float> p = motion_by_features(*features, features_curr, status, rgb);
+
+ // ================================================= poru sritis ==================================
+
+        for (int i = 0; i < status.size(); i++)
+        {
+            if (status.at(i) == 1)
+            {
+                //p.x += curr.at(i).x - prev.at(i).x;
+                //p.y += curr.at(i).y - prev.at(i).y;
+
+                new_trac.push_back(features_curr.at(i));
+                prev_trac.push_back(features->at(i));
+
+                //cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
+
+            }
+
+        }
+
+        for (int i = 0; i < new_trac.size(); i++)
+        {
+            cvLine(rgb, prev_trac.at(i), new_trac.at(i), cvScalar( 255, 0, 255));
+        }
+
+
+// ================================================= poru sritis ==================================
+
+        Point_<float> p = motion_by_features(prev_trac, new_trac, status, rgb);
     }
-    *features = features_curr;
+    *features = new_trac;
 
    // cout << features_curr.size() << endl;
     if (features_curr.size() < OPTICAL_FLOW_MAX_FEATURES)
@@ -175,11 +293,12 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
             CAPTURE_FRAME_HEIGHT /3 *2), cvScalar(0), -1);
 
        // cvShowImage("mask", mask);
-        cv::goodFeaturesToTrack((Mat)curr_gray, features_new, 100, 0.01, 20, (Mat)mask );
+        cv::goodFeaturesToTrack((Mat)curr_gray, features_new, 100, 0.01, 10, (Mat)mask, 5 );
     }
 
     for(int i = 0; i < features_new.size(); i ++)
         features->push_back(features_new.at(i));
+
 
     for(int i = 0; i < features->size(); i ++)
         cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
