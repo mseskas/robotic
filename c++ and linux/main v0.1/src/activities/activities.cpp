@@ -209,19 +209,19 @@ void activities::record_video(bool show_video)
         if (show_video)
             imshow("Capture", frame);
 
-        t = (double)cvGetTickCount() - t;  // count time past
+     //   t = (double)cvGetTickCount() - t;  // count time past
 
-        t = t/((double)cvGetTickFrequency()*1000); // in ms
+     //   t = t/((double)cvGetTickFrequency()*1000); // in ms
 
-      //  cout << t << "\t" << endl;
+
 
         // 1 sec / fps  -  time past in capture  = time to wait till next frame
-        t = (double)(1000/fps) - t;
+   //     t = (double)(1000/fps) - t;
 
-        if (t <= 0 )
-            t = 1;
+      //  if (t <= 0 )
+       //     t = 1;
 
-        int k =  0xFF & waitKey(t);  // 1111 1111  &  ???? ???? 1010 1010  == 1010 1010
+       // int k =  0xFF & waitKey(t);  // 1111 1111  &  ???? ???? 1010 1010  == 1010 1010
 
         if(k == 27)
             break;
@@ -258,7 +258,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
 
 
-   // cvNamedWindow("optical flow");
+    cvNamedWindow("optical flow");
   //  cvNamedWindow("mask");
     cvStartWindowThread();
     std::vector<cv::Point2f>  features;
@@ -326,7 +326,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
         prev_gray = curr_gray;
 
-       // cvShowImage("optical flow", rgb);
+        cvShowImage("optical flow", rgb);
 // mapas =============================================================
 
 
@@ -338,7 +338,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
         if (_stop_execution) break;
     }
 
-    // cvDestroyWindow("optical flow");
+     cvDestroyWindow("optical flow");
    //  cvDestroyWindow("map");
   //  cvDestroyWindow("mask");
     _stop_execution = false;
