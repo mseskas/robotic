@@ -6,13 +6,13 @@ activities::activities()
 {
     cout << "NOTE : activities() is disabled" << endl;
 
-  /*  _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+  //  _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
     _sonar_front->set_drivetrain(_drv);
 
-*/
+
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
@@ -166,7 +166,10 @@ void activities::record_video(bool show_video)
 
 
 
-    string dir = std::string("/root/Desktop/capture.avi") ;
+    //string dir = std::string("/root/Desktop/capture.avi") ;
+
+    string dir = std::string("/root/Desktop/capture.avi"); //.append(datetime).append(".avi");
+
     //string dir = std::string("/home/minde/Desktop/").append(datetime).append(".avi");
 
 
