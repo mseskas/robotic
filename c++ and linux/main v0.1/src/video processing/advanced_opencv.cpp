@@ -295,7 +295,7 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
                 new_trac.push_back(features_curr.at(i));
                 prev_trac.push_back(features->at(i));
 
-                //cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
+                cvLine(rgb, features->at(i), features_curr.at(i), cvScalar( 255, 0, 255));
 
             }
 
@@ -333,8 +333,8 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
         features->push_back(features_new.at(i));
 
 
-  //  for(int i = 0; i < features->size(); i ++)
-   //     cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
+    for(int i = 0; i < features->size(); i ++)
+        cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
 
 }
 
