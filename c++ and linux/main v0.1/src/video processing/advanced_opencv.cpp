@@ -103,7 +103,7 @@ double mediana(vector<double> data)
 double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
 {
     double Cx = CAPTURE_FRAME_WIDTH / 2;
-    double Fx = CAPTURE_FRAME_HEIGHT;
+    double Fx = CAPTURE_FRAME_HEIGHT - 50;
 
     vector<double> rez;
 
@@ -125,18 +125,18 @@ double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
 
       // cout << pasisukimas << "\t";
     }
+//waitKey(0);
 
+  // return histogram_voting(rez);
 
-   return histogram_voting(rez);
-
-  // return mediana(rez);
+   return mediana(rez);
 
  /*   for (int i = 0; i < curr.size(); i++)
     {
         printf("%12f", rez.at(i));
     }   */
   //  cout << "rotation : " << rez.at(rez.size()/ 2) << endl;
-   waitKey(0);
+
 
    //return rez.at(rez.size()/ 2);
 }
@@ -180,8 +180,11 @@ std::pair<double, double>   paslinkimas(std::vector<Point2f> curr, std::vector<P
         }
     }
 
-    dx /= counter;
-    dy /= counter;
+    if (counter > 0)
+    {
+        dx /= counter;
+        dy /= counter;
+    }
 
     return std::pair<double, double>(dx, dy);
 }
@@ -254,8 +257,8 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
     double Gc = cos(angle * M_PI / 180.0);
     double Gs = sin(angle * M_PI / 180.0);
 
-    x_distance = x_distance + Gc * (-gDeltaY) / 5;   // : 10 for map purpose
-    y_distance = y_distance + Gs * (-gDeltaY) / 5;   // : 10 for map purpose
+    x_distance = x_distance + Gc * (-gDeltaY) / 2;   // : 10 for map purpose
+    y_distance = y_distance + Gs * (-gDeltaY) / 2;   // : 10 for map purpose
 
 
     cout << "angle = " << this->angle << endl;
