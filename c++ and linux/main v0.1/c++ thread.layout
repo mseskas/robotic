@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
+<<<<<<< HEAD
 	<File name="src/camera.cpp" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
@@ -59,5 +60,33 @@
 		<Cursor>
 			<Cursor1 position="0" topLine="0" />
 		</Cursor>
+=======
+	<File name="include/activities/activities.h" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="include/project_constants.h" open="1" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="include/sonar.h" open="0" top="0" tabpos="3">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="include/video processing/advanced_opencv.h" open="0" top="0" tabpos="6">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/activities/activities.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="3766" topLine="143" />
+	</File>
+	<File name="src/camera.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/sonar.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="src/video processing/advanced_opencv.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="0" topLine="15" />
+>>>>>>> 2442b7051ac9fffa77cd547e2365f1b299640335
 	</File>
 </CodeBlocks_layout_file>

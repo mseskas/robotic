@@ -301,10 +301,10 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
 
         }
 
-        for (int i = 0; i < new_trac.size(); i++)
-        {
-            cvLine(rgb, prev_trac.at(i), new_trac.at(i), cvScalar( 255, 0, 255));
-        }
+   //     for (int i = 0; i < new_trac.size(); i++)
+   //     {
+   //         cvLine(rgb, prev_trac.at(i), new_trac.at(i), cvScalar( 255, 0, 255));
+   //     }
 
 
 // ================================================= poru sritis ==================================
@@ -333,8 +333,8 @@ void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplI
         features->push_back(features_new.at(i));
 
 
-    for(int i = 0; i < features->size(); i ++)
-        cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
+  //  for(int i = 0; i < features->size(); i ++)
+   //     cvCircle(rgb, features->at(i), 2, cvScalar(0, 255, 0) );
 
 }
 
