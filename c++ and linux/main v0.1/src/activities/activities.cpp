@@ -155,6 +155,8 @@ void activities::record_video(bool show_video)
 
     Mat frame;
 
+
+
     string dir = std::string("/root/Desktop/capture.avi") ;
 
     int fps = 15;
@@ -241,7 +243,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
 
 
-    cvNamedWindow("optical flow");
+   // cvNamedWindow("optical flow");
   //  cvNamedWindow("mask");
     cvStartWindowThread();
     std::vector<cv::Point2f>  features;
@@ -309,7 +311,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
         prev_gray = curr_gray;
 
-        cvShowImage("optical flow", rgb);
+       // cvShowImage("optical flow", rgb);
 // mapas =============================================================
 
 
@@ -321,7 +323,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
         if (_stop_execution) break;
     }
 
-     cvDestroyWindow("optical flow");
+    // cvDestroyWindow("optical flow");
    //  cvDestroyWindow("map");
   //  cvDestroyWindow("mask");
     _stop_execution = false;
