@@ -80,7 +80,25 @@ double histogram_voting(vector<double> data)
     return curr_max;
 }
 
+double mediana(vector<double> data)
+{
+    if (data.size() == 0)
+        return 0;
 
+    vector<double> rez;
+
+    for (int i = 0; i < data.size(); i++)
+    {
+        rez.push_back( round(data.at(i) * 10) / 10  );
+    }
+
+    std::sort (rez.begin(), rez.end());
+
+    if (rez.size() % 2 == 1 )
+        return rez.at( rez.size() / 2 );
+    else
+        return ( rez.at( rez.size() / 2 -1  ) +  rez.at(  rez.size() / 2 )  ) /2  ;
+}
 
 double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
 {
@@ -107,13 +125,18 @@ double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
 
       // cout << pasisukimas << "\t";
     }
-    return histogram_voting(rez);
+
+
+   return histogram_voting(rez);
+
+  // return mediana(rez);
+
  /*   for (int i = 0; i < curr.size(); i++)
     {
         printf("%12f", rez.at(i));
     }   */
   //  cout << "rotation : " << rez.at(rez.size()/ 2) << endl;
-  // waitKey(0);
+   waitKey(0);
 
    //return rez.at(rez.size()/ 2);
 }
@@ -202,6 +225,7 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
 
     double rotation = pasisukimas(curr, prev);
 
+
     std::pair<double, double>  paslink = paslinkimas(curr, prev, rotation);
 
 
@@ -230,8 +254,8 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
     double Gc = cos(angle * M_PI / 180.0);
     double Gs = sin(angle * M_PI / 180.0);
 
-    x_distance = x_distance + Gc * (-gDeltaY) / 10;   // : 10 for map purpose
-    y_distance = y_distance + Gs * (-gDeltaY) / 10;   // : 10 for map purpose
+    x_distance = x_distance + Gc * (-gDeltaY) / 5;   // : 10 for map purpose
+    y_distance = y_distance + Gs * (-gDeltaY) / 5;   // : 10 for map purpose
 
 
     cout << "angle = " << this->angle << endl;

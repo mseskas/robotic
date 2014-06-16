@@ -145,6 +145,8 @@ void activities::act(int activity_no)
 
 }
 
+#include <ctime>
+
 void activities::record_video(bool show_video)
 {
     if (show_video)
@@ -155,7 +157,19 @@ void activities::record_video(bool show_video)
 
     Mat frame;
 
-    string dir = std::string("/root/Desktop/capture.avi") ;
+    time_t ti = time(0);   // get time now
+    struct tm * now = localtime( & ti );
+
+    string datetime = to_string(now->tm_year + 1900) + "-" + to_string(now->tm_mon + 1) + "-"+ to_string(now->tm_mday)
+                + " " + to_string(now->tm_hour) + ":" + to_string(now->tm_min)  + ":" + to_string(now->tm_sec);
+
+
+
+
+    //string dir = std::string("/root/Desktop/capture.avi") ;
+
+    string dir = std::string("/home/minde/Desktop/").append(datetime).append(".avi");
+
 
     int fps = 15;
 
