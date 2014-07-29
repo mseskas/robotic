@@ -10,6 +10,8 @@
 #include <sonar.h>
 #include <camera.h>
 
+#include <ctime>
+
 using namespace std;
 
 
@@ -23,6 +25,8 @@ public:
     void wait_to_finish(int timeout_ms);
     void print_activities();
     void temp();
+    void drive(int direction, float time);
+    void turn(int direction, float time  );
 protected:
 private:
     advanced_opencv * _adv_opencv;

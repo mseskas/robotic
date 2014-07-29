@@ -147,7 +147,6 @@ void activities::act(int activity_no)
 
 }
 
-#include <ctime>
 
 void activities::record_video(bool show_video)
 {
@@ -532,6 +531,23 @@ void activities::init_floor()
     //  cvDestroyWindow("fin");
     _stop_execution = false;
     _is_executing = false;
+}
+
+void activities::drive(int direction, float time  )
+{
+
+    force_stop();
+    _drv->a_drive(direction, time);
+
+
+}
+
+void activities::turn(int direction, float time )
+{
+
+    force_stop();
+    _drv->a_turn(direction, time);
+
 }
 
 void activities::control_robot()
