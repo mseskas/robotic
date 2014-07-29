@@ -7,13 +7,19 @@
 	<drivetrain.h>
 	<sonar.h>
 
+1398379142 
+
 1391096084 source:/home/minde/Desktop/c++ thread/src/aaaa.cpp
 	"../include/aaaa.h"
+
+1391096084 e/aaaa.h"
 
 1391095964 /home/minde/Desktop/c++ thread/include/aaaa.h
 
 1391122979 source:/home/minde/Desktop/c++ thread/src/drivetrain.cpp
 	"drivetrain.h"
+
+1402781464 n.h"
 
 1391123613 /home/minde/Desktop/c++ thread/include/drivetrain.h
 	<thread>
@@ -27,6 +33,8 @@
 	<stdio.h>
 	<wiringPi.h>
 	<sys/time.h>
+
+1391122544 h>
 
 1391637402 source:/home/minde/Desktop/c++ thread & drivetrain v2.0/main.cpp
 	<iostream>
@@ -58,8 +66,12 @@
 	<wiringPi.h>
 	<wiringPiI2C.h>
 
+1391634156 2C.h>
+
 1391637335 source:/home/minde/Desktop/c++ thread & drivetrain v2.0/src/pwm_chip.cpp
 	"pwm_chip.h"
+
+1402781464 h"
 
 1391640806 source:/root/Desktop/c++ thread & drivetrain v2.0/main.cpp
 	<iostream>
@@ -112,6 +124,8 @@
 	<wiringPi.h>
 	<sys/time.h>
 	<project_constants.h>
+
+1398379142 onstants.h>
 
 1392902707 /root/Desktop/robotic/ubuntu -> debian/c++ thread & drivetrain v3.0/include/project_constants.h
 
@@ -198,6 +212,8 @@
 1391902518 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/c++ thread & drivetrain v3.0/src/Chip_PCA9685.cpp
 	"Chip_PCA9685.h"
 
+1391902518 685.h"
+
 1392807852 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/c++ thread & drivetrain v3.0/src/camera.cpp
 	"camera.h"
 
@@ -267,6 +283,8 @@
 	<iostream>
 	<string>
 	"activities/activities.h"
+
+1402935423 s/activities.h"
 
 1399490664 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/activities/activities.h
 	<string>
@@ -353,6 +371,8 @@
 
 1399495986 source:/home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/src/video processing/advanced_opencv.cpp
 	"video processing/advanced_opencv.h"
+
+1399494655 cessing/advanced_opencv.h"
 
 1398846079 /home/minde/Dropbox/ROBOTS/My Project/ubuntu -> debian/main v0.1/include/video processing/advanced_opencv.h
 	"opencv2/highgui/highgui.hpp"
@@ -530,7 +550,7 @@
 1402777864 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/sonar.cpp
 	"sonar.h"
 
-1402934245 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/video processing/advanced_opencv.cpp
+1402960104 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/video processing/advanced_opencv.cpp
 	"video processing/advanced_opencv.h"
 	<math.h>
 
@@ -619,6 +639,170 @@
 	"sonar.h"
 
 1402927750 source:/root/Desktop/robotics/c++ and linux/main v0.1/src/video processing/advanced_opencv.cpp
+	"video processing/advanced_opencv.h"
+	<math.h>
+
+1402929992 source:d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\main.cpp
+	<iostream>
+	<string>
+	"activities/activities.h"
+
+1402765578 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\activities\activities.h
+	<string>
+	<iostream>
+	<thread>
+	<project_constants.h>
+	<video processing/advanced_opencv.h>
+	<pwm_chip.h>
+	<drivetrain.h>
+	<servo.h>
+	<sonar.h>
+	<camera.h>
+
+1402936135 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\project_constants.h
+
+1402836451 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\video processing\advanced_opencv.h
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	"opencv2/video/tracking.hpp"
+	<opencv2/core/core.hpp>
+	<iostream>
+	<list>
+	<vector>
+	<project_constants.h>
+
+1402781464 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\pwm_chip.h
+	<stdlib.h>
+	<wiringPi.h>
+	<wiringPiI2C.h>
+	<project_constants.h>
+
+1402781464 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\drivetrain.h
+	<thread>
+	<iostream>
+	<math.h>
+	<pwm_chip.h>
+	<project_constants.h>
+
+1397026489 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\servo.h
+	<pwm_chip.h>
+	<project_constants.h>
+
+1402781464 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\sonar.h
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<thread>
+	<sys/time.h>
+	<drivetrain.h>
+	<project_constants.h>
+
+1398379142 d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\include\camera.h
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<project_constants.h>
+
+1402935423 source:d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\src\activities\activities.cpp
+	"activities/activities.h"
+	<ctime>
+
+1398379142 source:d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\src\camera.cpp
+	"camera.h"
+
+1402781464 source:d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\src\drivetrain.cpp
+	"drivetrain.h"
+
+1402781464 source:d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\src\pwm_chip.cpp
+	"pwm_chip.h"
+
+1399478728 source:d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\src\servo.cpp
+	"servo.h"
+
+1402781464 source:d:\users\minde\dropbox\robots\my project\c++ and linux\main v0.1\src\sonar.cpp
+	"sonar.h"
+
+1402926392 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/main.cpp
+	<iostream>
+	<string>
+	"activities/activities.h"
+
+1402777864 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/activities/activities.h
+	<string>
+	<iostream>
+	<thread>
+	<project_constants.h>
+	<video processing/advanced_opencv.h>
+	<pwm_chip.h>
+	<drivetrain.h>
+	<servo.h>
+	<sonar.h>
+	<camera.h>
+
+1402932535 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/project_constants.h
+
+1402832851 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/video processing/advanced_opencv.h
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	"opencv2/video/tracking.hpp"
+	<opencv2/core/core.hpp>
+	<iostream>
+	<list>
+	<vector>
+	<project_constants.h>
+
+1402777864 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/pwm_chip.h
+	<stdlib.h>
+	<wiringPi.h>
+	<wiringPiI2C.h>
+	<project_constants.h>
+
+1402777864 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/drivetrain.h
+	<thread>
+	<iostream>
+	<math.h>
+	<pwm_chip.h>
+	<project_constants.h>
+
+1397022889 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/servo.h
+	<pwm_chip.h>
+	<project_constants.h>
+
+1402777864 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/sonar.h
+	<iostream>
+	<stdio.h>
+	<wiringPi.h>
+	<thread>
+	<sys/time.h>
+	<drivetrain.h>
+	<project_constants.h>
+
+1398375542 /home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/include/camera.h
+	"opencv2/highgui/highgui.hpp"
+	"opencv2/imgproc/imgproc.hpp"
+	<iostream>
+	<project_constants.h>
+
+1402931823 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/activities/activities.cpp
+	"activities/activities.h"
+	<ctime>
+
+1398375542 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/camera.cpp
+	"camera.h"
+
+1402777864 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/drivetrain.cpp
+	"drivetrain.h"
+
+1402777864 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/pwm_chip.cpp
+	"pwm_chip.h"
+
+1399475128 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/servo.cpp
+	"servo.h"
+
+1402777864 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/sonar.cpp
+	"sonar.h"
+
+1403026765 source:/home/minde/Dropbox/ROBOTS/My Project/c++ and linux/main v0.1/src/video processing/advanced_opencv.cpp
 	"video processing/advanced_opencv.h"
 	<math.h>
 

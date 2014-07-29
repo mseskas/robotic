@@ -27,19 +27,14 @@ IplImage * advanced_opencv::create_GRAY_by_RGB(IplImage* RGB_img)
 
 double lambda(double x, double y)
 {
-    double atan2 =   y/ ( sqrt(x * x + y * y) + x ) ;
-
-    return atan2 / M_PI * 180;
+   return atan2(y, x) / M_PI * 180;
 }
 
 double histogram_voting(vector<double> data)
 {
     if (data.size() == 0)
         return 0;
-
     vector<double> rez;
-    //double curr = data.at(0);
-
     for (int i = 0; i < data.size(); i++)
     {
         rez.push_back( round(data.at(i) * 10) / 10  );
@@ -72,11 +67,7 @@ double histogram_voting(vector<double> data)
             curr = rez.at(i);
         }
     }
-
-     cout << curr_max << " most accured time   " << max_quantity <<endl;
-     // waitKey(0);
-
-
+//     cout << curr_max << " most accured time   " << max_quantity <<endl;
     return curr_max;
 }
 
@@ -103,7 +94,7 @@ double mediana(vector<double> data)
 double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
 {
     double Cx = CAPTURE_FRAME_WIDTH / 2;
-    double Fx = CAPTURE_FRAME_HEIGHT - 50;
+    double Fx = CAPTURE_FRAME_HEIGHT ;
 
     vector<double> rez;
 
@@ -141,7 +132,7 @@ double pasisukimas(std::vector<Point2f> curr, std::vector<Point2f> prev)
    //return rez.at(rez.size()/ 2);
 }
 
-std::pair<double, double>   paslinkimas(std::vector<Point2f> curr, std::vector<Point2f>prev, double rotation)
+std::pair<double, double> paslinkimas(std::vector<Point2f> curr, std::vector<Point2f>prev, double rotation)
 {
     double Cx = CAPTURE_FRAME_WIDTH / 2;
     double Fx = CAPTURE_FRAME_HEIGHT;
@@ -194,48 +185,9 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
 {
     Point_<float> p;
 
-  /*  std::vector<Point2f> new_trac;
-    std::vector<Point2f> prev_trac;
-
-    for (int i = 0; i < status.size(); i++)
-    {
-        if (status.at(i) == 1)
-        {
-            //p.x += curr.at(i).x - prev.at(i).x;
-            //p.y += curr.at(i).y - prev.at(i).y;
-
-            new_trac.push_back(curr.at(i));
-            prev_trac.push_back(prev.at(i));
-
-            //cvLine(rgb, prev.at(i), curr.at(i), cvScalar( 255, 0, 255));
-
-        }
-
-    }
-
-    for (int i = 0; i < new_trac.size(); i++)
-    {
-        cvLine(rgb, prev_trac.at(i), new_trac.at(i), cvScalar( 255, 0, 255));
-    }
-
-    //if (curr.size() != new_trac.size())
-      //   cvCircle(rgb, cvPoint(100, 100), 50, cvScalar(100, 100, 100), -1);
-
-    curr = new_trac;
-    prev = prev_trac;
-
-    */
-
     double rotation = pasisukimas(curr, prev);
 
-
     std::pair<double, double>  paslink = paslinkimas(curr, prev, rotation);
-
-
-
-    //p.x = p.x / status.size();
-    //p.y = p.y / status.size();
-    //angle += p.x;
 
     double dx = std::get<0>(paslink);
     double dy = std::get<1>(paslink);
@@ -246,24 +198,19 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
     double gDeltaX = dx * c - dy * s;
     double gDeltaY = dx * s + dy * c;
 
- /*   x_distance += gDeltaX;
-    y_distance += gDeltaY;
 
-    angle += rotation;
-*/
-
-    this->angle += rotation / 2;
+    this->angle += rotation / 1.6;
 
     double Gc = cos(angle * M_PI / 180.0);
     double Gs = sin(angle * M_PI / 180.0);
 
-    x_distance = x_distance + Gc * (-gDeltaY) / 2;   // : 10 for map purpose
-    y_distance = y_distance + Gs * (-gDeltaY) / 2;   // : 10 for map purpose
+    x_distance = x_distance + Gc * (-gDeltaY) / 5;   // : 10 for map purpose
+    y_distance = y_distance + Gs * (-gDeltaY) / 5;   // : 10 for map purpose
 
 
-    cout << "angle = " << this->angle << endl;
-    cout << "global x = " << x_distance  << endl;
-    cout << "global y = " << y_distance  << endl;
+    cout << "  angle = " << this->angle << endl;
+    cout << "  global x = " << x_distance  << endl;
+    cout << "  global y = " << y_distance  << endl;
 
     //cout << "rotation = " << rotation << ",  dx = " <<  std::get<0>(paslink) << "    dy=" << std::get<1>(paslink)  << endl;
     return p;
@@ -274,6 +221,8 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
 void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Point2f> * features)
 {
+    waitKey(0);
+
     vector<uchar> status;
     vector<float> err;
 
