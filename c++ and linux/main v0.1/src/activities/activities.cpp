@@ -6,7 +6,7 @@ activities::activities()
 {
     cout << "NOTE : activities() is disabled" << endl;
 
-  //  _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
     _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
     _drv = new drivetrain (_chip_16pwm);
@@ -223,8 +223,8 @@ void activities::record_video(bool show_video)
 
        // int k =  0xFF & waitKey(t);  // 1111 1111  &  ???? ???? 1010 1010  == 1010 1010
 
-        if(k == 27)
-            break;
+      //  if(k == 27)
+        //    break;
 
         if (_stop_execution) break;
     }
