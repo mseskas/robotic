@@ -1,3 +1,6 @@
+#ifndef ACTIVITIES_H
+#define ACTIVITIES_H
+
 #include <string>
 #include <iostream>
 #include <thread>
@@ -51,3 +54,5 @@ private : // separate activities
     void optical_flow(bool use_camera, String video_file_url);
     void record_video(bool show_video);
 };
+
+#endif // ACTIVITIES_H

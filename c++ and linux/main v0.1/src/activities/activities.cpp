@@ -6,7 +6,12 @@ activities::activities()
 {
     cout << "NOTE : activities() is disabled" << endl;
 
+    _drv = NULL;
+    _sonar_front = NULL;
+    _chip_16pwm = NULL;
+    _servo_spare = NULL;
 
+/*
     _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
     _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
 
@@ -15,7 +20,7 @@ activities::activities()
     _drv = new drivetrain (_chip_16pwm);
     _sonar_front->set_drivetrain(_drv);
 
-
+*/
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
 
@@ -537,7 +542,11 @@ void activities::drive(int direction, float time  )
 {
 
     force_stop();
-    _drv->a_drive(direction, time);
+
+    if (_drv != NULL)
+        _drv->a_drive(direction, time);
+    else
+        cout << "a_drive(" << direction << ", " << time <<" )" << " - _drv is NULL" << endl;
 
 
 }
@@ -546,7 +555,11 @@ void activities::turn(int direction, float time )
 {
 
     force_stop();
-    _drv->a_turn(direction, time);
+
+    if (_drv != NULL)
+        _drv->a_turn(direction, time);
+    else
+        cout << "a_turn(" << direction << ", " << time <<" );" << " - _drv is NULL" << endl;
 
 }
 

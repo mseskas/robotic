@@ -1,3 +1,6 @@
+#ifndef ADVANCED_OPENCV_H
+#define ADVANCED_OPENCV_H
+
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/video/tracking.hpp"
@@ -38,3 +41,5 @@ private:
         vector<uchar> status, IplImage* rgb);
 
 };
+
+#endif // ADVANCED_OPENCV_H
