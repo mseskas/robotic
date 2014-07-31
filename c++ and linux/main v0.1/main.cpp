@@ -18,17 +18,6 @@ int main()
     gui main_gui(main_act);
 
 
-
-   // time_t t = time(0);   // get time now
-   // struct tm * now = localtime( & t );
-
-   // string datetime = to_string(now->tm_year + 1900) + "-" + to_string(now->tm_mon + 1) + "-"+ to_string(now->tm_mday)
-   //             + " " + to_string(now->tm_hour) + ":" + to_string(now->tm_min)  + ":" + to_string(now->tm_sec);
-
-
-
-
-
     int cmd = 10000;
 
     while(true)

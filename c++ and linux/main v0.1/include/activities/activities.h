@@ -41,7 +41,7 @@ private:
     thread     * _execution_thread;
     bool       _stop_execution;
     bool       _is_executing;
-
+    char _key_on_hold;
 
 private : // separate activities
     void dumb_drive();
