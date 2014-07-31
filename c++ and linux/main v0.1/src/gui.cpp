@@ -22,7 +22,7 @@ static void gui::drive_forward (GtkWidget *wid, gpointer user_data)
 
     activities * main_act = user_data;
 
-    main_act->drive(FORWARD, 1);
+    main_act->drive(FORWARD, 10);
 
 }
 
@@ -36,7 +36,7 @@ static void gui::drive_backward (GtkWidget *wid, gpointer user_data)
 
     activities * main_act = user_data;
 
-    main_act->drive(BACKWARD, 1);
+    main_act->drive(BACKWARD, 10);
     _key_on_hold = 's';
 }
 
@@ -50,7 +50,7 @@ static void gui::turn_left (GtkWidget *wid, gpointer user_data)
 
     activities * main_act = user_data;
 
-    main_act->turn(TURN_LEFT, 1);
+    main_act->turn(TURN_LEFT, 10);
 }
 
 static void gui::turn_right (GtkWidget *wid, gpointer user_data)
@@ -64,7 +64,7 @@ static void gui::turn_right (GtkWidget *wid, gpointer user_data)
 
     activities * main_act = user_data;
 
-    main_act->turn(TURN_RIGHT, 1);
+    main_act->turn(TURN_RIGHT, 10);
 
 }
 
