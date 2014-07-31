@@ -72,11 +72,11 @@ static void gui::on_key_press(GtkWidget *wid, GdkEventKey *event, gpointer user_
 {
     if (_key_on_hold != 0)
     {
-        cout << "on hold " << event->keyval;
+        cout << "on hold " << (char)event->keyval << endl;
         return;
     }
 
-    cout << "key presed " << event->keyval;
+    cout << "key presed " << (char)event->keyval << endl;
 
     switch (event->keyval)
     {
@@ -140,24 +140,39 @@ void gui::build_gui (activities * main_act)
   g_signal_connect (G_OBJECT (win), "key_release_event", G_CALLBACK (gui::on_key_release), (gpointer)main_act);
 
   /* Create a vertical box with buttons */
-  vbox = gtk_vbox_new (TRUE, 6);
+
+//  vbox = gtk_hbox_new(FALSE, 6);
+  vbox = gtk_fixed_new(); // fixed container
   gtk_container_add (GTK_CONTAINER (win), vbox);
 
+
+  int x = 250, y = 50; // WSAD position
+  int wid = 40, hei = 30; // WSAD buttons size
+  int shift_h = 40, shift_v = 30; // WSAD spaces
+
   // forward button
-  button = gtk_button_new_with_label ("forward");
-  g_signal_connect (G_OBJECT (button), "clicked", G_CALLBACK(gui::drive_forward), (gpointer)main_act);
-  gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
-
-
+  button = gtk_button_new_with_label ("W");
+  g_signal_connect (button, "clicked", G_CALLBACK(gui::drive_forward), (gpointer)main_act);
+  gtk_widget_set_usize(button, wid, hei);
+  gtk_fixed_put(GTK_FIXED(vbox), button, x, y);
 
   // backward button
-  button = gtk_button_new_with_label ("backward");
+  button = gtk_button_new_with_label ("S");
   g_signal_connect (button, "clicked", G_CALLBACK (gui::drive_backward), (gpointer)main_act);
-  gtk_box_pack_start (GTK_BOX (vbox), button, TRUE, TRUE, 0);
+  gtk_widget_set_usize(button, wid, hei);
+  gtk_fixed_put(GTK_FIXED(vbox), button, x, y+shift_v);
 
+  // turn left button
+  button = gtk_button_new_with_label ("A");
+  g_signal_connect (button, "clicked", G_CALLBACK (gui::turn_left), (gpointer)main_act);
+  gtk_widget_set_usize(button, wid, hei);
+  gtk_fixed_put(GTK_FIXED(vbox), button, x-shift_h, y+shift_v);
 
-  //gtk_widget_set_uposition(button, 100, 100);
-  //gtk_widget_set_size_request(button, 100, 25);
+  // turn right button
+  button = gtk_button_new_with_label ("D");
+  g_signal_connect (button, "clicked", G_CALLBACK (gui::turn_right), (gpointer)main_act);
+  gtk_widget_set_usize(button, wid, hei);
+  gtk_fixed_put(GTK_FIXED(vbox), button, x+shift_h, y+shift_v);
 
   /* Enter the main loop */
   gtk_widget_show_all (win);

@@ -11,15 +11,20 @@ activities::activities()
     _chip_16pwm = NULL;
     _servo_spare = NULL;
 
+    struct utsname sysinfo;
+    if(uname(&sysinfo)) exit(9);
+    // DEVELOPER NOTE : ubuntu will be equal to Linux
+    if ( strcmp(sysinfo.sysname, "Linux") )
+    {
+        _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+        _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
 
-    _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
-    _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
 
+        _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
+        _drv = new drivetrain (_chip_16pwm);
+        _sonar_front->set_drivetrain(_drv);
 
-    _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
-    _drv = new drivetrain (_chip_16pwm);
-    _sonar_front->set_drivetrain(_drv);
-
+    }
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
