@@ -4,6 +4,12 @@ using namespace cv;
 
 activities::activities()
 {
+    // _gui = new info_gui();
+
+    // workaround for gtk+ & OpenCV error
+    // namedWindow("test");
+    // cvStartWindowThread();
+    // destroyWindow("test");
 
     _drv = NULL;
     _sonar_front = NULL;
@@ -64,7 +70,6 @@ void activities::wait_to_finish(int timeout_ms)
     }
 }
 
-void bla();
 
 void activities::act(int activity_no)
 {
@@ -426,8 +431,8 @@ void activities::show_front_view()
         if (frame == NULL)
             cout << "Can't get frame!" << endl;
 
-        cvShowImage("camera", frame);
-        //cvWaitKey(1);
+         cvShowImage("camera", frame);
+
         if (_stop_execution) break;
         cvWaitKey(1);
     }
@@ -474,7 +479,6 @@ void activities::hvs_view()
 {
 
     namedWindow("HVS");
-
     startWindowThread();
 
     while(true)
@@ -556,7 +560,7 @@ void activities::drive(int direction, float time  )
     if (_drv != NULL)
         _drv->a_drive(direction, time);
     else
-        cout << "a_drive(" << direction << ", " << time <<" )" << " - _drv is NULL" << endl;
+        cout << " a_drive(" << direction << ", " << time <<" )" << " - _drv is NULL ";
 
 
 }
@@ -569,7 +573,7 @@ void activities::turn(int direction, float time )
     if (_drv != NULL)
         _drv->a_turn(direction, time);
     else
-        cout << "a_turn(" << direction << ", " << time <<" );" << " - _drv is NULL" << endl;
+        cout << " a_turn(" << direction << ", " << time <<" );" << " - _drv is NULL ";
 
 }
 

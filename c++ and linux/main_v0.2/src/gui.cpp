@@ -147,10 +147,18 @@ void gui::build_gui (activities * main_act)
   GtkWidget *win = NULL;
   GtkWidget *vbox = NULL;
 
-  /* Initialize GTK+ */
-  g_log_set_handler ("Gtk", G_LOG_LEVEL_WARNING, (GLogFunc) gtk_false, NULL);
-  gtk_init (0, NULL);
-  g_log_set_handler ("Gtk", G_LOG_LEVEL_WARNING, g_log_default_handler, NULL);
+  /* Secure glib */
+//  if( ! g_thread_supported() )
+  //  g_thread_init( NULL );
+
+  /* Secure gtk */
+//   gdk_threads_init();
+
+  /* Obtain gtk's global lock */
+//  gdk_threads_enter();
+
+  /* Do stuff as usual */
+  gtk_init( 0, NULL );
 
   /* Create the main window */
   win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -159,9 +167,7 @@ void gui::build_gui (activities * main_act)
   gtk_window_set_default_size(GTK_WINDOW(win), 400, 300);
   gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
 
-  gtk_widget_realize (win);
-  //g_signal_connect (win, "destroy", G_CALLBACK (&destroy), NULL);
-  //g_signal_connect (win, "delete-event", G_CALLBACK (&delete_event), NULL);
+ // gtk_widget_realize(win);
 
   g_signal_connect (win, "key_press_event", G_CALLBACK (gui::on_key_press), (gpointer)main_act);
   g_signal_connect (win, "key_release_event", G_CALLBACK (gui::on_key_release), (gpointer)main_act);
@@ -202,14 +208,20 @@ void gui::build_gui (activities * main_act)
   gtk_fixed_put(GTK_FIXED(vbox), button, x+shift_h, y+shift_v);
 
   // checkbox
-
-
-
   _checkbox_stop = gtk_check_button_new_with_label("stop on space");
   gtk_fixed_put(GTK_FIXED(vbox), _checkbox_stop, x, y-30);
+
 
   /* Enter the main loop */
   gtk_widget_show_all (win);
   gtk_main ();
 
+  /* Release gtk's global lock */
+    gdk_threads_leave();
+
 }
+
+
+
+
+

@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
 
+#include "gui.h"
 
 #include "activities/activities.h"
 
-#include "gui.h"
+
 
 
 using namespace std;
@@ -14,10 +15,9 @@ int main()
 
     activities main_act;
 
-    gui main_gui(&main_act);
+    gui * main_gui  = new gui(&main_act);
 
-
-    int cmd = 10000;
+    int cmd;
 
     while(true)
     {

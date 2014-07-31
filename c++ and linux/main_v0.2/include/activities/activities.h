@@ -18,9 +18,9 @@
 
 #include <sys/utsname.h>
 
+#include "info_gui.h"
 
 using namespace std;
-
 
 class activities
 {
@@ -31,7 +31,6 @@ public:
     void force_stop();
     void wait_to_finish(int timeout_ms);
     void print_activities();
-    void temp();
     void drive(int direction, float time);
     void turn(int direction, float time  );
 protected:
@@ -57,6 +56,8 @@ private : // separate activities
     void control_robot();
     void optical_flow(bool use_camera, String video_file_url);
     void record_video(bool show_video);
+
+    info_gui * _gui;
 };
 
 #endif // ACTIVITIES_H

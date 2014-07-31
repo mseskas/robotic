@@ -22,14 +22,12 @@ class gui
         static void on_key_release(GtkWidget *wid, GdkEventKey *event, gpointer user_data);
         static void turn_right (GtkWidget *wid, gpointer user_data);
         static void turn_left (GtkWidget *wid, gpointer user_data);
-
         static char _key_on_hold;
     protected:
     private:
         thread  * _execution_thread;
 
         static GtkWidget * _checkbox_stop;
-
 };
 
 #endif // GUI_H
