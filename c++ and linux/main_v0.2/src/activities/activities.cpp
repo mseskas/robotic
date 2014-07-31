@@ -12,13 +12,13 @@ activities::activities()
 
     struct utsname sysinfo;
 
+    uname(&sysinfo);
+
     // DEVELOPER NOTE : sysinfo.nodename will be equal to raspberrypi on raspberrypi chip
-    if ( strcmp(sysinfo.nodename , "raspberrypi") )
+    if ( strcmp(sysinfo.nodename , "raspberrypi") == 1)
     {
         _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
-
-
         _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
         _drv = new drivetrain (_chip_16pwm);
         _sonar_front->set_drivetrain(_drv);
@@ -48,8 +48,9 @@ void activities::force_stop()
 {
     _stop_execution = true;
     wait_to_finish(0);
-    cout << "stop draivtrain" << endl;
-    _drv->force_stop();
+
+    if (_drv)
+        _drv->force_stop();
 
     _stop_execution = false;
 }
@@ -206,11 +207,11 @@ void activities::record_video(bool show_video)
 
     cout << "Press Esc to stop recording." << endl;
 
-    double t = 0;
+    //double t = 0;
 
     while(true)
     {
-        t = (double)cvGetTickCount();  // mark when started capture
+       // t = (double)cvGetTickCount();  // mark when started capture
         frame = Mat(_cam_front->get_frame());
 
         if(!frame.data)

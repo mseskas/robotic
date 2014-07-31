@@ -14,7 +14,7 @@ using namespace std;
 class gui
 {
     public:
-        gui(activities main_act);
+        gui(activities * main_act);
         void build_gui (activities * main_act);
         static void drive_forward (GtkWidget *wid, gpointer user_data);
         static void drive_backward (GtkWidget *wid, gpointer user_data);
@@ -27,6 +27,8 @@ class gui
     protected:
     private:
         thread  * _execution_thread;
+
+        static GtkWidget * _checkbox_stop;
 
 };
 

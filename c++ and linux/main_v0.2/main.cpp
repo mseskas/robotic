@@ -14,7 +14,7 @@ int main()
 
     activities main_act;
 
-    gui main_gui(main_act);
+    gui main_gui(&main_act);
 
 
     int cmd = 10000;
