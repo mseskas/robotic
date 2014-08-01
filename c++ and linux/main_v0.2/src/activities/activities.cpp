@@ -2,13 +2,15 @@
 
 using namespace cv;
 
+
+
 activities::activities()
 {
     // _gui = new info_gui();
 
     // workaround for gtk+ & OpenCV error
-    // namedWindow("test");
-    // cvStartWindowThread();
+     //namedWindow("test");
+     //cvStartWindowThread();
     // destroyWindow("test");
 
     _drv = NULL;
@@ -20,8 +22,12 @@ activities::activities()
 
     uname(&sysinfo);
 
+    cout << sysinfo.nodename << endl;
+
+    std::string g = "raspberrypi";
+
     // DEVELOPER NOTE : sysinfo.nodename will be equal to raspberrypi on raspberrypi chip
-    if ( strcmp(sysinfo.nodename , "raspberrypi") == 1)
+    if ( g.compare(sysinfo.nodename))
     {
         _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);

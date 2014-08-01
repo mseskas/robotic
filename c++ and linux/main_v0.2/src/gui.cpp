@@ -113,7 +113,7 @@ static void gui::on_key_press(GtkWidget *wid, GdkEventKey *event, gpointer user_
         turn_right(wid, user_data);
         _key_on_hold = 'RIGHT';
         break;
-        case 32 :  // SPACE pressed
+        case 65456 :  // ENTER pressed
             cout << "  stop!" << endl;
             activities * main_act = user_data;
             _key_on_hold = 0;
@@ -148,11 +148,11 @@ void gui::build_gui (activities * main_act)
   GtkWidget *vbox = NULL;
 
   /* Secure glib */
-//  if( ! g_thread_supported() )
-  //  g_thread_init( NULL );
+ // if( ! g_thread_supported() )
+ //   g_thread_init( NULL );
 
   /* Secure gtk */
-//   gdk_threads_init();
+   gdk_threads_init();
 
   /* Obtain gtk's global lock */
 //  gdk_threads_enter();
