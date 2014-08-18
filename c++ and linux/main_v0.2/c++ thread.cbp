@@ -50,7 +50,7 @@
 		<Unit filename="include/activities/activities.h" />
 		<Unit filename="include/camera.h" />
 		<Unit filename="include/drivetrain.h" />
-		<Unit filename="include/gui.h" />
+		<Unit filename="include/gui_control.h" />
 		<Unit filename="include/gui_display.h" />
 		<Unit filename="include/project_constants.h" />
 		<Unit filename="include/pwm_chip.h" />
@@ -61,7 +61,7 @@
 		<Unit filename="src/activities/activities.cpp" />
 		<Unit filename="src/camera.cpp" />
 		<Unit filename="src/drivetrain.cpp" />
-		<Unit filename="src/gui.cpp" />
+		<Unit filename="src/gui_control.cpp" />
 		<Unit filename="src/gui_display.cpp" />
 		<Unit filename="src/pwm_chip.cpp" />
 		<Unit filename="src/servo.cpp" />
