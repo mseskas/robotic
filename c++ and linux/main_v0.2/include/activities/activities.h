@@ -27,14 +27,17 @@ class activities
 public:
     activities();
     ~activities();
-    void  act(int activity_no);
+    void act(int activity_no);
     void force_stop();
     void wait_to_finish(int timeout_ms);
     void print_activities();
     void drive(int direction, float time);
     void turn(int direction, float time  );
+    void stop_drive();
 
     void set_display_gui(gui_display * gui);
+
+
 protected:
 private:
     advanced_opencv * _adv_opencv;

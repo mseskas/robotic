@@ -6,10 +6,13 @@
 */
 char gui_control::_key_on_hold = 0;
 GtkWidget * gui_control::_checkbox_stop = NULL;
+activities * gui_control::_main_act =NULL;
+
 
 gui_control::gui_control(activities * main_act)
 {
-    _execution_thread = new thread (&gui_control::build_gui, this, main_act);
+    _main_act = main_act;
+    build_gui(main_act);
 }
 
 static void gui_control::drive_forward (GtkWidget *wid, gpointer user_data)
@@ -83,8 +86,6 @@ static void gui_control::on_key_press(GtkWidget *wid, GdkEventKey *event, gpoint
         return;
     }
 
-
-
     switch (event->keyval)
     {
         case 'w' :
@@ -123,11 +124,9 @@ static void gui_control::on_key_press(GtkWidget *wid, GdkEventKey *event, gpoint
             cout << "  stop!" << endl;
             activities * main_act = user_data;
             _key_on_hold = 0;
-            main_act->force_stop();
+            main_act->stop_drive();
         break;
     }
-
-
 }
 
 static void gui_control::on_key_release(GtkWidget *wid, GdkEventKey *event, gpointer user_data)
@@ -144,46 +143,53 @@ static void gui_control::on_key_release(GtkWidget *wid, GdkEventKey *event, gpoi
 
     _key_on_hold = 0;
     cout << "  stop!" << endl;
-    main_act->force_stop();
+    main_act->stop_drive();
+}
+
+void gui_control::toggle_button_callback (GtkWidget *widget, gpointer data)
+{
+    /* If  toggle button is down */
+    if (GTK_TOGGLE_BUTTON (widget)->active)
+    {
+        if (data == NULL)
+            return;
+        char * radio = data;
+        string str(radio);
+
+
+        if ( str.compare("none") == 0)
+        {
+            _main_act->force_stop();
+        }
+        else if ( str.compare("RGB") == 0)
+        {
+            _main_act->act(3);
+        }
+        else if ( str.compare("canny") == 0)
+        {
+            _main_act->act(4);
+        }
+        else if ( str.compare("HSV") == 0)
+        {
+            _main_act->act(5);
+        }
+        else if ( str.compare("of") == 0)
+        {
+            _main_act->act(9);
+        }
+
+
+
+
+    }
 }
 
 void gui_control::build_gui (activities * main_act)
 {
-  GtkWidget *button = NULL;
-  GtkWidget *win = NULL;
-  GtkWidget *vbox = NULL;
+  _fixed_box = gtk_fixed_new();
 
-
-  /* Secure gtk */
- //  gdk_threads_init();
-
-  /* Obtain gtk's global lock */
-   gdk_threads_enter();
-
-  XInitThreads();
-
-  //gtk_disable_setlocale();
-
-  /* Do stuff as usual */
-  gtk_init( 0, NULL );
-
-  /* Create the main window */
-  win = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_container_set_border_width (GTK_CONTAINER (win), 8);
-  gtk_window_set_title (GTK_WINDOW (win), "Hello World");
-  gtk_window_set_default_size(GTK_WINDOW(win), 400, 300);
-  gtk_window_set_position (GTK_WINDOW (win), GTK_WIN_POS_CENTER);
-
- // gtk_widget_realize(win);
-
-  g_signal_connect (win, "key_press_event", G_CALLBACK (gui_control::on_key_press), (gpointer)main_act);
-  g_signal_connect (win, "key_release_event", G_CALLBACK (gui_control::on_key_release), (gpointer)main_act);
-
-  /* Create a vertical box with buttons */
-
-//  vbox = gtk_hbox_new(FALSE, 6);
-  vbox = gtk_fixed_new(); // fixed container
-  gtk_container_add (GTK_CONTAINER (win), vbox);
+  g_signal_connect (_fixed_box, "key_press_event", G_CALLBACK (gui_control::on_key_press), (gpointer)main_act);
+  g_signal_connect (_fixed_box, "key_release_event", G_CALLBACK (gui_control::on_key_release), (gpointer)main_act);
 
 
   int x = 250, y = 50; // WSAD position
@@ -191,44 +197,64 @@ void gui_control::build_gui (activities * main_act)
   int shift_h = 80, shift_v = 30; // WSAD spaces
 
   // forward button
-  button = gtk_button_new_with_label ("W/up");
+  GtkWidget * button = gtk_button_new_with_label ("W/up");
   g_signal_connect (button, "clicked", G_CALLBACK(gui_control::drive_forward), (gpointer)main_act);
   gtk_widget_set_usize(button, wid, hei);
-  gtk_fixed_put(GTK_FIXED(vbox), button, x, y);
+  gtk_fixed_put(GTK_FIXED(_fixed_box), button, x, y);
 
   // backward button
   button = gtk_button_new_with_label ("S/down");
   g_signal_connect (button, "clicked", G_CALLBACK (gui_control::drive_backward), (gpointer)main_act);
   gtk_widget_set_usize(button, wid, hei);
-  gtk_fixed_put(GTK_FIXED(vbox), button, x, y+shift_v);
+  gtk_fixed_put(GTK_FIXED(_fixed_box), button, x, y+shift_v);
 
   // turn left button
   button = gtk_button_new_with_label ("A/left");
   g_signal_connect (button, "clicked", G_CALLBACK (gui_control::turn_left), (gpointer)main_act);
   gtk_widget_set_usize(button, wid, hei);
-  gtk_fixed_put(GTK_FIXED(vbox), button, x-shift_h, y+shift_v);
+  gtk_fixed_put(GTK_FIXED(_fixed_box), button, x-shift_h, y+shift_v);
 
   // turn right button
   button = gtk_button_new_with_label ("D/right");
   g_signal_connect (button, "clicked", G_CALLBACK (gui_control::turn_right), (gpointer)main_act);
   gtk_widget_set_usize(button, wid, hei);
-  gtk_fixed_put(GTK_FIXED(vbox), button, x+shift_h, y+shift_v);
+  gtk_fixed_put(GTK_FIXED(_fixed_box), button, x+shift_h, y+shift_v);
 
   // checkbox
   _checkbox_stop = gtk_check_button_new_with_label("stop on '0' key");
-  gtk_fixed_put(GTK_FIXED(vbox), _checkbox_stop, x, y-30);
+  gtk_fixed_put(GTK_FIXED(_fixed_box), _checkbox_stop, x, y-30);
 
+  //redio buttons
+  GtkWidget * radio_none = gtk_radio_button_new_with_label(NULL, "none");
+  GSList * group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_none));
+  g_signal_connect (radio_none, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "none");
+  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_none, 10, 10);
 
-  /* Enter the main loop */
-  gtk_widget_show_all (win);
-  gtk_main ();
+  GtkWidget * radio_RGB = gtk_radio_button_new_with_label(group, "RGB");
+  group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_RGB));
+    g_signal_connect (radio_RGB, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "RGB");
+  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_RGB, 10, 35);
 
-  /* Release gtk's global lock */
-    gdk_threads_leave();
+  GtkWidget * radio_canny = gtk_radio_button_new_with_label(group, "Canny edge");
+  group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_canny));
+    g_signal_connect (radio_canny, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "canny");
+  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_canny, 10, 60);
+
+  GtkWidget * radio_HSV = gtk_radio_button_new_with_label(group, "HSV");
+  group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_HSV));
+    g_signal_connect (radio_HSV, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "HSV");
+  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_HSV, 10, 85);
+
+  GtkWidget * radio_of = gtk_radio_button_new_with_label(group, "optical flow");
+    g_signal_connect (radio_of, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "of");
+  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_of, 10, 110);
+
 
 }
 
 
-
-
+GtkWidget * gui_control::get_main_box()
+{
+    return _fixed_box;
+}
 

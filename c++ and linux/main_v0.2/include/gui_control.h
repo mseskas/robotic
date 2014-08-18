@@ -25,11 +25,15 @@ class gui_control
         static void turn_right (GtkWidget *wid, gpointer user_data);
         static void turn_left (GtkWidget *wid, gpointer user_data);
         static char _key_on_hold;
+        GtkWidget * get_main_box();
+        static void toggle_button_callback (GtkWidget *widget, gpointer data);
     protected:
     private:
         thread  * _execution_thread;
 
         static GtkWidget * _checkbox_stop;
+        static activities * _main_act;
+        GtkWidget * _fixed_box;
 };
 
 #endif // GUI_H

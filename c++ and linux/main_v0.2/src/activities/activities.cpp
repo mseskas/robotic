@@ -7,16 +7,8 @@
 
 using namespace cv;
 
-
-
-
 activities::activities()
 {
-
-
-    gui_display * _gui_disp = new gui_display();
-
-
 
     _drv = NULL;
     _sonar_front = NULL;
@@ -82,6 +74,10 @@ void activities::wait_to_finish(int timeout_ms)
     }
 }
 
+void activities::set_display_gui(gui_display * gui)
+{
+    _gui_disp = gui;
+}
 
 void activities::act(int activity_no)
 {
@@ -134,8 +130,8 @@ void activities::act(int activity_no)
 
     case 9:
         force_stop();
-        optical_flow(true, "");
-        //_execution_thread = new thread (&activities::optical_flow, this, true, ""); // using camera - real time
+        //optical_flow(true, "");
+        _execution_thread = new thread (&activities::optical_flow, this, true, ""); // using camera - real time
         _is_executing = true;
         break;
 
@@ -286,13 +282,11 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
     circle(mapas, cvPoint( _adv_opencv->x_distance, _adv_opencv->y_distance), 1, cvScalar(255) );
 
-
     imshow("map", mapas);
 
 // map =============================================================
 
-
-    cvNamedWindow("optical flow");
+ //   cvNamedWindow("optical flow");
   //  cvNamedWindow("mask");
     cvStartWindowThread();
     std::vector<cv::Point2f>  features;
@@ -313,7 +307,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
         {
             cout << "Failed to open video file!" << endl;
             // kill process  =====================
-             cvDestroyWindow("optical flow");
+          //   cvDestroyWindow("optical flow");
            //cvDestroyWindow("map");
            //cvDestroyWindow("mask");
              _stop_execution = false;
@@ -360,7 +354,8 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
         prev_gray = curr_gray;
 
-        cvShowImage("optical flow", rgb);
+      //  cvShowImage("optical flow", rgb);
+        _gui_disp->show_image(rgb);
 
 // mapas =============================================================
 
@@ -412,6 +407,9 @@ void activities::show_front_distance()
 
 void activities::dumb_drive()
 {
+    if(!_drv)
+        return;
+
     while (true)
     {
         _drv->a_drive(FORWARD, 5);
@@ -443,7 +441,6 @@ void activities::show_front_view()
             cout << "Can't get frame!" << endl;
 
 
-
         _gui_disp->show_image(frame);
 
 
@@ -461,8 +458,8 @@ void activities::show_front_view()
 // using gaussian blur 3/3
 void activities::canny_edge_view()
 {
-    namedWindow("Canny");
-    startWindowThread();
+   // namedWindow("Canny");
+   // startWindowThread();
 
     while(true)
     {
@@ -480,12 +477,15 @@ void activities::canny_edge_view()
 
         cv::Canny ((Mat)canny, (Mat)canny, 10, 60 );
 
-        cvShowImage("Canny", canny);
-        cvWaitKey(1);
+      //  cvShowImage("Canny", canny);
+
+        _gui_disp->show_image(canny);
+
+      //  cvWaitKey(1);
 
         if (_stop_execution) break;
     }
-    destroyWindow("Canny");
+ //   destroyWindow("Canny");
 
     _stop_execution = false;
     _is_executing = false;
@@ -494,8 +494,8 @@ void activities::canny_edge_view()
 void activities::hvs_view()
 {
 
-    namedWindow("HVS");
-    startWindowThread();
+ //   namedWindow("HVS");
+  //  startWindowThread();
 
     while(true)
     {
@@ -509,12 +509,14 @@ void activities::hvs_view()
         // cvtColor((Mat)frame, (Mat)canny,  CV_RGB2GRAY);
         // cv::Canny ((Mat)canny, (Mat)canny, 10, 60 );
 
-        cvShowImage("HVS", frame);
-        cvWaitKey(1);
+        _gui_disp->show_image(frame);
+
+       // cvShowImage("HVS", frame);
+       // cvWaitKey(1);
 
         if (_stop_execution) break;
     }
-    destroyWindow("HVS");
+   // destroyWindow("HVS");
 
     _stop_execution = false;
     _is_executing = false;
@@ -523,9 +525,9 @@ void activities::hvs_view()
 // using gaussian blur 3/3
 void activities::init_floor()
 {
-    cvNamedWindow("floor");
+ //   cvNamedWindow("floor");
     //cvNamedWindow("fin");
-    cvStartWindowThread();
+  //  cvStartWindowThread();
     while (true)
     {
         IplImage * frame =  _cam_front->get_frame();
@@ -549,20 +551,18 @@ void activities::init_floor()
 
         double angle = scal->val[0] * B_to_angle_conversion + 90;
 
-        cout << angle << "b - " << scal->val[0] << endl;
+    //    cout << angle << "b - " << scal->val[0] << endl;
 
-
-
-        cvShowImage("floor", th_img);
+        //cvShowImage("floor", th_img);
         // cvShowImage("fin", imgrez);
 
         // cvWaitKey(1);
-
+        _gui_disp->show_image(th_img);
 
         if (_stop_execution) break;
         delay(100);
     }
-    cvDestroyWindow("floor");
+ //   cvDestroyWindow("floor");
     //  cvDestroyWindow("fin");
     _stop_execution = false;
     _is_executing = false;
@@ -570,11 +570,11 @@ void activities::init_floor()
 
 void activities::drive(int direction, float time  )
 {
-    if (_drv)
-        _drv->force_stop();
-
     if (_drv != NULL)
+    {
+        _drv->force_stop();
         _drv->a_drive(direction, time);
+    }
     else
         cout << " a_drive(" << direction << ", " << time <<" )" << " - _drv is NULL ";
 
@@ -583,14 +583,22 @@ void activities::drive(int direction, float time  )
 
 void activities::turn(int direction, float time )
 {
-    if (_drv)
-        _drv->force_stop();
-
     if (_drv != NULL)
+    {
+        _drv->force_stop();
         _drv->a_turn(direction, time);
+    }
     else
         cout << " a_turn(" << direction << ", " << time <<" );" << " - _drv is NULL ";
 
+}
+
+void activities::stop_drive()
+{
+    if (_drv != NULL)
+    {
+        _drv->force_stop();
+    }
 }
 
 void activities::control_robot()

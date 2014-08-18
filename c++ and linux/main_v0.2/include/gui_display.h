@@ -22,8 +22,6 @@ class gui_display
 {
     public:
         gui_display();
-        void build_gui();
-
         void show_image(IplImage * image);
 
         static GtkWidget * _darea;
@@ -31,12 +29,12 @@ class gui_display
 
         static gint expose_event (GtkWidget *widget, GdkEventExpose *event);
         static gint configure_event (GtkWidget *widget,  GdkEventConfigure *event);
-
+        GtkWidget * get_main_box();
     protected:
     private:
+        void build_gui();
         std::thread  * _execution_thread;
-
-        GtkWidget * _vbox ;
+        GtkWidget * _fixed_box ;
 };
 
 #endif // GUI_DISPLAY_H

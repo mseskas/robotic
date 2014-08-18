@@ -5,7 +5,7 @@
 
 #include "activities/activities.h"
 
-
+#include "gui_main.h"
 
 
 using namespace std;
@@ -15,10 +15,14 @@ int main()
 
     activities main_act;
 
+    gui_display * display = new gui_display();
+
     gui_control * control  = new gui_control(&main_act);
 
-    int cmd;
+    gui_main * main_gui = new gui_main(display, control);
 
+
+    int cmd;
     while(true)
     {
 
