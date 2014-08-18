@@ -15,7 +15,7 @@ int main()
 
     activities main_act;
 
- //   gui * main_gui  = new gui(&main_act);
+    gui * main_gui  = new gui(&main_act);
 
     int cmd;
 
