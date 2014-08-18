@@ -14,6 +14,7 @@ gui::gui(activities * main_act)
 
 static void gui::drive_forward (GtkWidget *wid, gpointer user_data)
 {
+    cout << " drive forward " << endl;
 
     if (user_data == NULL)
     {
@@ -29,6 +30,8 @@ static void gui::drive_forward (GtkWidget *wid, gpointer user_data)
 
 static void gui::drive_backward (GtkWidget *wid, gpointer user_data)
 {
+    cout << " drive backward " << endl;
+
     if (user_data == NULL)
     {
         cout << "user_data == null" << endl;
@@ -43,6 +46,8 @@ static void gui::drive_backward (GtkWidget *wid, gpointer user_data)
 
 static void gui::turn_left (GtkWidget *wid, gpointer user_data)
 {
+    cout << " turn left " << endl;
+
     if (user_data == NULL)
     {
         cout << "user_data == null" << endl;
@@ -56,6 +61,7 @@ static void gui::turn_left (GtkWidget *wid, gpointer user_data)
 
 static void gui::turn_right (GtkWidget *wid, gpointer user_data)
 {
+    cout << " turn right " << endl;
 
     if (user_data == NULL)
     {
@@ -77,7 +83,7 @@ static void gui::on_key_press(GtkWidget *wid, GdkEventKey *event, gpointer user_
         return;
     }
 
-    cout << "key presed " << event->keyval;
+
 
     switch (event->keyval)
     {
@@ -113,7 +119,7 @@ static void gui::on_key_press(GtkWidget *wid, GdkEventKey *event, gpointer user_
         turn_right(wid, user_data);
         _key_on_hold = 'RIGHT';
         break;
-        case 65456 :  // ENTER pressed
+        case 65456 :  // 0 pressed
             cout << "  stop!" << endl;
             activities * main_act = user_data;
             _key_on_hold = 0;
@@ -147,15 +153,16 @@ void gui::build_gui (activities * main_act)
   GtkWidget *win = NULL;
   GtkWidget *vbox = NULL;
 
-  /* Secure glib */
- // if( ! g_thread_supported() )
- //   g_thread_init( NULL );
 
   /* Secure gtk */
-   gdk_threads_init();
+ //  gdk_threads_init();
 
   /* Obtain gtk's global lock */
-//  gdk_threads_enter();
+   gdk_threads_enter();
+
+  XInitThreads();
+
+  //gtk_disable_setlocale();
 
   /* Do stuff as usual */
   gtk_init( 0, NULL );
@@ -208,7 +215,7 @@ void gui::build_gui (activities * main_act)
   gtk_fixed_put(GTK_FIXED(vbox), button, x+shift_h, y+shift_v);
 
   // checkbox
-  _checkbox_stop = gtk_check_button_new_with_label("stop on space");
+  _checkbox_stop = gtk_check_button_new_with_label("stop on '0' key");
   gtk_fixed_put(GTK_FIXED(vbox), _checkbox_stop, x, y-30);
 
 

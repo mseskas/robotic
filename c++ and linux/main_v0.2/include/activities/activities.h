@@ -18,7 +18,7 @@
 
 #include <sys/utsname.h>
 
-#include "info_gui.h"
+#include "gui_display.h"
 
 using namespace std;
 
@@ -57,7 +57,7 @@ private : // separate activities
     void optical_flow(bool use_camera, String video_file_url);
     void record_video(bool show_video);
 
-    info_gui * _gui;
+    gui_display * _gui_disp;
 };
 
 #endif // ACTIVITIES_H

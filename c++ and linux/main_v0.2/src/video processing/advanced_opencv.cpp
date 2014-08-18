@@ -221,7 +221,7 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
 void advanced_opencv::get_motion_vector(IplImage* rgb, IplImage* prev_gray, IplImage* curr_gray,
                                             std::vector<Point2f> * features)
 {
-    waitKey(0);
+    //waitKey(0);
 
     vector<uchar> status;
     vector<float> err;

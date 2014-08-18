@@ -9,6 +9,8 @@
 
 #include "activities/activities.h"
 
+#include <X11/Xlib.h>
+
 using namespace std;
 
 class gui

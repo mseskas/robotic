@@ -1,17 +1,22 @@
 #include "activities/activities.h"
 
+
+#include "mutex"
+#include <gtk/gtk.h>
+
+
 using namespace cv;
+
 
 
 
 activities::activities()
 {
-    // _gui = new info_gui();
 
-    // workaround for gtk+ & OpenCV error
-     //namedWindow("test");
-     //cvStartWindowThread();
-    // destroyWindow("test");
+
+    gui_display * _gui_disp = new gui_display();
+
+
 
     _drv = NULL;
     _sonar_front = NULL;
@@ -27,7 +32,8 @@ activities::activities()
     std::string g = "raspberrypi";
 
     // DEVELOPER NOTE : sysinfo.nodename will be equal to raspberrypi on raspberrypi chip
-    if ( g.compare(sysinfo.nodename))
+    // string.compare() - return 0 if equels
+    if ( g.compare(sysinfo.nodename) == 0)
     {
         _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
@@ -37,7 +43,7 @@ activities::activities()
 
     }
     else
-        cout << "NOT Raspberry Pi system! Some devices is disabled!" << endl;
+        cout << "NOT Raspberry Pi system! Some devices are disabled!" << endl;
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
@@ -286,7 +292,6 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 // map =============================================================
 
 
-
     cvNamedWindow("optical flow");
   //  cvNamedWindow("mask");
     cvStartWindowThread();
@@ -356,15 +361,15 @@ void activities::optical_flow (bool use_camera, String video_file_url)
         prev_gray = curr_gray;
 
         cvShowImage("optical flow", rgb);
+
 // mapas =============================================================
-
-
 
         circle(mapas, cvPoint( _adv_opencv->x_distance, _adv_opencv->y_distance), 1, cvScalar(255) );
         imshow("map", mapas);
 // mapas =============================================================
 
         if (_stop_execution) break;
+        cvWaitKey(1);
     }
 
      cvDestroyWindow("optical flow");
@@ -427,8 +432,8 @@ void activities::dumb_drive()
 
 void activities::show_front_view()
 {
-    cvNamedWindow("camera", 1);
-    cvStartWindowThread();
+    //cvNamedWindow("camera", 1);
+    //cvStartWindowThread();
 
     while (true)
     {
@@ -437,12 +442,17 @@ void activities::show_front_view()
         if (frame == NULL)
             cout << "Can't get frame!" << endl;
 
-         cvShowImage("camera", frame);
+
+
+        _gui_disp->show_image(frame);
+
+
+         //cvShowImage("camera", frame);
 
         if (_stop_execution) break;
-        cvWaitKey(1);
+        //cvWaitKey(1);
     }
-    cvDestroyWindow("camera");
+    //cvDestroyWindow("camera");
 
     _stop_execution = false;
     _is_executing = false;
@@ -560,8 +570,8 @@ void activities::init_floor()
 
 void activities::drive(int direction, float time  )
 {
-
-    force_stop();
+    if (_drv)
+        _drv->force_stop();
 
     if (_drv != NULL)
         _drv->a_drive(direction, time);
@@ -573,8 +583,8 @@ void activities::drive(int direction, float time  )
 
 void activities::turn(int direction, float time )
 {
-
-    force_stop();
+    if (_drv)
+        _drv->force_stop();
 
     if (_drv != NULL)
         _drv->a_turn(direction, time);
