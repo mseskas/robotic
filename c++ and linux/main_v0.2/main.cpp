@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-#include "gui.h"
+#include "gui_control.h"
 
 #include "activities/activities.h"
 
@@ -15,7 +15,7 @@ int main()
 
     activities main_act;
 
-    gui * main_gui  = new gui(&main_act);
+    gui_control * control  = new gui_control(&main_act);
 
     int cmd;
 

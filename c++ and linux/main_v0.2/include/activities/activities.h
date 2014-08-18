@@ -33,6 +33,8 @@ public:
     void print_activities();
     void drive(int direction, float time);
     void turn(int direction, float time  );
+
+    void set_display_gui(gui_display * gui);
 protected:
 private:
     advanced_opencv * _adv_opencv;
