@@ -52,6 +52,7 @@
 		<Unit filename="include/drivetrain.h" />
 		<Unit filename="include/gui_control.h" />
 		<Unit filename="include/gui_display.h" />
+		<Unit filename="include/gui_main.h" />
 		<Unit filename="include/project_constants.h" />
 		<Unit filename="include/pwm_chip.h" />
 		<Unit filename="include/servo.h" />
@@ -63,6 +64,7 @@
 		<Unit filename="src/drivetrain.cpp" />
 		<Unit filename="src/gui_control.cpp" />
 		<Unit filename="src/gui_display.cpp" />
+		<Unit filename="src/gui_main.cpp" />
 		<Unit filename="src/pwm_chip.cpp" />
 		<Unit filename="src/servo.cpp" />
 		<Unit filename="src/sonar.cpp" />

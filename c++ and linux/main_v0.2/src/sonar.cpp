@@ -11,6 +11,8 @@ sonar::sonar(int pin_trigger, int pin_echo)
     echo = pin_echo;
     pinMode(trigger, OUTPUT);
     pinMode(echo, INPUT);
+    _gui_label_index = 0;
+    _gui_disp = NULL;
     _drv = NULL;
     _stop_execution = false;
     _execution_thread = new thread (&sonar::constant_distance_measure, this);
@@ -75,6 +77,10 @@ void sonar::constant_distance_measure()
     while (true)
     {
         measure_distance();
+
+        if (_gui_disp != NULL)
+            _gui_disp->set_distance(_last_distance, _gui_label_index);
+
         if ((_last_distance < stop_drivetrain_when_distance_to_front) && (_last_distance != 0))
         {
             if (_drv != NULL)
@@ -89,6 +95,12 @@ void sonar::constant_distance_measure()
     stop();
     _stop_execution = false;
     _is_executing = false;
+}
+
+void sonar::set_displ_gui(gui_display * gui, int label_index)
+{
+    _gui_disp = gui;
+    _gui_label_index = label_index;
 }
 
 void sonar::measure_distance()

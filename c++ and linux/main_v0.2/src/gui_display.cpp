@@ -3,6 +3,8 @@
 
 GtkWidget * gui_display::_darea = NULL;
 GdkPixbuf * gui_display::_pixbuf = NULL;
+GtkWidget * gui_display::_front_dist;
+GtkWidget * gui_display::_rear_dist;
 
 gui_display::gui_display()
 {
@@ -41,11 +43,31 @@ void gui_display::show_image(IplImage * image)
 
 }
 
+void gui_display::set_distance(int data, int index)
+{
+    char buf[20];
+    sprintf(buf, "%d", data);
+
+    switch(index)
+    {
+        case 1 :
+            gtk_label_set_text(GTK_LABEL(gui_display::_front_dist), buf);
+        break;
+        case 2 :
+            gtk_label_set_text(GTK_LABEL(gui_display::_rear_dist), buf);
+        break;
+        default:
+            printf("undefined sonar sensor\n");
+        break;
+    }
+
+}
 
 void gui_display::build_gui()
 {
     _fixed_box = gtk_fixed_new(); // fixed container
 
+    // draw area
     _darea = gtk_drawing_area_new();
     gtk_drawing_area_size(GTK_DRAWING_AREA(_darea), CAPTURE_FRAME_WIDTH, CAPTURE_FRAME_HEIGHT);
     g_signal_connect (G_OBJECT (_darea), "expose_event",
@@ -55,6 +77,21 @@ void gui_display::build_gui()
                       G_CALLBACK (configure_event), NULL);
 
     gtk_fixed_put(GTK_FIXED(_fixed_box), _darea, 0, 0);
+
+    // labels
+    _front_dist = gtk_label_new("front");
+        gtk_fixed_put(GTK_FIXED(_fixed_box), _front_dist, 50, CAPTURE_FRAME_HEIGHT+10);
+
+    _rear_dist = gtk_label_new("rear");
+    gtk_fixed_put(GTK_FIXED(_fixed_box), _rear_dist, 50, CAPTURE_FRAME_HEIGHT+245);
+
+
+    // robot image
+    GdkPixbuf * img = gdk_pixbuf_new_from_file("robot.png", NULL);
+    img = gdk_pixbuf_scale_simple(img, 100, 200, GDK_INTERP_BILINEAR);
+    GtkWidget * image = gtk_image_new_from_pixbuf(img);
+
+    gtk_fixed_put(GTK_FIXED(_fixed_box), image, 20, CAPTURE_FRAME_HEIGHT+40);
 
 }
 

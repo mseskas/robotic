@@ -35,12 +35,14 @@ void gui_main::build_gui()
     gtk_window_set_position (GTK_WINDOW (_window), GTK_WIN_POS_CENTER);
 
     _fixed_box = gtk_fixed_new();
-    gtk_widget_set_usize(_fixed_box, 800, 400);
+    gtk_widget_set_usize(_fixed_box, 800, 550);
 
 
     GtkWidget * frame = gtk_frame_new("Display");
     gtk_container_set_border_width(GTK_CONTAINER (_display_widget->get_main_box()), 10);
     gtk_container_add(GTK_CONTAINER (frame), _display_widget->get_main_box());
+
+
     gtk_fixed_put(GTK_FIXED (_fixed_box), frame, 0, 0);
 
 

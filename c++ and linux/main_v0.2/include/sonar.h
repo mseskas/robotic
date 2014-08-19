@@ -7,6 +7,8 @@
 #include <drivetrain.h>
 #include <project_constants.h>
 
+#include <gui_display.h>
+
 class sonar
 {
 public:
@@ -20,7 +22,10 @@ public:
     void set_drivetrain(drivetrain * drv);
     void force_stop();
     void wait_to_finish(int timeout_ms);
+    void set_displ_gui(gui_display * gui, int label_index);
 private:
+    gui_display * _gui_disp;
+    int _gui_label_index;
     int trigger;
     int echo;
     int waitforpin(int pin_value, int timeout_uS);

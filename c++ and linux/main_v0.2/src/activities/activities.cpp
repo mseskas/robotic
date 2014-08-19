@@ -19,7 +19,7 @@ activities::activities()
 
     uname(&sysinfo);
 
-    cout << sysinfo.nodename << endl;
+    cout << "Your computer is : " << sysinfo.nodename << endl;
 
     std::string g = "raspberrypi";
 
@@ -28,6 +28,7 @@ activities::activities()
     if ( g.compare(sysinfo.nodename) == 0)
     {
         _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
+        _sonar_front->set_displ_gui(_gui_disp, 1); // 1 - front distance
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
         _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
         _drv = new drivetrain (_chip_16pwm);
@@ -165,6 +166,12 @@ void activities::act(int activity_no)
            _execution_thread = new thread (&activities::record_video, this, false);
 
         _is_executing = true;
+    }
+    break;
+
+    case 12:
+    {
+
     }
     break;
 

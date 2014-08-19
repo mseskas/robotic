@@ -23,9 +23,13 @@ class gui_display
     public:
         gui_display();
         void show_image(IplImage * image);
+        void set_distance(int data, int index);
 
         static GtkWidget * _darea;
         static GdkPixbuf * _pixbuf;
+
+        static GtkWidget * _front_dist;
+        static GtkWidget * _rear_dist;
 
         static gint expose_event (GtkWidget *widget, GdkEventExpose *event);
         static gint configure_event (GtkWidget *widget,  GdkEventConfigure *event);
@@ -34,7 +38,8 @@ class gui_display
     private:
         void build_gui();
         std::thread  * _execution_thread;
-        GtkWidget * _fixed_box ;
+        GtkWidget * _fixed_box;
+
 };
 
 #endif // GUI_DISPLAY_H
