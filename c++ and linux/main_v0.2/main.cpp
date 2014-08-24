@@ -13,11 +13,13 @@ using namespace std;
 int main()
 {
 
-    activities main_act;
-
     gui_display * display = new gui_display();
 
-    gui_control * control  = new gui_control(&main_act);
+    activities * main_act = new activities();
+
+    main_act->set_display_gui(display);
+
+    gui_control * control  = new gui_control(main_act);
 
     gui_main * main_gui = new gui_main(display, control);
 
@@ -26,7 +28,7 @@ int main()
     while(true)
     {
 
-        main_act.print_activities();
+        main_act->print_activities();
         cout << "insert new activity - ";
         cin >> cmd;
         cout << endl;
@@ -34,7 +36,7 @@ int main()
         if (0 == cmd)  // closes program at 0 or any key than is not a number
             break;
 
-        main_act.act(cmd);
+        main_act->act(cmd);
     }
 
     //main_act.~activities();   - called in every return statement

@@ -28,7 +28,7 @@ activities::activities()
     if ( g.compare(sysinfo.nodename) == 0)
     {
         _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
-        _sonar_front->set_displ_gui(_gui_disp, 1); // 1 - front distance
+        //_sonar_front->set_displ_gui(_gui_disp, 1); // 1 - front distance
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
         _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
         _drv = new drivetrain (_chip_16pwm);
@@ -78,6 +78,8 @@ void activities::wait_to_finish(int timeout_ms)
 void activities::set_display_gui(gui_display * gui)
 {
     _gui_disp = gui;
+    if (_sonar_front != NULL)
+        _sonar_front->set_displ_gui(_gui_disp, 1);
 }
 
 void activities::act(int activity_no)
@@ -282,10 +284,10 @@ void activities::optical_flow (bool use_camera, String video_file_url)
     cvNamedWindow("map");
 
     _adv_opencv->angle = 90;
-    _adv_opencv->y_distance = 650;
-    _adv_opencv->x_distance = 350;
+    _adv_opencv->y_distance = 400;
+    _adv_opencv->x_distance = 150;
 
-    Mat mapas = Mat::zeros(700, 700, CV_8UC1);
+    Mat mapas = Mat::zeros(480, 400, CV_8UC1);
 
     circle(mapas, cvPoint( _adv_opencv->x_distance, _adv_opencv->y_distance), 1, cvScalar(255) );
 
@@ -293,7 +295,7 @@ void activities::optical_flow (bool use_camera, String video_file_url)
 
 // map =============================================================
 
- //   cvNamedWindow("optical flow");
+   // cvNamedWindow("optical flow");
   //  cvNamedWindow("mask");
     cvStartWindowThread();
     std::vector<cv::Point2f>  features;
@@ -447,8 +449,8 @@ void activities::show_front_view()
         if (frame == NULL)
             cout << "Can't get frame!" << endl;
 
-
-        _gui_disp->show_image(frame);
+        if (_gui_disp != NULL)
+            _gui_disp->show_image(frame);
 
 
          //cvShowImage("camera", frame);

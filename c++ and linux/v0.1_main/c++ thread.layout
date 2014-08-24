@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="include/servo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="include/project_constants.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="55" topLine="0" />
+			<Cursor1 position="568" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="230" topLine="13" />
 		</Cursor>
 	</File>
 	<File name="include/drivetrain.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -11,25 +16,26 @@
 			<Cursor1 position="997" topLine="18" />
 		</Cursor>
 	</File>
-	<File name="src/activities/activities.cpp" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/gui.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="390" topLine="3" />
+			<Cursor1 position="1464" topLine="34" />
 		</Cursor>
+		<Folding>
+			<Collapse line="2" />
+			<Collapse line="9" />
+			<Collapse line="14" />
+			<Collapse line="17" />
+			<Collapse line="29" />
+		</Folding>
 	</File>
-	<File name="include/project_constants.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/video processing/advanced_opencv.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="568" topLine="9" />
+			<Cursor1 position="5326" topLine="9" />
 		</Cursor>
-	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="129" topLine="9" />
-		</Cursor>
-	</File>
-	<File name="src/drivetrain.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3833" topLine="122" />
-		</Cursor>
+		<Folding>
+			<Collapse line="6" />
+			<Collapse line="13" />
+		</Folding>
 	</File>
 	<File name="include/pwm_chip.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
@@ -41,34 +47,25 @@
 			<Cursor1 position="1287" topLine="18" />
 		</Cursor>
 	</File>
+	<File name="src/activities/activities.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="350" topLine="3" />
+		</Cursor>
+	</File>
+	<File name="src/drivetrain.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="3833" topLine="122" />
+		</Cursor>
+	</File>
+	<File name="include/servo.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="55" topLine="0" />
+		</Cursor>
+	</File>
 	<File name="include/gui.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="824" topLine="7" />
 		</Cursor>
-	</File>
-	<File name="src/gui.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1884" topLine="34" />
-		</Cursor>
-		<Folding>
-			<Collapse line="2" />
-			<Collapse line="9" />
-			<Collapse line="14" />
-			<Collapse line="17" />
-			<Collapse line="29" />
-			<Collapse line="42" />
-			<Collapse line="55" />
-			<Collapse line="101" />
-		</Folding>
-	</File>
-	<File name="src/video processing/advanced_opencv.cpp" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5326" topLine="9" />
-		</Cursor>
-		<Folding>
-			<Collapse line="6" />
-			<Collapse line="13" />
-		</Folding>
 	</File>
 	<File name="include/activities/activities.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>

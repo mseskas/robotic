@@ -13,7 +13,7 @@ activities::activities()
     struct utsname sysinfo;
 
     // DEVELOPER NOTE : sysinfo.nodename will be equal to raspberrypi on raspberrypi chip
-    if ( strcmp(sysinfo.nodename , "raspberrypi") )
+    if ( strcmp(sysinfo.nodename , "raspberrypi") == 0 )
     {
         _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);

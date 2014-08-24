@@ -166,7 +166,7 @@ std::pair<double, double> paslinkimas(std::vector<Point2f> curr, std::vector<Poi
         {
 
             dx += corrected.at(i).x - prev.at(i).x;
-            dy += corrected.at(i).y - prev.at(i).y;
+            dy += corrected.at(i).y - prev.at(i).y;  // must be changed to .y
             counter++;
         }
     }
@@ -198,6 +198,8 @@ cv::Point_<float> advanced_opencv::motion_by_features(std::vector<Point2f> prev,
     double gDeltaX = dx * c - dy * s;
     double gDeltaY = dx * s + dy * c;
 
+
+//cout << gDeltaX << "\t" << gDeltaY << endl;
 
     this->angle += rotation / 1.6;
 
