@@ -19,7 +19,7 @@ int main()
 
     main_act->set_display_gui(display);
 
-    gui_control * control  = new gui_control(main_act);
+    gui_control * control = new gui_control(main_act);
 
     gui_main * main_gui = new gui_main(display, control);
 

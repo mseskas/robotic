@@ -1,103 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="include/project_constants.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="393" topLine="9" />
-		</Cursor>
+	<File name="include/activities/activities.h" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="256" topLine="8" />
-		</Cursor>
+	<File name="include/drivetrain.h" open="0" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="include/pwm_chip.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
+	<File name="include/gui_control.h" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="include/sonar.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="630" topLine="15" />
-		</Cursor>
+	<File name="include/gui_display.h" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/activities/activities.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="644" topLine="18" />
-		</Cursor>
-		<Folding>
-			<Collapse line="280" />
-			<Collapse line="387" />
-			<Collapse line="402" />
-			<Collapse line="417" />
-		</Folding>
+	<File name="include/gui_main.h" open="0" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="include/activities/activities.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1097" topLine="19" />
-		</Cursor>
+	<File name="include/project_constants.h" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/gui_control.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="346" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="2" />
-			<Collapse line="18" />
-			<Collapse line="34" />
-		</Folding>
+	<File name="include/pwm_chip.h" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/gui_main.cpp" open="0" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="949" topLine="0" />
-		</Cursor>
-		<Folding>
-			<Collapse line="12" />
-			<Collapse line="18" />
-			<Collapse line="24" />
-		</Folding>
+	<File name="include/sonar.h" open="0" top="0" tabpos="5">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="include/gui_main.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="424" topLine="7" />
-		</Cursor>
+	<File name="main.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="322" topLine="7" />
 	</File>
-	<File name="include/gui_display.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="384" topLine="18" />
-		</Cursor>
+	<File name="src/activities/activities.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/drivetrain.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="3783" topLine="123" />
-		</Cursor>
+	<File name="src/gui_control.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/gui_display.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="264" topLine="6" />
-		</Cursor>
-		<Folding>
-			<Collapse line="9" />
-		</Folding>
+	<File name="src/gui_display.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1840" topLine="5" />
 	</File>
-	<File name="src/video processing/advanced_opencv.cpp" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2659" topLine="106" />
-		</Cursor>
+	<File name="src/gui_main.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="441" topLine="19" />
 	</File>
-	<File name="include/gui_control.h" open="0" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1033" topLine="13" />
-		</Cursor>
+	<File name="src/sonar.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="src/sonar.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2032" topLine="91" />
-		</Cursor>
-	</File>
-	<File name="include/drivetrain.h" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="0" topLine="0" />
-		</Cursor>
+	<File name="src/video processing/advanced_opencv.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="0" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

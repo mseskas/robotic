@@ -65,6 +65,11 @@ void gui_display::set_distance(int data, int index)
 
 void gui_display::build_gui()
 {
+
+    gdk_threads_enter();
+    XInitThreads();
+    gtk_init( 0, NULL );
+
     _fixed_box = gtk_fixed_new(); // fixed container
 
     // draw area
