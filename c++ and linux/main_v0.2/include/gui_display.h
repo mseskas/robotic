@@ -7,6 +7,7 @@
 #include <gtk/gtk.h>
 
 #include <thread>
+#include <iostream>
 
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"

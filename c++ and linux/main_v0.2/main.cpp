@@ -14,13 +14,9 @@ int main()
 {
 
     gui_display * display = new gui_display();
-
     activities * main_act = new activities();
-
     main_act->set_display_gui(display);
-
     gui_control * control = new gui_control(main_act);
-
     gui_main * main_gui = new gui_main(display, control);
 
 

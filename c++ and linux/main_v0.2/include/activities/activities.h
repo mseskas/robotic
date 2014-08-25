@@ -42,6 +42,7 @@ protected:
 private:
     advanced_opencv * _adv_opencv;
     sonar      * _sonar_front;
+    sonar      * _sonar_rear;
     pwm_chip   * _chip_16pwm;
     servo      * _servo_spare;
     drivetrain * _drv;

@@ -19,6 +19,43 @@ sonar::sonar(int pin_trigger, int pin_echo)
     _last_distance = 0;
 
 }
+
+// virtual sonar constructor
+sonar::sonar(bool virtual_mode)
+{
+    if (!virtual_mode)
+    {
+        cout << "trying to create non-virtual sonar" << endl;
+        exit(8);
+    }
+    _gui_label_index = 0;
+    _gui_disp = NULL;
+    _drv = NULL;
+    _stop_execution = false;
+    _execution_thread = new thread (&sonar::virt_constant_distance_measure, this);
+    _last_distance = 50;
+}
+
+// virtual sonar function
+void sonar::virt_constant_distance_measure()
+{
+    _is_executing = true;
+    while (true)
+    {
+        _last_distance =  _last_distance + (rand() % 11 -5);
+        if (_last_distance <= 0)
+            _last_distance = 0;
+
+        if (_gui_disp != NULL)
+            _gui_disp->set_distance(_last_distance, _gui_label_index);
+
+        if (_stop_execution) break;
+        delay(1000);
+    }
+    _stop_execution = false;
+    _is_executing = false;
+}
+
 sonar::~sonar()
 {
     force_stop();
@@ -74,12 +111,17 @@ void sonar::set_drivetrain(drivetrain * drv)
 void sonar::constant_distance_measure()
 {
     _is_executing = true;
+    int gui_timer = 990; // in miliseconds
     while (true)
     {
         measure_distance();
+        gui_timer -= 30;
 
-        if (_gui_disp != NULL)
+        if ((_gui_disp != NULL) && (gui_timer <= 0))
+        {
             _gui_disp->set_distance(_last_distance, _gui_label_index);
+            gui_timer = 990;
+        }
 
         if ((_last_distance < stop_drivetrain_when_distance_to_front) && (_last_distance != 0))
         {

@@ -27,6 +27,10 @@ class gui_control
         static char _key_on_hold;
         GtkWidget * get_main_box();
         static void toggle_button_callback (GtkWidget *widget, gpointer data);
+
+        GtkWidget * drive_scale;
+        GtkWidget * turn_scale;
+
     protected:
     private:
         thread  * _execution_thread;

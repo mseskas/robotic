@@ -173,14 +173,14 @@ void gui_control::toggle_button_callback (GtkWidget *widget, gpointer data)
         {
             _main_act->act(5);
         }
+        else if ( str.compare("floor") == 0)
+        {
+            _main_act->act(6);
+        }
         else if ( str.compare("of") == 0)
         {
             _main_act->act(9);
         }
-
-
-
-
     }
 }
 
@@ -224,32 +224,73 @@ void gui_control::build_gui (activities * main_act)
   _checkbox_stop = gtk_check_button_new_with_label("stop on '0' key");
   gtk_fixed_put(GTK_FIXED(_fixed_box), _checkbox_stop, x, y-30);
 
+
+  // add frame with fixed radio widget
+  GtkWidget * radio_box = gtk_fixed_new();
+  GtkWidget * frame = gtk_frame_new("Camera");
+
+  gtk_container_set_border_width(GTK_CONTAINER (radio_box), 10);
+  gtk_container_add(GTK_CONTAINER (frame), radio_box);
+
   //redio buttons
   GtkWidget * radio_none = gtk_radio_button_new_with_label(NULL, "none");
   GSList * group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_none));
   g_signal_connect (radio_none, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "none");
-  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_none, 10, 10);
+  gtk_fixed_put(GTK_FIXED(radio_box), radio_none, 0, 0);
 
   GtkWidget * radio_RGB = gtk_radio_button_new_with_label(group, "RGB");
   group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_RGB));
     g_signal_connect (radio_RGB, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "RGB");
-  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_RGB, 10, 35);
+  gtk_fixed_put(GTK_FIXED(radio_box), radio_RGB, 0, 25);
 
   GtkWidget * radio_canny = gtk_radio_button_new_with_label(group, "Canny edge");
   group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_canny));
     g_signal_connect (radio_canny, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "canny");
-  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_canny, 10, 60);
+  gtk_fixed_put(GTK_FIXED(radio_box), radio_canny, 0, 50);
 
   GtkWidget * radio_HSV = gtk_radio_button_new_with_label(group, "HSV");
   group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_HSV));
     g_signal_connect (radio_HSV, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "HSV");
-  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_HSV, 10, 85);
+  gtk_fixed_put(GTK_FIXED(radio_box), radio_HSV, 0, 75);
+
+  GtkWidget * radio_floor = gtk_radio_button_new_with_label(group, "floor");
+  group = gtk_radio_button_group(GTK_RADIO_BUTTON(radio_floor));
+    g_signal_connect (radio_floor, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "floor");
+  gtk_fixed_put(GTK_FIXED(radio_box), radio_floor, 0, 100);
 
   GtkWidget * radio_of = gtk_radio_button_new_with_label(group, "optical flow");
     g_signal_connect (radio_of, "toggled", G_CALLBACK (gui_control::toggle_button_callback), "of");
-  gtk_fixed_put(GTK_FIXED(_fixed_box), radio_of, 10, 110);
+  gtk_fixed_put(GTK_FIXED(radio_box), radio_of, 0, 125);
 
+  gtk_fixed_put(GTK_FIXED (_fixed_box), frame, 0, 0);
 
+  // scales
+  int _speed_box_x = 140;
+  int _speed_box_y = 125;
+
+  drive_scale = gtk_hscale_new_with_range(0, 1, 0.05);
+  gtk_widget_set_usize(drive_scale, 150, 45);
+  gtk_fixed_put(GTK_FIXED (_fixed_box), drive_scale, _speed_box_x+45, _speed_box_y);
+
+  turn_scale = gtk_hscale_new_with_range(0, 1, 0.05);
+  gtk_widget_set_usize(turn_scale, 150, 45);
+  gtk_fixed_put(GTK_FIXED (_fixed_box), turn_scale, _speed_box_x+45, _speed_box_y+45);
+
+  GtkWidget * _set_drive_btn = gtk_button_new_with_label("Set");
+  g_signal_connect (_set_drive_btn, "clicked", G_CALLBACK (gui_control::drive_backward), NULL);
+  gtk_widget_set_usize(_set_drive_btn, 70, 30);
+  gtk_fixed_put(GTK_FIXED (_fixed_box), _set_drive_btn, _speed_box_x+200, _speed_box_y+10);
+
+  GtkWidget * _set_turn_btn = gtk_button_new_with_label("Set");
+    g_signal_connect (_set_turn_btn, "clicked", G_CALLBACK (gui_control::drive_backward), NULL);
+  gtk_widget_set_usize(_set_turn_btn, 70, 30);
+  gtk_fixed_put(GTK_FIXED (_fixed_box), _set_turn_btn, _speed_box_x+200, _speed_box_y+55);
+
+  GtkWidget * label = gtk_label_new("drive");
+  gtk_fixed_put(GTK_FIXED (_fixed_box), label, _speed_box_x, _speed_box_y+20);
+
+  label = gtk_label_new("turn");
+  gtk_fixed_put(GTK_FIXED (_fixed_box), label, _speed_box_x, _speed_box_y+65);
 }
 
 

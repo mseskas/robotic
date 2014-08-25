@@ -12,6 +12,7 @@ activities::activities()
 
     _drv = NULL;
     _sonar_front = NULL;
+    _sonar_rear = NULL;
     _chip_16pwm = NULL;
     _servo_spare = NULL;
 
@@ -36,7 +37,11 @@ activities::activities()
 
     }
     else
-        cout << "NOT Raspberry Pi system! Some devices are disabled!" << endl;
+    {
+        cout << "NOT Raspberry Pi system! Devices are disabled or virtual!" << endl;
+        _sonar_front = new sonar(TRUE);
+        _sonar_rear = new sonar(TRUE);
+    }
 
     _cam_front = new camera (USB_FRONT_CAMERA_NO);
     _adv_opencv = new advanced_opencv();
@@ -80,6 +85,8 @@ void activities::set_display_gui(gui_display * gui)
     _gui_disp = gui;
     if (_sonar_front != NULL)
         _sonar_front->set_displ_gui(_gui_disp, 1);
+    if (_sonar_rear != NULL)
+        _sonar_rear->set_displ_gui(_gui_disp, 2);
 }
 
 void activities::act(int activity_no)
@@ -406,9 +413,7 @@ void activities::show_front_distance()
         cout << "distance to front = " << _sonar_front->get_distance() << endl;
         if (_stop_execution) break;
         delay(100);
-
     }
-    _drv->force_stop();
     _stop_execution = false;
     _is_executing = false;
 }
@@ -452,6 +457,7 @@ void activities::show_front_view()
         if (_gui_disp != NULL)
             _gui_disp->show_image(frame);
 
+      //  cvReleaseImage(&frame);
 
          //cvShowImage("camera", frame);
 
@@ -489,6 +495,8 @@ void activities::canny_edge_view()
       //  cvShowImage("Canny", canny);
 
         _gui_disp->show_image(canny);
+
+        cvReleaseImage(&canny);
 
       //  cvWaitKey(1);
 

@@ -13,6 +13,7 @@ class sonar
 {
 public:
     sonar(int pin_trigger, int pin_echo);
+    sonar(bool virtual_mode);
     ~sonar();
     int get_distance();
     int get_trigger();
@@ -34,6 +35,7 @@ private:
     drivetrain * _drv;
     void measure_distance();
     void constant_distance_measure();
+    void virt_constant_distance_measure();
     void stop();
     bool _stop_execution;
     bool _is_executing;

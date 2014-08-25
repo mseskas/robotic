@@ -22,7 +22,7 @@ void gui_display::show_image(IplImage * image)
 
     if (channels == 3)
     {
-        cvtColor( (Mat)image, (Mat)copy_img, CV_BGR2RGB);
+        cvtColor((Mat)image, (Mat)copy_img, CV_BGR2RGB);
         gdk_draw_rgb_image(GDK_DRAWABLE(_darea->window),
                       _darea->style->fg_gc[GTK_WIDGET_STATE (_darea)],
                       0,0,
@@ -41,6 +41,7 @@ void gui_display::show_image(IplImage * image)
                         CAPTURE_FRAME_WIDTH);
     }
 
+    cvReleaseImage(&copy_img);
 }
 
 void gui_display::set_distance(int data, int index)
@@ -51,16 +52,17 @@ void gui_display::set_distance(int data, int index)
     switch(index)
     {
         case 1 :
-            gtk_label_set_text(GTK_LABEL(gui_display::_front_dist), buf);
+            if (GTK_IS_LABEL(gui_display::_front_dist) == TRUE)
+                gtk_label_set_text(GTK_LABEL(gui_display::_front_dist), buf);
         break;
         case 2 :
-            gtk_label_set_text(GTK_LABEL(gui_display::_rear_dist), buf);
+            if (GTK_IS_LABEL(gui_display::_rear_dist) == TRUE)
+                gtk_label_set_text(GTK_LABEL(gui_display::_rear_dist), buf);
         break;
         default:
             printf("undefined sonar sensor\n");
         break;
     }
-
 }
 
 void gui_display::build_gui()
@@ -83,20 +85,28 @@ void gui_display::build_gui()
 
     gtk_fixed_put(GTK_FIXED(_fixed_box), _darea, 0, 0);
 
+    // robot img & labels parameters
+    int _frame_x = CAPTURE_FRAME_WIDTH + 10;
+    int _frame_y = 0;
+
     // labels
-    _front_dist = gtk_label_new("front");
-        gtk_fixed_put(GTK_FIXED(_fixed_box), _front_dist, 50, CAPTURE_FRAME_HEIGHT+10);
+    GtkWidget * label = gtk_label_new("distance: ");
+    gtk_fixed_put(GTK_FIXED(_fixed_box), label, _frame_x, _frame_y);
+    label = gtk_label_new("distance: ");
+    gtk_fixed_put(GTK_FIXED(_fixed_box), label, _frame_x, _frame_y+235);
 
-    _rear_dist = gtk_label_new("rear");
-    gtk_fixed_put(GTK_FIXED(_fixed_box), _rear_dist, 50, CAPTURE_FRAME_HEIGHT+245);
-
+    _front_dist = gtk_label_new("-");
+        gtk_fixed_put(GTK_FIXED(_fixed_box), _front_dist, _frame_x+65, _frame_y);
+    _rear_dist = gtk_label_new("-");
+    gtk_fixed_put(GTK_FIXED(_fixed_box), _rear_dist, _frame_x+65, _frame_y+235);
+    // end of labels
 
     // robot image
     GdkPixbuf * img = gdk_pixbuf_new_from_file("robot.png", NULL);
     img = gdk_pixbuf_scale_simple(img, 100, 200, GDK_INTERP_BILINEAR);
     GtkWidget * image = gtk_image_new_from_pixbuf(img);
 
-    gtk_fixed_put(GTK_FIXED(_fixed_box), image, 20, CAPTURE_FRAME_HEIGHT+40);
+    gtk_fixed_put(GTK_FIXED(_fixed_box), image, _frame_x, _frame_y+30);
 
 }
 

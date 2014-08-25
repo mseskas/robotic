@@ -31,11 +31,11 @@ void gui_main::build_gui()
     _window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_container_set_border_width (GTK_CONTAINER (_window), 8);
     gtk_window_set_title (GTK_WINDOW (_window), "JerryPi main window");
-    gtk_window_set_default_size(GTK_WINDOW(_window), 400, 300);
+    //gtk_window_set_default_size(GTK_WINDOW(_window), 400, 300);
     gtk_window_set_position (GTK_WINDOW (_window), GTK_WIN_POS_CENTER);
 
     _fixed_box = gtk_fixed_new();
-    gtk_widget_set_usize(_fixed_box, 800, 550);
+    gtk_widget_set_usize(_fixed_box, 900, 400);
 
 
     GtkWidget * frame = gtk_frame_new("Display");
@@ -49,7 +49,7 @@ void gui_main::build_gui()
     frame = gtk_frame_new("Control");
     gtk_container_set_border_width(GTK_CONTAINER (_control_widget->get_main_box()), 10);
     gtk_container_add(GTK_CONTAINER (frame), _control_widget->get_main_box());
-    gtk_fixed_put(GTK_FIXED (_fixed_box), frame, CAPTURE_FRAME_WIDTH+28, 0);
+    gtk_fixed_put(GTK_FIXED (_fixed_box), frame, 460, 0);
 
 
     gtk_container_add (GTK_CONTAINER (_window), _fixed_box);
