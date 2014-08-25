@@ -97,10 +97,10 @@ void gui_display::build_gui()
 
     _front_dist = gtk_label_new("-");
     gtk_widget_set_usize(_front_dist, 40, 10 );
-    gtk_fixed_put(GTK_FIXED(_fixed_box), _front_dist, _frame_x+65, _frame_y);
+    gtk_fixed_put(GTK_FIXED(_fixed_box), _front_dist, _frame_x+55, _frame_y+5);
     _rear_dist = gtk_label_new("-");
     gtk_widget_set_usize(_rear_dist, 40, 10 );
-    gtk_fixed_put(GTK_FIXED(_fixed_box), _rear_dist, _frame_x+65, _frame_y+235);
+    gtk_fixed_put(GTK_FIXED(_fixed_box), _rear_dist, _frame_x+55, _frame_y+240);
     // end of labels
 
     // robot image

@@ -70,7 +70,7 @@ void activities::force_stop()
     if (_drv)
         _drv->force_stop();
 
-    //if (_chip_16pwm)
+    if (_chip_16pwm)
         _chip_16pwm->reset();
 
     _stop_execution = false;
@@ -419,7 +419,8 @@ void activities::print_activities()
          << "8 - Control me" << endl
          << "9 - Optical flow" << endl
          << "10 - Optical flow from file" << endl
-         << "11 - record video" << endl;
+         << "11 - record video" << endl
+         << "12 - control pwm" << endl;
 }
 
 void activities::show_front_distance()

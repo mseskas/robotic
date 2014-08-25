@@ -8,6 +8,7 @@
 #include <thread>
 
 #include "activities/activities.h"
+#include "drivetrain.h"
 
 #include <X11/Xlib.h>
 
@@ -24,12 +25,14 @@ class gui_control
         static void on_key_release(GtkWidget *wid, GdkEventKey *event, gpointer user_data);
         static void turn_right (GtkWidget *wid, gpointer user_data);
         static void turn_left (GtkWidget *wid, gpointer user_data);
-        static char _key_on_hold;
+        static void set_speed(GtkWidget *wid, gpointer user_data);
         GtkWidget * get_main_box();
         static void toggle_button_callback (GtkWidget *widget, gpointer data);
+        void set_drivetrain(drivetrain * drv);
 
-        GtkWidget * drive_scale;
-        GtkWidget * turn_scale;
+        static char _key_on_hold;
+        static GtkWidget * drive_scale;
+        static GtkWidget * turn_scale;
 
     protected:
     private:
@@ -37,6 +40,8 @@ class gui_control
 
         static GtkWidget * _checkbox_stop;
         static activities * _main_act;
+        static drivetrain * _drivetrain;
+
         GtkWidget * _fixed_box;
 };
 
