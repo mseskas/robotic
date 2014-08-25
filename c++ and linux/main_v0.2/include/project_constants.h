@@ -33,10 +33,13 @@
 #define PIN_SONAR_FRONT_TRIGGER  7
 #define PIN_SONAR_FRONT_ECHO     4
 
+#define PIN_SONAR_REAR_TRIGGER  2
+#define PIN_SONAR_REAR_ECHO     3
+
 // 2. PWM chip
 #define PIN_WHEEL_LEFT_BACKWARD  0
 #define PIN_WHEEL_LEFT_FORWARD   1
 #define PIN_WHEEL_RIGHT_FORWARD  2
 #define PIN_WHEEL_RIGHT_BACKWARD 3
 
-#define PIN_SERVO                11
+//#define PIN_SERVO                11

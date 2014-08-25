@@ -24,11 +24,18 @@ pwm_chip::pwm_chip(int chip_addr)
 
 pwm_chip::~pwm_chip()
 {
-    reset();
+    wiringPiI2CWriteReg8(_addr, __ALLLED_ON_L, 0x00);
+    wiringPiI2CWriteReg8(_addr, __ALLLED_ON_H, 0x00);
+    wiringPiI2CWriteReg8(_addr, __ALLLED_OFF_L, 0x00);
+    wiringPiI2CWriteReg8(_addr, __ALLLED_OFF_H, 0x00);
 }
 
 int pwm_chip::reset()
 {
+    wiringPiI2CWriteReg8(_addr, __ALLLED_ON_L, 0x00);
+    wiringPiI2CWriteReg8(_addr, __ALLLED_ON_H, 0x00);
+    wiringPiI2CWriteReg8(_addr, __ALLLED_OFF_L, 0x00);
+    wiringPiI2CWriteReg8(_addr, __ALLLED_OFF_H, 0x00);
     return wiringPiI2CWriteReg8 (_addr, 0x00, 0x00) ;
 }
 
@@ -39,10 +46,13 @@ int pwm_chip::get_pwm_freq()
 
 void pwm_chip::set_pwm(int pwn_no, int on_tick, int off_tick)
 {
-    wiringPiI2CWriteReg8(_addr, __LED0_ON_L + 4 * pwn_no, on_tick & 0xFF);
-    wiringPiI2CWriteReg8(_addr, __LED0_ON_H + 4 * pwn_no, on_tick >> 8);
-    wiringPiI2CWriteReg8(_addr, __LED0_OFF_L + 4 * pwn_no, off_tick & 0xFF);
-    wiringPiI2CWriteReg8(_addr, __LED0_OFF_H + 4 * pwn_no, off_tick >> 8);
+    if ((pwn_no >= 0) && (pwn_no < 16))
+    {
+        wiringPiI2CWriteReg8(_addr, __LED0_ON_L + 4 * pwn_no, on_tick & 0xFF);
+        wiringPiI2CWriteReg8(_addr, __LED0_ON_H + 4 * pwn_no, on_tick >> 8);
+        wiringPiI2CWriteReg8(_addr, __LED0_OFF_L + 4 * pwn_no, off_tick & 0xFF);
+        wiringPiI2CWriteReg8(_addr, __LED0_OFF_H + 4 * pwn_no, off_tick >> 8);
+    }
 }
 
 // 40 and 1000 Hz

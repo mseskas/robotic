@@ -19,7 +19,7 @@ drivetrain::drivetrain(pwm_chip * chip_PCA9685)
 drivetrain::~drivetrain()
 {
     force_stop();
-    _chip_PCA9685->~pwm_chip();
+    //_chip_PCA9685->~pwm_chip();
 }
 
 void drivetrain::set_drive_speed(float speed)

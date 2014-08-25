@@ -46,7 +46,7 @@ void gui_display::show_image(IplImage * image)
 
 void gui_display::set_distance(int data, int index)
 {
-    char buf[20];
+    char buf[10];
     sprintf(buf, "%d", data);
 
     switch(index)
@@ -96,8 +96,10 @@ void gui_display::build_gui()
     gtk_fixed_put(GTK_FIXED(_fixed_box), label, _frame_x, _frame_y+235);
 
     _front_dist = gtk_label_new("-");
-        gtk_fixed_put(GTK_FIXED(_fixed_box), _front_dist, _frame_x+65, _frame_y);
+    gtk_widget_set_usize(_front_dist, 40, 10 );
+    gtk_fixed_put(GTK_FIXED(_fixed_box), _front_dist, _frame_x+65, _frame_y);
     _rear_dist = gtk_label_new("-");
+    gtk_widget_set_usize(_rear_dist, 40, 10 );
     gtk_fixed_put(GTK_FIXED(_fixed_box), _rear_dist, _frame_x+65, _frame_y+235);
     // end of labels
 

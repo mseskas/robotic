@@ -17,8 +17,6 @@ public:
     void set_pwm_freq(int frq_Hz);
     int  get_pwm_freq();
     int get_ticks();
-
-protected:
     int reset();
 private:
     int _ticks;

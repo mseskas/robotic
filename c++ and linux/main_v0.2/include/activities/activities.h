@@ -34,7 +34,7 @@ public:
     void drive(int direction, float time);
     void turn(int direction, float time  );
     void stop_drive();
-
+    void control_pwm();
     void set_display_gui(gui_display * gui);
 
 

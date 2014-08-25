@@ -29,9 +29,9 @@ activities::activities()
     if ( g.compare(sysinfo.nodename) == 0)
     {
         _sonar_front = new sonar(PIN_SONAR_FRONT_TRIGGER, PIN_SONAR_FRONT_ECHO);
-        //_sonar_front->set_displ_gui(_gui_disp, 1); // 1 - front distance
+        _sonar_rear = new sonar(PIN_SONAR_REAR_TRIGGER, PIN_SONAR_REAR_ECHO);
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
-        _servo_spare = new servo (_chip_16pwm, PIN_SERVO);
+        _servo_spare = new servo (_chip_16pwm, 8);
         _drv = new drivetrain (_chip_16pwm);
         _sonar_front->set_drivetrain(_drv);
 
@@ -55,6 +55,8 @@ activities::~activities()
     cout << "Destroing activities object" << endl;
     force_stop();
 
+    if (_chip_16pwm)
+        _chip_16pwm->reset();
     //_drv->~drivetrain();
     //_sonar_front->~sonar();
 
@@ -67,6 +69,9 @@ void activities::force_stop()
 
     if (_drv)
         _drv->force_stop();
+
+    //if (_chip_16pwm)
+        _chip_16pwm->reset();
 
     _stop_execution = false;
 }
@@ -87,6 +92,23 @@ void activities::set_display_gui(gui_display * gui)
         _sonar_front->set_displ_gui(_gui_disp, 1);
     if (_sonar_rear != NULL)
         _sonar_rear->set_displ_gui(_gui_disp, 2);
+}
+
+void activities::control_pwm()
+{
+    cout << "insert pwm socket no.: ";
+    int soc_no = 16; // 16 does not exist
+    cin >> soc_no;
+    servo * temp_servo = new servo (_chip_16pwm, soc_no);
+    while(true)
+    {
+        cout << "insert negative to break the loop, percent of pwm singal(0;100): ";
+        int pwm = 0;
+        cin >> pwm;
+        if (pwm < 0) break;
+
+        temp_servo->set_angle((float)pwm/100);
+    }
 }
 
 void activities::act(int activity_no)
@@ -137,7 +159,6 @@ void activities::act(int activity_no)
         control_robot();
         break;
 
-
     case 9:
         force_stop();
         //optical_flow(true, "");
@@ -147,6 +168,8 @@ void activities::act(int activity_no)
 
     case 10:
     {
+
+
         force_stop();
 
         string str;
@@ -155,19 +178,15 @@ void activities::act(int activity_no)
 
         _execution_thread = new thread (&activities::optical_flow, this, false, str); // use video file - NOT real time
         _is_executing = true;
+        break;
     }
-    break;
-
     case 11:
     {
+
         force_stop();
         int arg2 = 0;
         cout << "press 1 to show video" << endl;
         cin >> arg2;
-
-       // bla();
-
-       //_execution_thread = new thread (&activities::record_video, this, false);
 
         if (arg2 == 1)
             _execution_thread = new thread (&activities::record_video, this, true);
@@ -175,13 +194,10 @@ void activities::act(int activity_no)
            _execution_thread = new thread (&activities::record_video, this, false);
 
         _is_executing = true;
+        break;
     }
-    break;
-
     case 12:
-    {
-
-    }
+        control_pwm();
     break;
 
     default :

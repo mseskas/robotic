@@ -111,16 +111,16 @@ void sonar::set_drivetrain(drivetrain * drv)
 void sonar::constant_distance_measure()
 {
     _is_executing = true;
-    int gui_timer = 990; // in miliseconds
+    int gui_timer = 1000; // in miliseconds
     while (true)
     {
         measure_distance();
-        gui_timer -= 30;
+        gui_timer -= 50;
 
         if ((_gui_disp != NULL) && (gui_timer <= 0))
         {
             _gui_disp->set_distance(_last_distance, _gui_label_index);
-            gui_timer = 990;
+            gui_timer = 1000;
         }
 
         if ((_last_distance < stop_drivetrain_when_distance_to_front) && (_last_distance != 0))
@@ -132,7 +132,7 @@ void sonar::constant_distance_measure()
 
         }
         if (_stop_execution) break;
-        delay(30);
+        delay(50);
     }
     stop();
     _stop_execution = false;
@@ -165,6 +165,8 @@ void sonar::measure_distance()
         {
             l = l/ 58 + 1;
         }
+        else
+            l = 400;
     }
     _last_distance = l;
 }

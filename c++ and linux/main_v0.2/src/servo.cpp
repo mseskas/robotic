@@ -5,7 +5,7 @@ servo::servo(pwm_chip * chip_PCA9685, int pin_no)
     _chip_PCA9685 = chip_PCA9685;
     _pin = pin_no;
     _chip_PCA9685->set_pwm(pin_no, 0, 0);
-    _max_ticks = 675;
+    _max_ticks = 635;
     _min_ticks = 150;
     _angle = 0;
 }
@@ -17,8 +17,14 @@ servo::~servo()
 
 void servo::set_angle(float new_angle)
 {
+    //std::cout << new_angle << endl;
     if ((new_angle >= 0.0) && (new_angle <= 1.0))
-        _chip_PCA9685->set_pwm(_pin, 0, _min_ticks + ( (_max_ticks - _min_ticks) * new_angle) );
+    {
+        int prec = (_max_ticks - _min_ticks) * new_angle;
+        prec = prec + _min_ticks;
+        //std::cout << prec << endl;
+        _chip_PCA9685->set_pwm(_pin, 0, prec );
+    }
 }
 
 void servo::turn(float angle)
