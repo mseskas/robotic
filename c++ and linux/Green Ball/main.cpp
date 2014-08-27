@@ -29,21 +29,21 @@ Point getCentroid(IplImage img)
     {
         for(int col = 0; col < img.width; col++)
         {
-            if (*p == -1)  // -1 == 11111111
+            if (*p == -1)  // -1 == 11111111b
             {
-                found = true;
+               // found = true;
                 columnSum += col; // rowSum += row;
                 Quant++;
             }
             p++;
         }
     } // main iteration
-    if (Quant > 0)
+    if (Quant > 25)
     {
         rez.x = columnSum / Quant;
         rez.y = 0;//rowSum / Quant;
+        cout << "center - (" << rez.x << "," << rez.y << ")" << endl;
     }
-    if (found) cout << "center - (" << rez.x << "," << rez.y << ")" << endl;
     return rez;
 }
 

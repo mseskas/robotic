@@ -37,6 +37,8 @@ public:
     void control_pwm();
     void set_display_gui(gui_display * gui);
 
+    void a_wave();
+    void wave(servo * srv, float wave_angle, int wave_interval_ms );
 
 protected:
 private:

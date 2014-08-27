@@ -32,6 +32,7 @@ activities::activities()
         _sonar_rear = new sonar(PIN_SONAR_REAR_TRIGGER, PIN_SONAR_REAR_ECHO);
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
         _servo_spare = new servo (_chip_16pwm, 8);
+        _servo_spare->set_angle(1.0);
         _drv = new drivetrain (_chip_16pwm);
         _sonar_front->set_drivetrain(_drv);
 
@@ -48,6 +49,40 @@ activities::activities()
 
     _stop_execution = false;
     _is_executing = false;
+}
+
+void activities::wave(servo * srv, float wave_angle, int wave_interval_ms )
+{
+    if (_servo_spare == NULL)
+    {
+        cout << "_servo_spare == NULL" << endl;
+        return;
+    }
+
+    float middle_angle = 0.5;
+
+    srv->set_angle(middle_angle + wave_angle);
+    delay(wave_interval_ms);
+    srv->set_angle(middle_angle - wave_angle);
+    delay(wave_interval_ms);
+    srv->set_angle(middle_angle + wave_angle);
+    delay(wave_interval_ms);
+    srv->set_angle(middle_angle - wave_angle);
+    delay(wave_interval_ms);
+    srv->set_angle(middle_angle + wave_angle);
+    delay(wave_interval_ms);
+    srv->set_angle(middle_angle - wave_angle);
+    delay(wave_interval_ms);
+}
+
+void activities::a_wave()
+{
+    //_servo_spare->set_angle(1.0);
+
+    float w_angle =  float(rand() % 40) / 100.0 ;  // max angle -+40 deg of wave
+    int w_interval = rand() % 900  + 100;  // 100ms < interval < 1000ms
+
+    wave(_servo_spare, w_angle, w_interval);
 }
 
 activities::~activities()
@@ -198,6 +233,10 @@ void activities::act(int activity_no)
     }
     case 12:
         control_pwm();
+    break;
+
+    case 13:   // other cmd
+        a_wave();
     break;
 
     default :
@@ -420,7 +459,8 @@ void activities::print_activities()
          << "9 - Optical flow" << endl
          << "10 - Optical flow from file" << endl
          << "11 - record video" << endl
-         << "12 - control pwm" << endl;
+         << "12 - control pwm" << endl
+         << "13 - other command" << endl;
 }
 
 void activities::show_front_distance()
@@ -447,11 +487,11 @@ void activities::dumb_drive()
         if (_stop_execution) break;
         _drv->wait_to_finish(0);
         if (_stop_execution) break;
-        _drv->a_turn(TURN_RIGHT, 0.8);
+        _drv->a_turn(TURN_RIGHT, 1);
         if (_stop_execution) break;
         _drv->wait_to_finish(0);
         if (_stop_execution) break;
-        delay(250);
+        delay(350);
     }
     _drv->force_stop();
     _stop_execution = false;
