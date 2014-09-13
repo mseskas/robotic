@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="console" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/console" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-lX11 -lglut -lGLU -lGL" />
+					<Add directory="include" />
+					<Add directory="src" />
+					<Add directory="include/glm" />
+				</Compiler>
+				<Linker>
+					<Add option="-lX11 -lglut -lGLU -lGL" />
+					<Add library="/usr/lib/x86_64-linux-gnu/libglut.a" />
+					<Add directory="/home/minde/Desktop/opengl_main/src" />
+					<Add directory="/home/minde/Desktop/opengl_main/include" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="include/camera.h" />
+		<Unit filename="include/camera_moveable.h" />
+		<Unit filename="include/movable.h" />
+		<Unit filename="include/obj_loader.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/camera.cpp" />
+		<Unit filename="src/camera_moveable.cpp" />
+		<Unit filename="src/movable.cpp" />
+		<Unit filename="src/obj_loader.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
