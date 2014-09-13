@@ -12,15 +12,19 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
+					<Add option="-std=c++0x" />
 					<Add option="-g" />
+					<Add option="`pkg-config gtk+-2.0 --cflags`" />
 					<Add option="-pthread" />
 					<Add option="-fpermissive" />
+					<Add option="-lwiringPi" />
 					<Add directory="./src" />
 					<Add directory="./include" />
 				</Compiler>
 				<Linker>
 					<Add option="-pthread" />
 					<Add option="-lX11" />
+					<Add option="-lwiringPi" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -41,11 +45,38 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add option="`pkg-config gtk+-2.0 --cflags`" />
+			<Add option="-pthread" />
+			<Add option="-fpermissive" />
+			<Add option="-lwiringPi" />
 			<Add directory="./src" />
 			<Add directory="./include" />
+			<Add directory="/usr/local/include/opencv" />
 		</Compiler>
 		<Linker>
 			<Add option="`pkg-config gtk+-2.0 --libs`" />
+			<Add option="-pthread" />
+			<Add option="-lX11" />
+			<Add option="-lwiringPi" />
+			<Add library="/usr/local/lib/libopencv_core.so" />
+			<Add library="/usr/local/lib/libopencv_highgui.so" />
+			<Add library="/usr/local/lib/libopencv_calib3d.so" />
+			<Add library="/usr/local/lib/libopencv_contrib.so" />
+			<Add library="/usr/local/lib/libopencv_features2d.so" />
+			<Add library="/usr/local/lib/libopencv_flann.so" />
+			<Add library="/usr/local/lib/libopencv_gpu.so" />
+			<Add library="/usr/local/lib/libopencv_imgproc.so" />
+			<Add library="/usr/local/lib/libopencv_legacy.so" />
+			<Add library="/usr/local/lib/libopencv_ml.so" />
+			<Add library="/usr/local/lib/libopencv_nonfree.so" />
+			<Add library="/usr/local/lib/libopencv_objdetect.so" />
+			<Add library="/usr/local/lib/libopencv_photo.so" />
+			<Add library="/usr/local/lib/libopencv_stitching.so" />
+			<Add library="/usr/local/lib/libopencv_ts.so" />
+			<Add library="/usr/local/lib/libopencv_video.so" />
+			<Add library="/usr/local/lib/libopencv_videostab.so" />
+			<Add library="/usr/local/lib/libwiringPi.so" />
+			<Add library="/usr/local/lib/libwiringPiDev.so" />
+			<Add directory="/usr/local/lib" />
 		</Linker>
 		<Unit filename="include/activities/activities.h" />
 		<Unit filename="include/camera.h" />

@@ -1,1 +1,0 @@
-pkg-config --modversion gtk+-2.0

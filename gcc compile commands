@@ -21,15 +21,14 @@ g++ -ggdb `pkg-config --cflags opencv --libs opencv` -o main main.cpp -std=c++0x
 
 g++ main.cpp src/*.cpp src/activities/activities.cpp -ggdb `pkg-config --cflags opencv --libs opencv` -o main -std=c++0x -pthread -lwiringPi -I include/activities/ -I include/
 
+//  CODEBLOCK parameter for mai project =======================
+
+-lwiringPi --cflags opencv --libs opencv -std=c++0x -pthread 
 
 //==========  wiringPi commands ===================
 GPIO utility :
-
 gpio readall
-
 gpio write 0 1
-
-
 // ================== MY GIT ====================
 
 https://github.com/mseskas/robotic.git
