@@ -32,7 +32,7 @@ activities::activities()
         _sonar_rear = new sonar(PIN_SONAR_REAR_TRIGGER, PIN_SONAR_REAR_ECHO);
         _chip_16pwm = new pwm_chip (PWM_CHIP_ADDR);
         _servo_spare = new servo (_chip_16pwm, 8);
-        _servo_spare->set_angle(1.0);
+        //_servo_spare->set_angle(1.0);
         _drv = new drivetrain (_chip_16pwm);
         _sonar_front->set_drivetrain(_drv);
 

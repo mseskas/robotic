@@ -27,6 +27,9 @@ class activities
 public:
     activities();
     ~activities();
+
+    drivetrain * _drv;
+
     void act(int activity_no);
     void force_stop();
     void wait_to_finish(int timeout_ms);
@@ -47,7 +50,6 @@ private:
     sonar      * _sonar_rear;
     pwm_chip   * _chip_16pwm;
     servo      * _servo_spare;
-    drivetrain * _drv;
     camera     * _cam_front;
     thread     * _execution_thread;
     bool       _stop_execution;

@@ -15,6 +15,9 @@ GtkWidget * gui_control::turn_scale = NULL;
 gui_control::gui_control(activities * main_act)
 {
     _main_act = main_act;
+
+    if (main_act != NULL)
+        _drivetrain = main_act->_drv;
     build_gui(main_act);
 }
 
@@ -97,7 +100,7 @@ static void gui_control::on_key_press(GtkWidget *wid, GdkEventKey *event, gpoint
             if (_drivetrain)
             {
                 float curr_speed = _drivetrain->get_turn_speed();
-                curr_speed += 0.025;
+                curr_speed -= 0.025;
                 _drivetrain->set_turn_speed(curr_speed);
                 gtk_range_set_value(GTK_RANGE(turn_scale), (double)curr_speed);
             }
