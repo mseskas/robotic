@@ -43,4 +43,4 @@
 #define PIN_WHEEL_RIGHT_FORWARD  2
 #define PIN_WHEEL_RIGHT_BACKWARD 3
 
-//#define PIN_SERVO                11
+#define PIN_SERVO_WAVE                9
